@@ -1,0 +1,2142 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V9.20.1.2476 for 8051                16/Feb/2016  09:50:02
+# Copyright 2004-2015 IAR Systems AB.
+# Standalone license - IAR Embedded Workbench for 8051
+#
+#    Core               =  plain
+#    Code model         =  near
+#    Data model         =  large
+#    Calling convention =  xdata reentrant
+#    Constant location  =  data
+#    Dptr setup         =  1,16
+#                          
+#    Source file        =  
+#        C:\Texas Instruments\Z-Stack Mesh
+#        1.0.0\Projects\zstack\Utilities\BootLoad\Source\sb_exec_v2.c
+#    Command line       =  
+#        "C:\Texas Instruments\Z-Stack Mesh
+#        1.0.0\Projects\zstack\Utilities\BootLoad\Source\sb_exec_v2.c" -D
+#        HAL_SB_BOOT_CODE -D HAL_UART_SPI=2 -D
+#        LOCK_THE_BOOT_IMAGE_PAGES_IN_HEX_FILE -D SBL_WAIT_TIME=60 -D
+#        NO_WD_RESET_FOR_BOOTLOADER -lC "C:\Texas Instruments\Z-Stack Mesh
+#        1.0.0\Projects\zstack\Utilities\BootLoad\CC2530ZNP\CC2530ZNP\List\"
+#        -lA "C:\Texas Instruments\Z-Stack Mesh
+#        1.0.0\Projects\zstack\Utilities\BootLoad\CC2530ZNP\CC2530ZNP\List\" -o
+#        "C:\Texas Instruments\Z-Stack Mesh
+#        1.0.0\Projects\zstack\Utilities\BootLoad\CC2530ZNP\CC2530ZNP\Obj\" -e
+#        --debug --core=plain --dptr=16,1 --data_model=large --code_model=near
+#        --calling_convention=xdata_reentrant --place_constants=data
+#        --nr_virtual_regs 16 -I "C:\Texas Instruments\Z-Stack Mesh
+#        1.0.0\Projects\zstack\Utilities\BootLoad\CC2530ZNP\..\Source\" -I
+#        "C:\Texas Instruments\Z-Stack Mesh
+#        1.0.0\Projects\zstack\Utilities\BootLoad\CC2530ZNP\source\" -I
+#        "C:\Texas Instruments\Z-Stack Mesh
+#        1.0.0\Projects\zstack\Utilities\BootLoad\CC2530ZNP\..\..\..\..\..\COMPONENTS\HAL\INCLUDE\"
+#        -I "C:\Texas Instruments\Z-Stack Mesh
+#        1.0.0\Projects\zstack\Utilities\BootLoad\CC2530ZNP\..\..\..\..\..\COMPONENTS\HAL\TARGET\_COMMON\CC2530\"
+#        -I "C:\Texas Instruments\Z-Stack Mesh
+#        1.0.0\Projects\zstack\Utilities\BootLoad\CC2530ZNP\..\..\..\..\..\COMPONENTS\HAL\TARGET\CC2530ZNP\"
+#        -I "C:\Texas Instruments\Z-Stack Mesh
+#        1.0.0\Projects\zstack\Utilities\BootLoad\CC2530ZNP\..\..\..\..\..\COMPONENTS\OSAL\INCLUDE\"
+#        -I "C:\Texas Instruments\Z-Stack Mesh
+#        1.0.0\Projects\zstack\Utilities\BootLoad\CC2530ZNP\" -Ohz
+#        --require_prototypes
+#    List file          =  
+#        C:\Texas Instruments\Z-Stack Mesh
+#        1.0.0\Projects\zstack\Utilities\BootLoad\CC2530ZNP\CC2530ZNP\List\sb_exec_v2.lst
+#    Object file        =  
+#        C:\Texas Instruments\Z-Stack Mesh
+#        1.0.0\Projects\zstack\Utilities\BootLoad\CC2530ZNP\CC2530ZNP\Obj\sb_exec_v2.r51
+#
+###############################################################################
+
+C:\Texas Instruments\Z-Stack Mesh 1.0.0\Projects\zstack\Utilities\BootLoad\Source\sb_exec_v2.c
+      1          /**************************************************************************************************
+      2            Filename:       sb_exec.c
+      3            Revised:        $Date: 2014-08-04 15:38:03 -0700 (Mon, 04 Aug 2014) $
+      4            Revision:       $Revision: 39653 $
+      5          
+      6            Description:    Serial Bootloader Executive.
+      7          
+      8            Copyright 2014 Texas Instruments Incorporated. All rights reserved.
+      9          
+     10            IMPORTANT: Your use of this Software is limited to those specific rights
+     11            granted under the terms of a software license agreement between the user
+     12            who downloaded the software, his/her employer (which must be your employer)
+     13            and Texas Instruments Incorporated (the "License"). You may not use this
+     14            Software unless you agree to abide by the terms of the License. The License
+     15            limits your use, and you acknowledge, that the Software may not be modified,
+     16            copied or distributed unless embedded on a Texas Instruments microcontroller
+     17            or used solely and exclusively in conjunction with a Texas Instruments radio
+     18            frequency transceiver, which is integrated into your product. Other than for
+     19            the foregoing purpose, you may not use, reproduce, copy, prepare derivative
+     20            works of, modify, distribute, perform, display or sell this Software and/or
+     21            its documentation for any purpose.
+     22          
+     23            YOU FURTHER ACKNOWLEDGE AND AGREE THAT THE SOFTWARE AND DOCUMENTATION ARE
+     24            PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, 
+     25            INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, TITLE, 
+     26            NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL
+     27            TEXAS INSTRUMENTS OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER CONTRACT,
+     28            NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR OTHER
+     29            LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
+     30            INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE
+     31            OR CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT
+     32            OF SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+     33            (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+     34          
+     35            Should you have any questions regarding your right to use this Software,
+     36            contact Texas Instruments Incorporated at www.TI.com. 
+     37          **************************************************************************************************/
+     38          
+     39          /* ------------------------------------------------------------------------------------------------
+     40           *                                          Includes 
+     41           * ------------------------------------------------------------------------------------------------
+     42           */
+     43          
+     44          #include "hal_board_cfg.h"
+
+   \                                 In  segment SFR_AN, at 0xa8
+   \   union <unnamed> volatile __sfr _A_IEN0
+   \                     _A_IEN0:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xc2
+   \   unsigned char volatile __sfr U0BAUD
+   \                     U0BAUD:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xc5
+   \   unsigned char volatile __sfr U0GCR
+   \                     U0GCR:
+   \   000000                DS 1
+     45          #include "hal_flash.h"
+     46          #include "hal_types.h"
+     47          #include "sb_exec_v2.h"
+     48          #include "sb_main.h"
+     49          #ifdef INCLUDE_REVISION_INFORMATION
+     50          #include "revision_info.h"
+     51          #else
+     52          #define CODE_REVISION_NUMBER 0
+     53          #endif
+     54          #include "sb_shared.h"
+     55          
+     56          /* ------------------------------------------------------------------------------------------------
+     57           *                                          Constants
+     58           * ------------------------------------------------------------------------------------------------
+     59           */
+     60          
+     61          #if !defined MT_SYS_OSAL_NV_READ_CERTIFICATE_DATA
+     62          #define MT_SYS_OSAL_NV_READ_CERTIFICATE_DATA  FALSE
+     63          #endif
+     64          
+     65          #define TIME_IT_TAKES_TO_CALC_CRC 30 //seconds, approx
+     66          
+     67          /* ------------------------------------------------------------------------------------------------
+     68           *                                       Local Variables
+     69           * ------------------------------------------------------------------------------------------------
+     70           */
+     71          
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+     72          static uint8 sbBuf[SB_BUF_SIZE], sbCmd1, sbCmd2, sbFcs, sbIdx, sbLen, sbSte;
+   \                     sbBuf:
+   \   000000                DS 128
+   \   000080                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+   \                     sbCmd1:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+   \                     sbCmd2:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+   \                     sbFcs:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+   \                     sbIdx:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+   \                     sbLen:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+   \                     sbSte:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+     73            
+     74          /* ------------------------------------------------------------------------------------------------
+     75           *                                       Local Functions
+     76           * ------------------------------------------------------------------------------------------------
+     77           */
+     78          
+     79          static uint8 sbCmnd(void);
+     80          static void sbResp(uint8 rsp, uint8 len);
+     81          static uint16 calcCRC(uint8 * abort);
+     82          static uint16 runPoly(uint16 crc, uint8 val);
+     83          
+     84          /* ------------------------------------------------------------------------------------------------
+     85           *                                       Externals
+     86           * ------------------------------------------------------------------------------------------------
+     87           */
+     88          extern uint8 znpCfg1;
+     89          
+     90          /* ------------------------------------------------------------------------------------------------
+     91           *                                       System-Globals
+     92           * ------------------------------------------------------------------------------------------------
+     93           */
+     94           
+
+   \                                 In  segment XDATA_N, align 1
+     95          __no_init volatile uint32 mainAppCommand;
+   \                     mainAppCommand:
+   \   000000                DS 4
+     96          
+     97          #pragma location="SBL_CMD"
+
+   \                                 In  segment SBL_CMD, align 1
+     98          const CODE uint16 _sblCmdAddr = (uint16)&mainAppCommand;
+   \                     _sblCmdAddr:
+   \   000000   ....         DW mainAppCommand
+     99          #pragma required=_sblCmdAddr
+    100          	
+    101          #pragma location="SBL_SIG"
+
+   \                                 In  segment SBL_SIG, align 1
+    102          const CODE uint32 _sblSig = SBL_SIGNATURE;
+   \                     _sblSig:
+   \   000000   09433886     DD 2251834121
+   \   000004                REQUIRE _sblCmdAddr
+    103          #pragma required=_sblSig
+    104          	
+    105          #pragma location="SBL_REV"
+
+   \                                 In  segment SBL_REV, align 1
+    106          const CODE uint32 _sblRev = CODE_REVISION_NUMBER;
+   \                     _sblRev:
+   \   000000   00000000     DD 0
+   \   000004                REQUIRE _sblSig
+    107          #pragma required=_sblRev
+    108          
+    109          /* ------------------------------------------------------------------------------------------------
+    110           *                                       Functional Macros
+    111           * ------------------------------------------------------------------------------------------------
+    112           */
+    113           
+    114          #define DOES_BUF_CONTAIN_PRECALC_CRC(wordAddr) ((wordAddr <= (HAL_SB_CRC_ADDR / HAL_FLASH_WORD_SIZE)) && ((wordAddr + (SB_RW_BUF_LEN / HAL_FLASH_WORD_SIZE)) >= ((HAL_SB_CRC_ADDR + (HAL_SB_CRC_LEN / 2)) / HAL_FLASH_WORD_SIZE)))
+    115          
+    116          /* ------------------------------------------------------------------------------------------------
+    117           *                                       Functions
+    118           * ------------------------------------------------------------------------------------------------
+    119           */
+    120           
+    121          /**************************************************************************************************
+    122           * @fn          sbReportState
+    123           *
+    124           * @brief       Report the given state to the applicationBoot Loader main executive processing.
+    125           *
+    126           * input parameters
+    127           *
+    128           *   state -the state to report
+    129           *
+    130           * output parameters
+    131           *
+    132           * None.
+    133           *
+    134           * @return      (none)
+    135           **************************************************************************************************
+    136           */
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+    137          void sbReportState(uint8 state)
+   \                     sbReportState:
+    138          {
+   \   000000   74F8         MOV     A,#-0x8
+   \   000002   12....       LCALL   ?FUNC_ENTER_XDATA
+   \   000005                ; Saved register size: 8
+   \   000005                ; Auto size: 0
+    139            if (sbStateReportingEnabled)
+   \   000005   90....       MOV     DPTR,#sbStateReportingEnabled
+   \   000008   E0           MOVX    A,@DPTR
+   \   000009   6015         JZ      ??sbReportState_0
+    140            {
+    141              sbBuf[SB_SOF_STATE] = SB_SOF;
+   \   00000B   90....       MOV     DPTR,#sbBuf
+   \   00000E   74FE         MOV     A,#-0x2
+   \   000010   F0           MOVX    @DPTR,A
+    142              sbBuf[SB_CMD1_STATE] = SB_RPC_SYS_BOOT;
+   \   000011   90....       MOV     DPTR,#sbBuf + 2
+   \   000014   744D         MOV     A,#0x4d
+   \   000016   F0           MOVX    @DPTR,A
+    143              sbBuf[SB_CMD2_STATE] = SB_STATE_IND;
+   \   000017   A3           INC     DPTR
+   \   000018   7405         MOV     A,#0x5
+   \   00001A   F0           MOVX    @DPTR,A
+    144              sbResp(state,1);
+   \   00001B                ; Setup parameters for call to function sbResp
+   \   00001B   7A01         MOV     R2,#0x1
+   \   00001D   12....       LCALL   sbResp
+    145            }
+    146          }
+   \                     ??sbReportState_0:
+   \   000020                REQUIRE ?Subroutine0
+   \   000020                REQUIRE _sblRev
+   \   000020                ; // Fall through to label ?Subroutine0
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+   \                     ?Subroutine0:
+   \   000000   7F01         MOV     R7,#0x1
+   \   000002   02....       LJMP    ?FUNC_LEAVE_XDATA
+    147          
+    148          /**************************************************************************************************
+    149           * @fn          sbExec
+    150           *
+    151           * @brief       Boot Loader main executive processing.
+    152           *
+    153           * input parameters
+    154           *
+    155           * None.
+    156           *
+    157           * output parameters
+    158           *
+    159           * None.
+    160           *
+    161           * @return      SB_CMND_IDLE if no command was currently executed, otherwise, returns a constant
+    162           *              that indicates the command that was just executed. See "sbCmnd Result Codes"
+    163           **************************************************************************************************
+    164           */
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+    165          uint8 sbExec(void)
+   \                     sbExec:
+    166          {
+   \   000000                REQUIRE ?V0
+   \   000000                REQUIRE ?V1
+   \   000000   74F7         MOV     A,#-0x9
+   \   000002   12....       LCALL   ?FUNC_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 1
+   \   000005   74FF         MOV     A,#-0x1
+   \   000007   12....       LCALL   ?ALLOC_XSTACK8
+    167            uint8 ch, rtrn = SB_CMND_IDLE;
+   \   00000A   7E00         MOV     R6,#0x0
+   \   00000C   801F         SJMP    ??sbExec_0
+    168          
+    169            while (SB_RX(&ch))
+    170            {
+    171              if (ch == SB_FORCE_RUN)
+    172              {
+    173                rtrn = SB_CMND_FORCE_RUN;
+    174              }
+    175              
+    176              sbBuf[sbSte + sbIdx] = ch;
+    177              switch (sbSte)
+    178              {
+    179              case SB_SOF_STATE:
+    180                if (SB_SOF == ch)
+   \                     ??sbExec_1:
+   \   00000E   85..82       MOV     DPL,?XSP + 0
+   \   000011   85..83       MOV     DPH,?XSP + 1
+   \   000014   E0           MOVX    A,@DPTR
+   \   000015   64FE         XRL     A,#0xfe
+   \   000017   7006         JNZ     ??sbExec_2
+    181                {
+    182                  sbSte = SB_LEN_STATE;
+   \   000019   90....       MOV     DPTR,#sbSte
+   \   00001C   7401         MOV     A,#0x1
+   \                     ??sbExec_3:
+   \   00001E   F0           MOVX    @DPTR,A
+    183                }
+    184                break;
+    185              
+    186              case SB_LEN_STATE:
+    187                sbFcs = 0;
+    188                sbSte = ((sbLen = ch) >= SB_BUF_SIZE) ? SB_SOF_STATE : SB_CMD1_STATE;
+    189                break;
+    190          
+    191              case SB_CMD1_STATE:
+    192                sbCmd1 = ch;
+    193                sbSte = SB_CMD2_STATE;
+    194                break;
+    195              
+    196              case SB_CMD2_STATE:
+    197                sbCmd2 = ch;
+    198                sbSte = (sbLen) ? SB_DATA_STATE : SB_FCS_STATE;
+    199                break;
+    200          
+    201              case SB_DATA_STATE:
+    202                if (++sbIdx == sbLen)
+    203                {
+    204                  sbSte = SB_FCS_STATE;
+    205                }
+    206                break;
+    207              
+    208              case SB_FCS_STATE:
+    209                sbSte = sbIdx = 0;
+    210          	  
+    211                if ((sbFcs == ch) && (sbCmd1 == SB_RPC_SYS_BOOT))
+    212                {
+    213                  return sbCmnd();
+    214                }
+    215                else
+    216                {
+    217                  // TODO - RemoTI did not have here or on bad length - adding could cause > 1 SB_INVALID_FCS
+    218                  //        for a single data packet which could put out of sync with PC for awhile or
+    219                  //        infinte, depending on PC-side?
+    220                  // sbResp(SB_INVALID_FCS, 1);
+    221                }
+    222                break;
+    223              
+    224              default:
+    225                break;
+    226              }
+    227              sbFcs ^= ch;
+   \                     ??sbExec_2:
+   \   00001F   85..82       MOV     DPL,?XSP + 0
+   \   000022   85..83       MOV     DPH,?XSP + 1
+   \   000025   E0           MOVX    A,@DPTR
+   \   000026   F8           MOV     R0,A
+   \   000027   90....       MOV     DPTR,#sbFcs
+   \   00002A   E0           MOVX    A,@DPTR
+   \   00002B   68           XRL     A,R0
+   \   00002C   F0           MOVX    @DPTR,A
+   \                     ??sbExec_0:
+   \   00002D                ; Setup parameters for call to function sbRx
+   \   00002D   7C01         MOV     R4,#0x1
+   \   00002F   7D00         MOV     R5,#0x0
+   \   000031   AA..         MOV     R2,?XSP + 0
+   \   000033   AB..         MOV     R3,?XSP + 1
+   \   000035   12....       LCALL   sbRx
+   \   000038   8B..         MOV     ?V1,R3
+   \   00003A   EA           MOV     A,R2
+   \   00003B   45..         ORL     A,?V1
+   \   00003D   7003         JNZ     $+5
+   \   00003F   02....       LJMP    ??sbExec_4
+   \   000042   85..82       MOV     DPL,?XSP + 0
+   \   000045   85..83       MOV     DPH,?XSP + 1
+   \   000048   E0           MOVX    A,@DPTR
+   \   000049   64EF         XRL     A,#0xef
+   \   00004B   7002         JNZ     ??sbExec_5
+   \   00004D   7E07         MOV     R6,#0x7
+   \                     ??sbExec_5:
+   \   00004F   E0           MOVX    A,@DPTR
+   \   000050   C0E0         PUSH    A
+   \   000052   90....       MOV     DPTR,#sbSte
+   \   000055   E0           MOVX    A,@DPTR
+   \   000056   FA           MOV     R2,A
+   \   000057   90....       MOV     DPTR,#sbIdx
+   \   00005A   E0           MOVX    A,@DPTR
+   \   00005B   F8           MOV     R0,A
+   \   00005C   EA           MOV     A,R2
+   \   00005D   28           ADD     A,R0
+   \   00005E   F8           MOV     R0,A
+   \   00005F   E4           CLR     A
+   \   000060   3400         ADDC    A,#0x0
+   \   000062   F9           MOV     R1,A
+   \   000063   74..         MOV     A,#sbBuf & 0xff
+   \   000065   28           ADD     A,R0
+   \   000066   F582         MOV     DPL,A
+   \   000068   74..         MOV     A,#(sbBuf >> 8) & 0xff
+   \   00006A   39           ADDC    A,R1
+   \   00006B   F583         MOV     DPH,A
+   \   00006D   D0E0         POP     A
+   \   00006F   F0           MOVX    @DPTR,A
+   \   000070   90....       MOV     DPTR,#sbSte
+   \   000073   E0           MOVX    A,@DPTR
+   \   000074   6098         JZ      ??sbExec_1
+   \   000076   14           DEC     A
+   \   000077   600E         JZ      ??sbExec_6
+   \   000079   14           DEC     A
+   \   00007A   602C         JZ      ??sbExec_7
+   \   00007C   14           DEC     A
+   \   00007D   603C         JZ      ??sbExec_8
+   \   00007F   14           DEC     A
+   \   000080   6052         JZ      ??sbExec_9
+   \   000082   14           DEC     A
+   \   000083   6068         JZ      ??sbExec_10
+   \   000085   8098         SJMP    ??sbExec_2
+   \                     ??sbExec_6:
+   \   000087   90....       MOV     DPTR,#sbFcs
+   \   00008A   E4           CLR     A
+   \   00008B   F0           MOVX    @DPTR,A
+   \   00008C   85..82       MOV     DPL,?XSP + 0
+   \   00008F   85..83       MOV     DPH,?XSP + 1
+   \   000092   E0           MOVX    A,@DPTR
+   \   000093   90....       MOV     DPTR,#sbLen
+   \   000096   F0           MOVX    @DPTR,A
+   \   000097   C3           CLR     C
+   \   000098   9480         SUBB    A,#-0x80
+   \   00009A   90....       MOV     DPTR,#sbSte
+   \   00009D   4004         JC      ??sbExec_11
+   \   00009F   E4           CLR     A
+   \   0000A0   02....       LJMP    ??sbExec_3
+   \                     ??sbExec_11:
+   \   0000A3   7402         MOV     A,#0x2
+   \   0000A5   02....       LJMP    ??sbExec_3
+   \                     ??sbExec_7:
+   \   0000A8   85..82       MOV     DPL,?XSP + 0
+   \   0000AB   85..83       MOV     DPH,?XSP + 1
+   \   0000AE   E0           MOVX    A,@DPTR
+   \   0000AF   90....       MOV     DPTR,#sbCmd1
+   \   0000B2   F0           MOVX    @DPTR,A
+   \   0000B3   90....       MOV     DPTR,#sbSte
+   \   0000B6   7403         MOV     A,#0x3
+   \   0000B8   02....       LJMP    ??sbExec_3
+   \                     ??sbExec_8:
+   \   0000BB   85..82       MOV     DPL,?XSP + 0
+   \   0000BE   85..83       MOV     DPH,?XSP + 1
+   \   0000C1   E0           MOVX    A,@DPTR
+   \   0000C2   90....       MOV     DPTR,#sbCmd2
+   \   0000C5   F0           MOVX    @DPTR,A
+   \   0000C6   90....       MOV     DPTR,#sbLen
+   \   0000C9   E0           MOVX    A,@DPTR
+   \   0000CA   6019         JZ      ??sbExec_12
+   \   0000CC   90....       MOV     DPTR,#sbSte
+   \   0000CF   7404         MOV     A,#0x4
+   \   0000D1   02....       LJMP    ??sbExec_3
+   \                     ??sbExec_9:
+   \   0000D4   90....       MOV     DPTR,#sbIdx
+   \   0000D7   E0           MOVX    A,@DPTR
+   \   0000D8   04           INC     A
+   \   0000D9   F0           MOVX    @DPTR,A
+   \   0000DA   F8           MOV     R0,A
+   \   0000DB   90....       MOV     DPTR,#sbLen
+   \   0000DE   E0           MOVX    A,@DPTR
+   \   0000DF   68           XRL     A,R0
+   \   0000E0   6003         JZ      $+5
+   \   0000E2   02....       LJMP    ??sbExec_2
+   \                     ??sbExec_12:
+   \   0000E5   90....       MOV     DPTR,#sbSte
+   \   0000E8   7405         MOV     A,#0x5
+   \   0000EA   02....       LJMP    ??sbExec_3
+   \                     ??sbExec_10:
+   \   0000ED   90....       MOV     DPTR,#sbIdx
+   \   0000F0   E4           CLR     A
+   \   0000F1   F0           MOVX    @DPTR,A
+   \   0000F2   90....       MOV     DPTR,#sbSte
+   \   0000F5   F0           MOVX    @DPTR,A
+   \   0000F6   90....       MOV     DPTR,#sbFcs
+   \   0000F9   E0           MOVX    A,@DPTR
+   \   0000FA   F8           MOV     R0,A
+   \   0000FB   85..82       MOV     DPL,?XSP + 0
+   \   0000FE   85..83       MOV     DPH,?XSP + 1
+   \   000101   E0           MOVX    A,@DPTR
+   \   000102   68           XRL     A,R0
+   \   000103   6003         JZ      $+5
+   \   000105   02....       LJMP    ??sbExec_2
+   \   000108   90....       MOV     DPTR,#sbCmd1
+   \   00010B   E0           MOVX    A,@DPTR
+   \   00010C   644D         XRL     A,#0x4d
+   \   00010E   6003         JZ      $+5
+   \   000110   02....       LJMP    ??sbExec_2
+   \   000113                ; Setup parameters for call to function sbCmnd
+   \   000113   12....       LCALL   sbCmnd
+   \   000116   8002         SJMP    ??sbExec_13
+    228            }
+    229          
+    230            return rtrn;
+   \                     ??sbExec_4:
+   \   000118   EE           MOV     A,R6
+   \   000119   F9           MOV     R1,A
+   \                     ??sbExec_13:
+   \   00011A   7401         MOV     A,#0x1
+   \   00011C                REQUIRE ?Subroutine1
+   \   00011C                ; // Fall through to label ?Subroutine1
+    231          }
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+   \                     ?Subroutine1:
+   \   000000   12....       LCALL   ?DEALLOC_XSTACK8
+   \   000003   7F02         MOV     R7,#0x2
+   \   000005   02....       LJMP    ?FUNC_LEAVE_XDATA
+    232          
+    233          /**************************************************************************************************
+    234           * @fn          sbImgValid
+    235           *
+    236           * @brief       Check validity of the run-code image.
+    237           *
+    238           * input parameters
+    239           *
+    240           * None.
+    241           *
+    242           * output parameters
+    243           *
+    244           * None.
+    245           *
+    246           * @return      TRUE or FALSE for image valid.
+    247           **************************************************************************************************
+    248           */
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+    249          uint8 sbImgValid(uint8 * time_spent_validating)
+   \                     sbImgValid:
+    250          {
+   \   000000                REQUIRE ?V0
+   \   000000                REQUIRE ?V1
+   \   000000   74F7         MOV     A,#-0x9
+   \   000002   12....       LCALL   ?FUNC_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 5
+   \   000005   74FB         MOV     A,#-0x5
+   \   000007   12....       LCALL   ?ALLOC_XSTACK8
+   \   00000A   EA           MOV     A,R2
+   \   00000B   FE           MOV     R6,A
+   \   00000C   EB           MOV     A,R3
+   \   00000D   FF           MOV     R7,A
+    251            uint16 crc[2];
+    252            uint8 abort;
+    253            
+    254            HalFlashRead(HAL_SB_CRC_ADDR / HAL_FLASH_PAGE_SIZE,
+    255              HAL_SB_CRC_ADDR % HAL_FLASH_PAGE_SIZE,
+    256              (uint8 *)crc, sizeof(crc));
+   \   00000E                ; Setup parameters for call to function HalFlashRead
+   \   00000E   75..04       MOV     ?V0,#0x4
+   \   000011   75..00       MOV     ?V1,#0x0
+   \   000014   78..         MOV     R0,#?V0
+   \   000016   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000019   7402         MOV     A,#0x2
+   \   00001B   12....       LCALL   ?XSTACK_DISP102_8
+   \   00001E   7A90         MOV     R2,#-0x70
+   \   000020   7B00         MOV     R3,#0x0
+   \   000022   7904         MOV     R1,#0x4
+   \   000024   12....       LCALL   HalFlashRead
+   \   000027   7402         MOV     A,#0x2
+   \   000029   12....       LCALL   ?DEALLOC_XSTACK8
+    257            
+    258            if ((crc[0] != crc[1]) || (crc[0] == 0xFFFF))
+   \   00002C   12....       LCALL   ?Subroutine2
+   \                     ??CrossCallReturnLabel_0:
+   \   00002F   12....       LCALL   ?XSTACK_DISP0_8
+   \   000032   E0           MOVX    A,@DPTR
+   \   000033   68           XRL     A,R0
+   \   000034   7003         JNZ     ??sbImgValid_0
+   \   000036   A3           INC     DPTR
+   \   000037   E0           MOVX    A,@DPTR
+   \   000038   69           XRL     A,R1
+   \                     ??sbImgValid_0:
+   \   000039   7012         JNZ     ??sbImgValid_1
+   \   00003B   85..82       MOV     DPL,?XSP + 0
+   \   00003E   85..83       MOV     DPH,?XSP + 1
+   \   000041   E0           MOVX    A,@DPTR
+   \   000042   F4           CPL     A
+   \   000043   7003         JNZ     ??sbImgValid_2
+   \   000045   A3           INC     DPTR
+   \   000046   E0           MOVX    A,@DPTR
+   \   000047   F4           CPL     A
+   \                     ??sbImgValid_2:
+   \   000048   6003         JZ      $+5
+   \   00004A   02....       LJMP    ??sbImgValid_3
+    259            {
+    260              crc[1] = calcCRC(&abort);
+   \                     ??sbImgValid_1:
+   \   00004D                ; Setup parameters for call to function calcCRC
+   \   00004D   7404         MOV     A,#0x4
+   \   00004F   12....       LCALL   ?XSTACK_DISP101_8
+   \   000052   12....       LCALL   calcCRC
+   \   000055   8A..         MOV     ?V0,R2
+   \   000057   8B..         MOV     ?V1,R3
+   \   000059   A8..         MOV     R0,?V0
+   \   00005B   A9..         MOV     R1,?V1
+   \   00005D   7402         MOV     A,#0x2
+   \   00005F   12....       LCALL   ?XSTACK_DISP0_8
+   \   000062   E8           MOV     A,R0
+   \   000063   F0           MOVX    @DPTR,A
+   \   000064   A3           INC     DPTR
+   \   000065   E9           MOV     A,R1
+   \   000066   F0           MOVX    @DPTR,A
+    261              
+    262              if (abort)
+   \   000067   7404         MOV     A,#0x4
+   \   000069   12....       LCALL   ?XSTACK_DISP0_8
+   \   00006C   E0           MOVX    A,@DPTR
+   \   00006D   6008         JZ      ??sbImgValid_4
+    263              {
+    264                sbReportState(SB_STATE_VERIFICATION_ABORTED);
+   \   00006F                ; Setup parameters for call to function sbReportState
+   \   00006F   7901         MOV     R1,#0x1
+   \   000071   12....       LCALL   sbReportState
+    265                return FALSE;
+   \   000074   02....       LJMP    ??sbImgValid_5
+    266              }
+    267              
+    268              if (crc[0] == crc[1])
+   \                     ??sbImgValid_4:
+   \   000077   85..82       MOV     DPL,?XSP + 0
+   \   00007A   85..83       MOV     DPH,?XSP + 1
+   \   00007D   E0           MOVX    A,@DPTR
+   \   00007E   68           XRL     A,R0
+   \   00007F   7003         JNZ     ??sbImgValid_6
+   \   000081   A3           INC     DPTR
+   \   000082   E0           MOVX    A,@DPTR
+   \   000083   69           XRL     A,R1
+   \                     ??sbImgValid_6:
+   \   000084   7076         JNZ     ??sbImgValid_7
+    269              {
+    270                if (crc[0] == 0xFFFF)
+   \   000086   85..82       MOV     DPL,?XSP + 0
+   \   000089   85..83       MOV     DPH,?XSP + 1
+   \   00008C   E0           MOVX    A,@DPTR
+   \   00008D   F4           CPL     A
+   \   00008E   7003         JNZ     ??sbImgValid_8
+   \   000090   A3           INC     DPTR
+   \   000091   E0           MOVX    A,@DPTR
+   \   000092   F4           CPL     A
+   \                     ??sbImgValid_8:
+   \   000093   7019         JNZ     ??sbImgValid_9
+    271                {
+    272                  crc[0] = crc[1] = 0x2010;
+   \   000095   7402         MOV     A,#0x2
+   \   000097   12....       LCALL   ?XSTACK_DISP0_8
+   \   00009A   7410         MOV     A,#0x10
+   \   00009C   F0           MOVX    @DPTR,A
+   \   00009D   A3           INC     DPTR
+   \   00009E   7420         MOV     A,#0x20
+   \   0000A0   F0           MOVX    @DPTR,A
+   \   0000A1   85..82       MOV     DPL,?XSP + 0
+   \   0000A4   85..83       MOV     DPH,?XSP + 1
+   \   0000A7   7410         MOV     A,#0x10
+   \   0000A9   F0           MOVX    @DPTR,A
+   \   0000AA   A3           INC     DPTR
+   \   0000AB   7420         MOV     A,#0x20
+   \   0000AD   F0           MOVX    @DPTR,A
+    273                }
+    274                
+    275                HalFlashWrite((HAL_SB_CRC_ADDR / HAL_FLASH_WORD_SIZE), (uint8 *)crc, 1);
+   \                     ??sbImgValid_9:
+   \   0000AE                ; Setup parameters for call to function HalFlashWrite
+   \   0000AE   75..01       MOV     ?V0,#0x1
+   \   0000B1   75..00       MOV     ?V1,#0x0
+   \   0000B4   78..         MOV     R0,#?V0
+   \   0000B6   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   0000B9   7402         MOV     A,#0x2
+   \   0000BB   12....       LCALL   ?XSTACK_DISP102_8
+   \   0000BE   7A24         MOV     R2,#0x24
+   \   0000C0   7B08         MOV     R3,#0x8
+   \   0000C2   12....       LCALL   HalFlashWrite
+   \   0000C5   7402         MOV     A,#0x2
+   \   0000C7   12....       LCALL   ?DEALLOC_XSTACK8
+    276                HalFlashRead(  HAL_SB_CRC_ADDR / HAL_FLASH_PAGE_SIZE,
+    277                  HAL_SB_CRC_ADDR % HAL_FLASH_PAGE_SIZE,
+    278                  (uint8 *)crc, sizeof(crc));
+   \   0000CA                ; Setup parameters for call to function HalFlashRead
+   \   0000CA   75..04       MOV     ?V0,#0x4
+   \   0000CD   78..         MOV     R0,#?V0
+   \   0000CF   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   0000D2   7402         MOV     A,#0x2
+   \   0000D4   12....       LCALL   ?XSTACK_DISP102_8
+   \   0000D7   7A90         MOV     R2,#-0x70
+   \   0000D9   7B00         MOV     R3,#0x0
+   \   0000DB   7904         MOV     R1,#0x4
+   \   0000DD   12....       LCALL   HalFlashRead
+   \   0000E0   7402         MOV     A,#0x2
+   \   0000E2   12....       LCALL   ?DEALLOC_XSTACK8
+    279                if (crc[0] == crc[1])
+   \   0000E5   12....       LCALL   ?Subroutine2
+   \                     ??CrossCallReturnLabel_1:
+   \   0000E8   12....       LCALL   ?XSTACK_DISP0_8
+   \   0000EB   E0           MOVX    A,@DPTR
+   \   0000EC   68           XRL     A,R0
+   \   0000ED   7003         JNZ     ??sbImgValid_10
+   \   0000EF   A3           INC     DPTR
+   \   0000F0   E0           MOVX    A,@DPTR
+   \   0000F1   69           XRL     A,R1
+   \                     ??sbImgValid_10:
+   \   0000F2   7004         JNZ     ??sbImgValid_11
+    280                {
+    281                  sbReportState(SB_STATE_VERIFICATION_IMAGE_VALID);
+   \   0000F4                ; Setup parameters for call to function sbReportState
+   \   0000F4   7902         MOV     R1,#0x2
+   \   0000F6   8006         SJMP    ??sbImgValid_12
+    282                }
+    283                else
+    284                {
+    285                  sbReportState(SB_STATE_VERIFICATION_FAILED);
+   \                     ??sbImgValid_11:
+   \   0000F8                ; Setup parameters for call to function sbReportState
+   \   0000F8   7904         MOV     R1,#0x4
+   \   0000FA   8002         SJMP    ??sbImgValid_12
+    286                }
+    287              }
+    288              else
+    289              {
+    290                sbReportState(SB_STATE_VERIFICATION_IMAGE_INVALID);
+   \                     ??sbImgValid_7:
+   \   0000FC                ; Setup parameters for call to function sbReportState
+   \   0000FC   7903         MOV     R1,#0x3
+   \                     ??sbImgValid_12:
+   \   0000FE   12....       LCALL   sbReportState
+    291              }
+    292          	
+    293              *time_spent_validating = TIME_IT_TAKES_TO_CALC_CRC;
+   \   000101   8E82         MOV     DPL,R6
+   \   000103   8F83         MOV     DPH,R7
+   \   000105   741E         MOV     A,#0x1e
+   \   000107   8005         SJMP    ??sbImgValid_13
+    294            }
+    295            else
+    296            {
+    297              *time_spent_validating = 0;
+   \                     ??sbImgValid_3:
+   \   000109   8E82         MOV     DPL,R6
+   \   00010B   8F83         MOV     DPH,R7
+   \   00010D   E4           CLR     A
+   \                     ??sbImgValid_13:
+   \   00010E   F0           MOVX    @DPTR,A
+    298            }
+    299            
+    300            return (crc[0] == crc[1]);
+   \   00010F   12....       LCALL   ?Subroutine2
+   \                     ??CrossCallReturnLabel_2:
+   \   000112   12....       LCALL   ?XSTACK_DISP0_8
+   \   000115   E0           MOVX    A,@DPTR
+   \   000116   68           XRL     A,R0
+   \   000117   7003         JNZ     ??sbImgValid_14
+   \   000119   A3           INC     DPTR
+   \   00011A   E0           MOVX    A,@DPTR
+   \   00011B   69           XRL     A,R1
+   \                     ??sbImgValid_14:
+   \   00011C   7004         JNZ     ??sbImgValid_5
+   \   00011E   7901         MOV     R1,#0x1
+   \   000120   8002         SJMP    ??sbImgValid_15
+   \                     ??sbImgValid_5:
+   \   000122   7900         MOV     R1,#0x0
+   \                     ??sbImgValid_15:
+   \   000124   7405         MOV     A,#0x5
+   \   000126   02....       LJMP    ?Subroutine1
+    301          }
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+   \                     ?Subroutine2:
+   \   000000   85..82       MOV     DPL,?XSP + 0
+   \   000003   85..83       MOV     DPH,?XSP + 1
+   \   000006   E0           MOVX    A,@DPTR
+   \   000007   F8           MOV     R0,A
+   \   000008   A3           INC     DPTR
+   \   000009   E0           MOVX    A,@DPTR
+   \   00000A   F9           MOV     R1,A
+   \   00000B   7402         MOV     A,#0x2
+   \   00000D   22           RET
+    302          
+    303          /**************************************************************************************************
+    304          * @fn          sbCmnd
+    305          *
+    306          * @brief       Act on the SB command and received buffer.
+    307          *
+    308          * input parameters
+    309          *
+    310          * None.
+    311          *
+    312          * output parameters
+    313          *
+    314          * None.
+    315          *
+    316          * @return      SB_CMND_IDLE is no command was currently executed, otherwise, returns a constant
+    317          *              that indicates the command that was just executed. See "sbCmnd Result Codes"
+    318          **************************************************************************************************
+    319          */
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+    320          static uint8 sbCmnd(void)
+   \                     sbCmnd:
+    321          {
+   \   000000                REQUIRE ?V0
+   \   000000                REQUIRE ?V1
+   \   000000                REQUIRE ?V2
+   \   000000                REQUIRE ?V3
+   \   000000                REQUIRE ?V4
+   \   000000                REQUIRE ?V5
+   \   000000                REQUIRE ?V6
+   \   000000                REQUIRE ?V7
+   \   000000                REQUIRE ?V8
+   \   000000                REQUIRE ?V9
+   \   000000                REQUIRE ?V10
+   \   000000                REQUIRE ?V11
+   \   000000   74ED         MOV     A,#-0x13
+   \   000002   12....       LCALL   ?FUNC_ENTER_XDATA
+   \   000005                ; Saved register size: 19
+   \   000005                ; Auto size: 8
+   \   000005   74F8         MOV     A,#-0x8
+   \   000007   12....       LCALL   ?ALLOC_XSTACK8
+    322            uint16 tmp = BUILD_UINT16(sbBuf[SB_DATA_STATE], sbBuf[SB_DATA_STATE+1]) + SB_IMG_OSET;
+   \   00000A   90....       MOV     DPTR,#sbBuf + 5
+   \   00000D   E0           MOVX    A,@DPTR
+   \   00000E   FA           MOV     R2,A
+   \   00000F   90....       MOV     DPTR,#sbBuf + 4
+   \   000012   E0           MOVX    A,@DPTR
+   \   000013   F9           MOV     R1,A
+   \   000014   FE           MOV     R6,A
+   \   000015   EA           MOV     A,R2
+   \   000016   FC           MOV     R4,A
+   \   000017   E4           CLR     A
+   \   000018   CC           XCH     A,R4
+   \   000019   FD           MOV     R5,A
+   \   00001A   EE           MOV     A,R6
+   \   00001B   2C           ADD     A,R4
+   \   00001C   ED           MOV     A,R5
+   \   00001D   3408         ADDC    A,#0x8
+   \   00001F   FF           MOV     R7,A
+    323            uint16 crc[2];
+    324            uint8 len = 1;
+   \   000020   75..01       MOV     ?V8,#0x1
+    325            uint8 rsp = SB_SUCCESS;
+   \   000023   75..00       MOV     ?V3,#0x0
+    326            uint8 rtrn = SB_CMND_UNSUPPORTED;
+   \   000026   75..06       MOV     ?V2,#0x6
+    327            uint8 *pBuf;
+    328            static uint8 crcPatched = FALSE;
+    329            
+    330            
+    331            switch (sbCmd2)
+   \   000029   8E..         MOV     ?V0,R6
+   \   00002B   8F..         MOV     ?V1,R7
+   \   00002D   7402         MOV     A,#0x2
+   \   00002F   78..         MOV     R0,#?V0
+   \   000031   12....       LCALL   ?S_SHL
+   \   000034   C3           CLR     C
+   \   000035   95..         SUBB    A,?V0
+   \   000037   FC           MOV     R4,A
+   \   000038   E4           CLR     A
+   \   000039   95..         SUBB    A,?V1
+   \   00003B   FD           MOV     R5,A
+   \   00003C   74..         MOV     A,#sbBuf & 0xff
+   \   00003E   2C           ADD     A,R4
+   \   00003F   F5..         MOV     ?V6,A
+   \   000041   74..         MOV     A,#(sbBuf >> 8) & 0xff
+   \   000043   3D           ADDC    A,R5
+   \   000044   F5..         MOV     ?V7,A
+   \   000046   E5..         MOV     A,?V6
+   \   000048   2497         ADD     A,#-0x69
+   \   00004A   F5..         MOV     ?V10,A
+   \   00004C   E5..         MOV     A,?V7
+   \   00004E   3420         ADDC    A,#0x20
+   \   000050   F5..         MOV     ?V11,A
+   \   000052   8E..         MOV     ?V0,R6
+   \   000054   8F..         MOV     ?V1,R7
+   \   000056   7409         MOV     A,#0x9
+   \   000058   78..         MOV     R0,#?V0
+   \   00005A   12....       LCALL   ?US_SHR
+   \   00005D   E5..         MOV     A,?V0
+   \   00005F   F5..         MOV     ?V9,A
+   \   000061   EE           MOV     A,R6
+   \   000062   2410         ADD     A,#0x10
+   \   000064   F5..         MOV     ?V0,A
+   \   000066   E4           CLR     A
+   \   000067   3F           ADDC    A,R7
+   \   000068   F5..         MOV     ?V1,A
+   \   00006A   EE           MOV     A,R6
+   \   00006B   F5..         MOV     ?V4,A
+   \   00006D   EF           MOV     A,R7
+   \   00006E   5401         ANL     A,#0x1
+   \   000070   F5..         MOV     ?V5,A
+   \   000072   90....       MOV     DPTR,#sbCmd2
+   \   000075   E0           MOVX    A,@DPTR
+   \   000076   14           DEC     A
+   \   000077   6059         JZ      ??sbCmnd_0
+   \   000079   14           DEC     A
+   \   00007A   7003         JNZ     $+5
+   \   00007C   02....       LJMP    ??sbCmnd_1
+   \   00007F   14           DEC     A
+   \   000080   7003         JNZ     $+5
+   \   000082   02....       LJMP    ??sbCmnd_2
+   \   000085   14           DEC     A
+   \   000086   6010         JZ      ??sbCmnd_3
+   \   000088   24FE         ADD     A,#-0x2
+   \   00008A   7003         JNZ     $+5
+   \   00008C   02....       LJMP    ??sbCmnd_4
+   \   00008F   14           DEC     A
+   \   000090   7003         JNZ     $+5
+   \   000092   02....       LJMP    ??sbCmnd_5
+   \   000095   02....       LJMP    ??sbCmnd_6
+    332            {
+    333              case SB_HANDSHAKE_CMD:
+    334                rtrn = SB_CMND_HANDSHAKE_CMD;
+   \                     ??sbCmnd_3:
+   \   000098   75..03       MOV     ?V2,#0x3
+    335                vddWait(VDD_MIN_NV);
+   \   00009B                ; Setup parameters for call to function vddWait
+   \   00009B   794E         MOV     R1,#0x4e
+   \   00009D   12....       LCALL   vddWait
+    336                
+    337                pBuf = &sbBuf[SB_DATA_STATE+1];
+    338                UINT32_TO_BUF_LITTLE_ENDIAN(pBuf, SB_BOOTLOADER_REVISION);
+   \   0000A0   90....       MOV     DPTR,#sbBuf + 5
+   \   0000A3   12....       LCALL   ??Subroutine5_0
+    339                *pBuf++ = SB_DEVICE_TYPE_2530;
+   \                     ??CrossCallReturnLabel_9:
+   \   0000A6   7402         MOV     A,#0x2
+   \   0000A8   F0           MOVX    @DPTR,A
+    340                UINT32_TO_BUF_LITTLE_ENDIAN(pBuf, SB_RW_BUF_LEN);
+   \   0000A9   A3           INC     DPTR
+   \   0000AA   7440         MOV     A,#0x40
+   \   0000AC   12....       LCALL   ?Subroutine3
+    341                UINT32_TO_BUF_LITTLE_ENDIAN(pBuf, SB_DEVICE_PAGE_SIZE);
+   \                     ??CrossCallReturnLabel_7:
+   \   0000AF   7408         MOV     A,#0x8
+   \   0000B1   12....       LCALL   ?Subroutine3
+    342                UINT32_TO_BUF_LITTLE_ENDIAN(pBuf, _sblRev);
+   \                     ??CrossCallReturnLabel_8:
+   \   0000B4   F0           MOVX    @DPTR,A
+   \   0000B5   A3           INC     DPTR
+   \   0000B6   F0           MOVX    @DPTR,A
+    343                len += (pBuf - &sbBuf[SB_DATA_STATE+1]);
+   \   0000B7   74..         MOV     A,#(sbBuf + 22) & 0xff
+   \   0000B9   C3           CLR     C
+   \   0000BA   94..         SUBB    A,#(sbBuf + 5) & 0xff
+   \   0000BC   04           INC     A
+   \   0000BD   F5..         MOV     ?V8,A
+    344                break;
+    345              
+    346              case SB_WRITE_CMD:
+    347                rtrn = SB_CMND_WRITE_CMD;
+    348                vddWait(VDD_MIN_NV); // in case handshake was not performed. Anyhow, if already waited for this voltage, vddWait() will return immidiately
+    349                
+    350                if ((tmp % SB_WPG_SIZE) == 0)
+    351                {
+    352                  HalFlashErase(tmp / SB_WPG_SIZE);
+    353                }
+    354          
+    355                /* If the pre-calculated checksum is 0x0000, change it to 0xA5A5 when writing to flash.
+    356                   When calculating checksum at runtime, 0x0000 is also converted to 0xA5A5. This way
+    357                   0x0000 is never written as valid checksum in flash, which allows the main application
+    358                   to invalidate the image by writing 0x0000 to the crc shadow field in flash. */
+    359          
+    360                if (DOES_BUF_CONTAIN_PRECALC_CRC(tmp)) //the next flash write includes the pre-calculated CRC
+    361                {
+    362                  pBuf = &sbBuf[SB_DATA_STATE + 2 + (HAL_SB_CRC_ADDR - ((uint32)tmp * HAL_FLASH_WORD_SIZE))];
+    363          		  
+    364                  if ((pBuf[0] == 0)
+    365                    && (pBuf[1] == 0))
+    366                  {
+    367                    crcPatched = TRUE;
+    368                    pBuf[0] = 0xA5;
+    369                    pBuf[1] = 0xA5;
+    370                  }
+    371                  else
+    372                  {
+    373                    crcPatched = FALSE;
+    374                  }
+    375                }
+    376          
+    377                HalFlashWrite(tmp, sbBuf+SB_DATA_STATE+2, SB_RW_BUF_LEN / HAL_FLASH_WORD_SIZE);
+    378                break;
+    379              
+    380              case SB_READ_CMD:
+    381                rtrn = SB_CMND_READ_CMD;
+    382          #if !MT_SYS_OSAL_NV_READ_CERTIFICATE_DATA
+    383                if ((tmp / (HAL_FLASH_PAGE_SIZE / 4)) >= HAL_NV_PAGE_BEG)
+    384                {
+    385                  rsp = SB_FAILURE;
+    386                  break;
+    387                }
+    388          #endif
+    389                HalFlashRead(tmp / (HAL_FLASH_PAGE_SIZE / 4),
+    390                  (tmp % (HAL_FLASH_PAGE_SIZE / 4)) << 2,
+    391                  sbBuf + SB_DATA_STATE + 3, SB_RW_BUF_LEN);
+    392                sbBuf[SB_DATA_STATE+2] = sbBuf[SB_DATA_STATE+1];
+    393                sbBuf[SB_DATA_STATE+1] = sbBuf[SB_DATA_STATE];
+    394                len = SB_RW_BUF_LEN + 3;
+    395          
+    396                if (DOES_BUF_CONTAIN_PRECALC_CRC(tmp) //the current flash read block include the pre-calculated CRC
+    397                  && crcPatched)
+    398                {
+    399                  pBuf = &sbBuf[SB_DATA_STATE + 3 + (HAL_SB_CRC_ADDR - ((uint32)tmp * HAL_FLASH_WORD_SIZE))];
+    400          		
+    401                  pBuf[0] = 0;
+    402                  pBuf[1] = 0;
+    403                }
+    404                break;
+    405              
+    406              case SB_ENABLE_CMD:
+    407                HalFlashRead(HAL_SB_CRC_ADDR / HAL_FLASH_PAGE_SIZE,
+    408                  HAL_SB_CRC_ADDR % HAL_FLASH_PAGE_SIZE,
+    409                  (uint8 *)crc, sizeof(crc));
+    410                
+    411                // Bootload master must have verified extra checks to be issuing the SB_ENABLE_CMD.
+    412                if ((crc[1] != crc[0]) || (crc[0] == 0xFFFF))
+    413                {
+    414                  if (crc[0] == 0xFFFF)
+    415                  {
+    416                    crc[0] = 0x2010;
+    417                  }
+    418                  crc[1] = crc[0];
+    419                  HalFlashWrite((HAL_SB_CRC_ADDR / HAL_FLASH_WORD_SIZE), (uint8 *)crc, 1);
+    420                  HalFlashRead(  HAL_SB_CRC_ADDR / HAL_FLASH_PAGE_SIZE,
+    421                    HAL_SB_CRC_ADDR % HAL_FLASH_PAGE_SIZE,
+    422                    (uint8 *)crc, sizeof(crc));
+    423                }
+    424                
+    425                if (crc[0] == crc[1])
+    426                {
+    427                  rtrn = SB_CMND_ENABLED_CMD_OK;
+    428                }
+    429                else
+    430                {
+    431                  rtrn = SB_CMND_ENABLED_CMD_ERROR;
+    432                  rsp = SB_VALIDATE_FAILED;
+    433                }
+    434                break;
+    435          
+    436              case SB_SWITCH_BAUDRATE_CMD:
+    437                if ((znpCfg1 == ZNP_CFG1_UART) || (znpCfg1 == ZNP_CFG1_UART_USB))
+    438                {
+    439                  uint8 _U0BAUD = sbBuf[SB_DATA_STATE + 0];
+    440                  uint8 _U0GCR = sbBuf[SB_DATA_STATE + 1];
+    441                  
+    442                  sbResp(rsp, len); //first, send the response using the old baudrate
+    443                  
+    444                  if (znpCfg1 == ZNP_CFG1_UART)
+    445                  {
+    446                    while(sblIsUartTxPending())
+    447                    {
+    448                      sbUartPoll();
+    449                    }
+    450                    
+    451                    SLEEP(0x2600); //without this wait, the FCS is deformed, since the baudrate will change while the FCS is still in the TX fifo.
+    452            
+    453                    U0BAUD = _U0BAUD;
+    454                    U0GCR = ((U0GCR&~0x1F) | _U0GCR);
+    455                   
+    456                    SLEEP(0x2600); //wait for the new baudrate to take effect
+    457                  }
+    458                  
+    459                  sbResp(rsp, len); //now, resend the response using the new baudrate
+    460          
+    461                  return SB_CMND_SWITCH_BAUDRAT;
+    462                }
+    463                break;
+    464          
+    465              case SB_ENABLE_REPORTING_CMD:
+    466                sbStateReportingEnabled = sbBuf[SB_DATA_STATE];
+    467                if (sbStateReportingEnabled)
+    468                {
+    469                  rtrn = SB_CMND_ENABLE_STATE_REPORTING;
+    470                }
+    471                break;
+    472          
+    473              default:
+    474                return SB_CMND_UNSUPPORTED;
+    475                break;
+    476            }
+    477            
+    478            sbResp(rsp, len);
+   \                     ??sbCmnd_7:
+   \   0000BF                ; Setup parameters for call to function sbResp
+   \   0000BF   AA..         MOV     R2,?V8
+   \   0000C1   A9..         MOV     R1,?V3
+   \   0000C3   12....       LCALL   sbResp
+    479            return rtrn;
+   \   0000C6   A9..         MOV     R1,?V2
+   \                     ??sbCmnd_8:
+   \   0000C8   7408         MOV     A,#0x8
+   \   0000CA   12....       LCALL   ?DEALLOC_XSTACK8
+   \   0000CD   7F0C         MOV     R7,#0xc
+   \   0000CF   02....       LJMP    ?FUNC_LEAVE_XDATA
+   \                     ??sbCmnd_0:
+   \   0000D2   75..04       MOV     ?V2,#0x4
+   \   0000D5                ; Setup parameters for call to function vddWait
+   \   0000D5   794E         MOV     R1,#0x4e
+   \   0000D7   12....       LCALL   vddWait
+   \   0000DA   EE           MOV     A,R6
+   \   0000DB   45..         ORL     A,?V5
+   \   0000DD   7005         JNZ     ??sbCmnd_9
+   \   0000DF                ; Setup parameters for call to function HalFlashErase
+   \   0000DF   A9..         MOV     R1,?V9
+   \   0000E1   12....       LCALL   HalFlashErase
+   \                     ??sbCmnd_9:
+   \   0000E4   C3           CLR     C
+   \   0000E5   EE           MOV     A,R6
+   \   0000E6   9425         SUBB    A,#0x25
+   \   0000E8   EF           MOV     A,R7
+   \   0000E9   9408         SUBB    A,#0x8
+   \   0000EB   503F         JNC     ??sbCmnd_10
+   \   0000ED   C3           CLR     C
+   \   0000EE   E5..         MOV     A,?V0
+   \   0000F0   9424         SUBB    A,#0x24
+   \   0000F2   E5..         MOV     A,?V1
+   \   0000F4   9408         SUBB    A,#0x8
+   \   0000F6   4034         JC      ??sbCmnd_10
+   \   0000F8   E5..         MOV     A,?V6
+   \   0000FA   2496         ADD     A,#-0x6a
+   \   0000FC   F8           MOV     R0,A
+   \   0000FD   E5..         MOV     A,?V7
+   \   0000FF   3420         ADDC    A,#0x20
+   \   000101   F9           MOV     R1,A
+   \   000102   8882         MOV     DPL,R0
+   \   000104   8983         MOV     DPH,R1
+   \   000106   E0           MOVX    A,@DPTR
+   \   000107   701E         JNZ     ??sbCmnd_11
+   \   000109   85..82       MOV     DPL,?V10
+   \   00010C   85..83       MOV     DPH,?V11
+   \   00010F   E0           MOVX    A,@DPTR
+   \   000110   7015         JNZ     ??sbCmnd_11
+   \   000112   90....       MOV     DPTR,#??crcPatched
+   \   000115   7401         MOV     A,#0x1
+   \   000117   F0           MOVX    @DPTR,A
+   \   000118   8882         MOV     DPL,R0
+   \   00011A   8983         MOV     DPH,R1
+   \   00011C   74A5         MOV     A,#-0x5b
+   \   00011E   F0           MOVX    @DPTR,A
+   \   00011F   85..82       MOV     DPL,?V10
+   \   000122   85..83       MOV     DPH,?V11
+   \   000125   8004         SJMP    ??sbCmnd_12
+   \                     ??sbCmnd_11:
+   \   000127   90....       MOV     DPTR,#??crcPatched
+   \   00012A   E4           CLR     A
+   \                     ??sbCmnd_12:
+   \   00012B   F0           MOVX    @DPTR,A
+   \                     ??sbCmnd_10:
+   \   00012C                ; Setup parameters for call to function HalFlashWrite
+   \   00012C   75..10       MOV     ?V0,#0x10
+   \   00012F   75..00       MOV     ?V1,#0x0
+   \   000132   78..         MOV     R0,#?V0
+   \   000134   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000137   7C..         MOV     R4,#(sbBuf + 6) & 0xff
+   \   000139   7D..         MOV     R5,#((sbBuf + 6) >> 8) & 0xff
+   \   00013B   EE           MOV     A,R6
+   \   00013C   FA           MOV     R2,A
+   \   00013D   EF           MOV     A,R7
+   \   00013E   FB           MOV     R3,A
+   \   00013F   12....       LCALL   HalFlashWrite
+   \   000142   7402         MOV     A,#0x2
+   \   000144   12....       LCALL   ?DEALLOC_XSTACK8
+   \   000147   02....       LJMP    ??sbCmnd_7
+   \                     ??sbCmnd_1:
+   \   00014A   75..05       MOV     ?V2,#0x5
+   \   00014D   E5..         MOV     A,?V9
+   \   00014F   C3           CLR     C
+   \   000150   9479         SUBB    A,#0x79
+   \   000152   4006         JC      ??sbCmnd_13
+   \   000154   75..01       MOV     ?V3,#0x1
+   \   000157   02....       LJMP    ??sbCmnd_7
+   \                     ??sbCmnd_13:
+   \   00015A                ; Setup parameters for call to function HalFlashRead
+   \   00015A   75..40       MOV     ?V6,#0x40
+   \   00015D   75..00       MOV     ?V7,#0x0
+   \   000160   78..         MOV     R0,#?V6
+   \   000162   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000165   7C..         MOV     R4,#(sbBuf + 7) & 0xff
+   \   000167   7D..         MOV     R5,#((sbBuf + 7) >> 8) & 0xff
+   \   000169   7402         MOV     A,#0x2
+   \   00016B   78..         MOV     R0,#?V4
+   \   00016D   12....       LCALL   ?S_SHL
+   \   000170   AA..         MOV     R2,?V4
+   \   000172   AB..         MOV     R3,?V5
+   \   000174   A9..         MOV     R1,?V9
+   \   000176   12....       LCALL   HalFlashRead
+   \   000179   7402         MOV     A,#0x2
+   \   00017B   12....       LCALL   ?DEALLOC_XSTACK8
+   \   00017E   90....       MOV     DPTR,#sbBuf + 5
+   \   000181   E0           MOVX    A,@DPTR
+   \   000182   A3           INC     DPTR
+   \   000183   F0           MOVX    @DPTR,A
+   \   000184   90....       MOV     DPTR,#sbBuf + 4
+   \   000187   E0           MOVX    A,@DPTR
+   \   000188   A3           INC     DPTR
+   \   000189   F0           MOVX    @DPTR,A
+   \   00018A   75..43       MOV     ?V8,#0x43
+   \   00018D   C3           CLR     C
+   \   00018E   EE           MOV     A,R6
+   \   00018F   9425         SUBB    A,#0x25
+   \   000191   EF           MOV     A,R7
+   \   000192   9408         SUBB    A,#0x8
+   \   000194   4003         JC      $+5
+   \   000196   02....       LJMP    ??sbCmnd_7
+   \   000199   C3           CLR     C
+   \   00019A   E5..         MOV     A,?V0
+   \   00019C   9424         SUBB    A,#0x24
+   \   00019E   E5..         MOV     A,?V1
+   \   0001A0   9408         SUBB    A,#0x8
+   \   0001A2   5003         JNC     $+5
+   \   0001A4   02....       LJMP    ??sbCmnd_7
+   \   0001A7   90....       MOV     DPTR,#??crcPatched
+   \   0001AA   E0           MOVX    A,@DPTR
+   \   0001AB   7003         JNZ     $+5
+   \   0001AD   02....       LJMP    ??sbCmnd_7
+   \   0001B0   A8..         MOV     R0,?V10
+   \   0001B2   A9..         MOV     R1,?V11
+   \   0001B4   8882         MOV     DPL,R0
+   \   0001B6   8983         MOV     DPH,R1
+   \   0001B8   E4           CLR     A
+   \   0001B9   F0           MOVX    @DPTR,A
+   \   0001BA   A3           INC     DPTR
+   \   0001BB   F0           MOVX    @DPTR,A
+   \   0001BC   02....       LJMP    ??sbCmnd_7
+   \                     ??sbCmnd_2:
+   \   0001BF                ; Setup parameters for call to function HalFlashRead
+   \   0001BF   75..04       MOV     ?V0,#0x4
+   \   0001C2   75..00       MOV     ?V1,#0x0
+   \   0001C5   78..         MOV     R0,#?V0
+   \   0001C7   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   0001CA   7402         MOV     A,#0x2
+   \   0001CC   12....       LCALL   ?XSTACK_DISP102_8
+   \   0001CF   7A90         MOV     R2,#-0x70
+   \   0001D1   7B00         MOV     R3,#0x0
+   \   0001D3   7904         MOV     R1,#0x4
+   \   0001D5   12....       LCALL   HalFlashRead
+   \   0001D8   7402         MOV     A,#0x2
+   \   0001DA   12....       LCALL   ?DEALLOC_XSTACK8
+   \   0001DD   7402         MOV     A,#0x2
+   \   0001DF   12....       LCALL   ?XSTACK_DISP0_8
+   \   0001E2   E0           MOVX    A,@DPTR
+   \   0001E3   F8           MOV     R0,A
+   \   0001E4   A3           INC     DPTR
+   \   0001E5   E0           MOVX    A,@DPTR
+   \   0001E6   F9           MOV     R1,A
+   \   0001E7   85..82       MOV     DPL,?XSP + 0
+   \   0001EA   85..83       MOV     DPH,?XSP + 1
+   \   0001ED   E0           MOVX    A,@DPTR
+   \   0001EE   68           XRL     A,R0
+   \   0001EF   7003         JNZ     ??sbCmnd_14
+   \   0001F1   A3           INC     DPTR
+   \   0001F2   E0           MOVX    A,@DPTR
+   \   0001F3   69           XRL     A,R1
+   \                     ??sbCmnd_14:
+   \   0001F4   85..82       MOV     DPL,?XSP + 0
+   \   0001F7   85..83       MOV     DPH,?XSP + 1
+   \   0001FA   700B         JNZ     ??sbCmnd_15
+   \   0001FC   E0           MOVX    A,@DPTR
+   \   0001FD   F4           CPL     A
+   \   0001FE   7003         JNZ     ??sbCmnd_16
+   \   000200   A3           INC     DPTR
+   \   000201   E0           MOVX    A,@DPTR
+   \   000202   F4           CPL     A
+   \                     ??sbCmnd_16:
+   \   000203   7057         JNZ     ??sbCmnd_17
+   \   000205   8009         SJMP    ??sbCmnd_18
+   \                     ??sbCmnd_15:
+   \   000207   E0           MOVX    A,@DPTR
+   \   000208   F4           CPL     A
+   \   000209   7003         JNZ     ??sbCmnd_19
+   \   00020B   A3           INC     DPTR
+   \   00020C   E0           MOVX    A,@DPTR
+   \   00020D   F4           CPL     A
+   \                     ??sbCmnd_19:
+   \   00020E   700D         JNZ     ??sbCmnd_20
+   \                     ??sbCmnd_18:
+   \   000210   85..82       MOV     DPL,?XSP + 0
+   \   000213   85..83       MOV     DPH,?XSP + 1
+   \   000216   7410         MOV     A,#0x10
+   \   000218   F0           MOVX    @DPTR,A
+   \   000219   A3           INC     DPTR
+   \   00021A   7420         MOV     A,#0x20
+   \   00021C   F0           MOVX    @DPTR,A
+   \                     ??sbCmnd_20:
+   \   00021D   12....       LCALL   ?Subroutine2
+   \                     ??CrossCallReturnLabel_3:
+   \   000220   12....       LCALL   ?XSTACK_DISP0_8
+   \   000223   E8           MOV     A,R0
+   \   000224   F0           MOVX    @DPTR,A
+   \   000225   A3           INC     DPTR
+   \   000226   E9           MOV     A,R1
+   \   000227   F0           MOVX    @DPTR,A
+   \   000228                ; Setup parameters for call to function HalFlashWrite
+   \   000228   75..01       MOV     ?V0,#0x1
+   \   00022B   78..         MOV     R0,#?V0
+   \   00022D   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000230   7402         MOV     A,#0x2
+   \   000232   12....       LCALL   ?XSTACK_DISP102_8
+   \   000235   7A24         MOV     R2,#0x24
+   \   000237   7B08         MOV     R3,#0x8
+   \   000239   12....       LCALL   HalFlashWrite
+   \   00023C   7402         MOV     A,#0x2
+   \   00023E   12....       LCALL   ?DEALLOC_XSTACK8
+   \   000241                ; Setup parameters for call to function HalFlashRead
+   \   000241   75..04       MOV     ?V0,#0x4
+   \   000244   78..         MOV     R0,#?V0
+   \   000246   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000249   7402         MOV     A,#0x2
+   \   00024B   12....       LCALL   ?XSTACK_DISP102_8
+   \   00024E   7A90         MOV     R2,#-0x70
+   \   000250   7B00         MOV     R3,#0x0
+   \   000252   7904         MOV     R1,#0x4
+   \   000254   12....       LCALL   HalFlashRead
+   \   000257   7402         MOV     A,#0x2
+   \   000259   12....       LCALL   ?DEALLOC_XSTACK8
+   \                     ??sbCmnd_17:
+   \   00025C   12....       LCALL   ?Subroutine2
+   \                     ??CrossCallReturnLabel_4:
+   \   00025F   12....       LCALL   ?XSTACK_DISP0_8
+   \   000262   E0           MOVX    A,@DPTR
+   \   000263   68           XRL     A,R0
+   \   000264   7003         JNZ     ??sbCmnd_21
+   \   000266   A3           INC     DPTR
+   \   000267   E0           MOVX    A,@DPTR
+   \   000268   69           XRL     A,R1
+   \                     ??sbCmnd_21:
+   \   000269   7006         JNZ     ??sbCmnd_22
+   \   00026B   75..01       MOV     ?V2,#0x1
+   \   00026E   02....       LJMP    ??sbCmnd_7
+   \                     ??sbCmnd_22:
+   \   000271   75..02       MOV     ?V2,#0x2
+   \   000274   75..07       MOV     ?V3,#0x7
+   \   000277   02....       LJMP    ??sbCmnd_7
+   \                     ??sbCmnd_4:
+   \   00027A   90....       MOV     DPTR,#znpCfg1
+   \   00027D   E0           MOVX    A,@DPTR
+   \   00027E   6007         JZ      ??sbCmnd_23
+   \   000280   6402         XRL     A,#0x2
+   \   000282   6003         JZ      $+5
+   \   000284   02....       LJMP    ??sbCmnd_7
+   \                     ??sbCmnd_23:
+   \   000287   EA           MOV     A,R2
+   \   000288   FF           MOV     R7,A
+   \   000289                ; Setup parameters for call to function sbResp
+   \   000289   7A01         MOV     R2,#0x1
+   \   00028B   7900         MOV     R1,#0x0
+   \   00028D   12....       LCALL   sbResp
+   \   000290   E0           MOVX    A,@DPTR
+   \   000291   6003         JZ      $+5
+   \   000293   02....       LJMP    ??sbCmnd_24
+   \   000296   8003         SJMP    ??sbCmnd_25
+   \                     ??sbCmnd_26:
+   \   000298                ; Setup parameters for call to function sbUartPoll
+   \   000298   12....       LCALL   sbUartPoll
+   \                     ??sbCmnd_25:
+   \   00029B                ; Setup parameters for call to function sblIsUartTxPending
+   \   00029B   12....       LCALL   sblIsUartTxPending
+   \   00029E   E9           MOV     A,R1
+   \   00029F   70F7         JNZ     ??sbCmnd_26
+   \   0002A1   7404         MOV     A,#0x4
+   \   0002A3   12....       LCALL   ?XSTACK_DISP0_8
+   \   0002A6   12....       LCALL   ?Subroutine4
+   \                     ??CrossCallReturnLabel_5:
+   \   0002A9   7404         MOV     A,#0x4
+   \   0002AB   12....       LCALL   ?XSTACK_DISP0_8
+   \   0002AE   78..         MOV     R0,#?V0
+   \   0002B0   12....       LCALL   ?L_MOV_X
+   \   0002B3   85....       MOV     ?V4,?V0
+   \   0002B6   85....       MOV     ?V5,?V1
+   \   0002B9   85....       MOV     ?V6,?V2
+   \   0002BC   85....       MOV     ?V7,?V3
+   \   0002BF   90....       MOV     DPTR,#__Constant_ffffffff
+   \   0002C2   78..         MOV     R0,#?V4
+   \   0002C4   12....       LCALL   ?L_ADD_X
+   \   0002C7   7404         MOV     A,#0x4
+   \   0002C9   12....       LCALL   ?XSTACK_DISP0_8
+   \   0002CC   78..         MOV     R0,#?V4
+   \   0002CE   12....       LCALL   ?L_MOV_TO_X
+   \   0002D1   E5..         MOV     A,?V0
+   \   0002D3   45..         ORL     A,?V1
+   \   0002D5   45..         ORL     A,?V2
+   \   0002D7   45..         ORL     A,?V3
+   \   0002D9   70CE         JNZ     ??CrossCallReturnLabel_5
+   \   0002DB   8EC2         MOV     0xc2,R6
+   \   0002DD   E5C5         MOV     A,0xc5
+   \   0002DF   54E0         ANL     A,#0xe0
+   \   0002E1   4F           ORL     A,R7
+   \   0002E2   F5C5         MOV     0xc5,A
+   \   0002E4   7404         MOV     A,#0x4
+   \   0002E6   12....       LCALL   ?XSTACK_DISP0_8
+   \   0002E9   12....       LCALL   ?Subroutine4
+   \                     ??CrossCallReturnLabel_6:
+   \   0002EC   7404         MOV     A,#0x4
+   \   0002EE   12....       LCALL   ?XSTACK_DISP0_8
+   \   0002F1   78..         MOV     R0,#?V0
+   \   0002F3   12....       LCALL   ?L_MOV_X
+   \   0002F6   85....       MOV     ?V4,?V0
+   \   0002F9   85....       MOV     ?V5,?V1
+   \   0002FC   85....       MOV     ?V6,?V2
+   \   0002FF   85....       MOV     ?V7,?V3
+   \   000302   90....       MOV     DPTR,#__Constant_ffffffff
+   \   000305   78..         MOV     R0,#?V4
+   \   000307   12....       LCALL   ?L_ADD_X
+   \   00030A   7404         MOV     A,#0x4
+   \   00030C   12....       LCALL   ?XSTACK_DISP0_8
+   \   00030F   78..         MOV     R0,#?V4
+   \   000311   12....       LCALL   ?L_MOV_TO_X
+   \   000314   E5..         MOV     A,?V0
+   \   000316   45..         ORL     A,?V1
+   \   000318   45..         ORL     A,?V2
+   \   00031A   45..         ORL     A,?V3
+   \   00031C   70CE         JNZ     ??CrossCallReturnLabel_6
+   \                     ??sbCmnd_24:
+   \   00031E                ; Setup parameters for call to function sbResp
+   \   00031E   7A01         MOV     R2,#0x1
+   \   000320   7900         MOV     R1,#0x0
+   \   000322   12....       LCALL   sbResp
+   \   000325   7908         MOV     R1,#0x8
+   \   000327   02....       LJMP    ??sbCmnd_8
+   \                     ??sbCmnd_5:
+   \   00032A   E9           MOV     A,R1
+   \   00032B   90....       MOV     DPTR,#sbStateReportingEnabled
+   \   00032E   F0           MOVX    @DPTR,A
+   \   00032F   7003         JNZ     $+5
+   \   000331   02....       LJMP    ??sbCmnd_7
+   \   000334   75..09       MOV     ?V2,#0x9
+   \   000337   02....       LJMP    ??sbCmnd_7
+   \                     ??sbCmnd_6:
+   \   00033A   7906         MOV     R1,#0x6
+   \   00033C   02....       LJMP    ??sbCmnd_8
+   \   00033F                REQUIRE U0BAUD
+   \   00033F                REQUIRE U0GCR
+    480          }
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+   \                     ?Subroutine4:
+   \   000000   E4           CLR     A
+   \   000001   F0           MOVX    @DPTR,A
+   \   000002   A3           INC     DPTR
+   \   000003   7426         MOV     A,#0x26
+   \   000005   F0           MOVX    @DPTR,A
+   \   000006   A3           INC     DPTR
+   \   000007   E4           CLR     A
+   \   000008   F0           MOVX    @DPTR,A
+   \   000009   A3           INC     DPTR
+   \   00000A   F0           MOVX    @DPTR,A
+   \   00000B   22           RET
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+   \                     ?Subroutine3:
+   \   000000   F0           MOVX    @DPTR,A
+   \   000001   A3           INC     DPTR
+   \   000002                REQUIRE ??Subroutine5_0
+   \   000002                ; // Fall through to label ??Subroutine5_0
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+   \                     ??Subroutine5_0:
+   \   000000   E4           CLR     A
+   \   000001   F0           MOVX    @DPTR,A
+   \   000002   A3           INC     DPTR
+   \   000003   F0           MOVX    @DPTR,A
+   \   000004   A3           INC     DPTR
+   \   000005   F0           MOVX    @DPTR,A
+   \   000006   A3           INC     DPTR
+   \   000007   F0           MOVX    @DPTR,A
+   \   000008   A3           INC     DPTR
+   \   000009   22           RET
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+   \                     ??crcPatched:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+    481          
+    482          /**************************************************************************************************
+    483           * @fn          sbResp
+    484           *
+    485           * @brief       Make the SB response.
+    486           *
+    487           * input parameters
+    488           *
+    489           * @param       rsp - The byte code response to send.
+    490           * @param       len - The data length of the response.
+    491           *
+    492           * output parameters
+    493           *
+    494           * None.
+    495           *
+    496           * @return      None.
+    497           **************************************************************************************************
+    498           */
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+    499          static void sbResp(uint8 rsp, uint8 len)
+   \                     sbResp:
+    500          {
+   \   000000                REQUIRE ?V0
+   \   000000   74F8         MOV     A,#-0x8
+   \   000002   12....       LCALL   ?FUNC_ENTER_XDATA
+   \   000005                ; Saved register size: 8
+   \   000005                ; Auto size: 0
+   \   000005   EA           MOV     A,R2
+   \   000006   FE           MOV     R6,A
+    501            int8 idx;
+    502          
+    503            sbBuf[SB_CMD2_STATE] |= 0x80;
+   \   000007   90....       MOV     DPTR,#sbBuf + 3
+   \   00000A   E0           MOVX    A,@DPTR
+   \   00000B   D2E7         SETB    0xE0 /* A   */.7
+   \   00000D   F0           MOVX    @DPTR,A
+    504            sbBuf[SB_DATA_STATE] = rsp;
+   \   00000E   E9           MOV     A,R1
+   \   00000F   A3           INC     DPTR
+   \   000010   F0           MOVX    @DPTR,A
+    505            sbBuf[SB_LEN_STATE] = len;
+   \   000011   EE           MOV     A,R6
+   \   000012   90....       MOV     DPTR,#sbBuf + 1
+   \   000015   F0           MOVX    @DPTR,A
+    506            rsp = len;
+   \   000016   8E..         MOV     ?V0,R6
+    507            len += SB_FCS_STATE - 1;
+   \   000018   7404         MOV     A,#0x4
+   \   00001A   2A           ADD     A,R2
+   \   00001B   FE           MOV     R6,A
+    508          
+    509            for (idx = SB_CMD1_STATE; idx < len; idx++)
+   \   00001C   7C02         MOV     R4,#0x2
+   \   00001E   8004         SJMP    ??sbResp_0
+    510            {
+    511              rsp ^= sbBuf[idx];
+   \                     ??sbResp_1:
+   \   000020   E0           MOVX    A,@DPTR
+   \   000021   62..         XRL     ?V0,A
+    512            }
+   \   000023   0C           INC     R4
+   \                     ??sbResp_0:
+   \   000024   EC           MOV     A,R4
+   \   000025   FA           MOV     R2,A
+   \   000026   33           RLC     A
+   \   000027   95E0         SUBB    A,0xE0 /* A   */
+   \   000029   FB           MOV     R3,A
+   \   00002A   74..         MOV     A,#sbBuf & 0xff
+   \   00002C   2A           ADD     A,R2
+   \   00002D   F582         MOV     DPL,A
+   \   00002F   74..         MOV     A,#(sbBuf >> 8) & 0xff
+   \   000031   3B           ADDC    A,R3
+   \   000032   F583         MOV     DPH,A
+   \   000034   EE           MOV     A,R6
+   \   000035   F8           MOV     R0,A
+   \   000036   C3           CLR     C
+   \   000037   EA           MOV     A,R2
+   \   000038   98           SUBB    A,R0
+   \   000039   EB           MOV     A,R3
+   \   00003A   9400         SUBB    A,#0x0
+   \   00003C   A2D2         MOV     C,0xD0 /* PSW */.2
+   \   00003E   65D0         XRL     A,PSW
+   \   000040   33           RLC     A
+   \   000041   40DD         JC      ??sbResp_1
+    513            sbBuf[idx++] = rsp;
+   \   000043   E5..         MOV     A,?V0
+   \   000045   F0           MOVX    @DPTR,A
+    514            
+    515            SB_TX(sbBuf, idx);
+   \   000046                ; Setup parameters for call to function sbTx
+   \   000046   7401         MOV     A,#0x1
+   \   000048   2A           ADD     A,R2
+   \   000049   0C           INC     R4
+   \   00004A   33           RLC     A
+   \   00004B   95E0         SUBB    A,0xE0 /* A   */
+   \   00004D   FD           MOV     R5,A
+   \   00004E   7A..         MOV     R2,#sbBuf & 0xff
+   \   000050   7B..         MOV     R3,#(sbBuf >> 8) & 0xff
+   \   000052   12....       LCALL   sbTx
+    516          }
+   \   000055   02....       LJMP    ?Subroutine0
+    517          
+    518          /**************************************************************************************************
+    519           * @fn          calcCRC
+    520           *
+    521           * @brief       Run the CRC16 Polynomial calculation over the RC image.
+    522           *
+    523           * input parameters
+    524           *
+    525           * None.
+    526           *
+    527           * output parameters
+    528           *
+    529           * None.
+    530           *
+    531           * @return      The CRC16 calculated.
+    532           **************************************************************************************************
+    533           */
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+    534          static uint16 calcCRC(uint8 * abort)
+   \                     calcCRC:
+    535          {
+   \   000000                REQUIRE ?V0
+   \   000000                REQUIRE ?V1
+   \   000000                REQUIRE ?V2
+   \   000000                REQUIRE ?V3
+   \   000000                REQUIRE ?V4
+   \   000000                REQUIRE ?V5
+   \   000000                REQUIRE ?V6
+   \   000000                REQUIRE ?V7
+   \   000000                REQUIRE ?V8
+   \   000000                REQUIRE ?V9
+   \   000000                REQUIRE ?V10
+   \   000000                REQUIRE ?V11
+   \   000000                REQUIRE ?V12
+   \   000000                REQUIRE ?V13
+   \   000000                REQUIRE ?V14
+   \   000000                REQUIRE ?V15
+   \   000000   74E9         MOV     A,#-0x17
+   \   000002   12....       LCALL   ?FUNC_ENTER_XDATA
+   \   000005                ; Saved register size: 23
+   \   000005                ; Auto size: 512
+   \   000005   758200       MOV     DPL,#0x0
+   \   000008   7583FE       MOV     DPH,#-0x2
+   \   00000B   12....       LCALL   ?ADD_XSTACK_DISP0_16
+   \   00000E   8A..         MOV     ?V14,R2
+   \   000010   8B..         MOV     ?V15,R3
+    536            uint32 addr;
+    537            uint16 crc = 0;
+   \   000012   75..00       MOV     ?V12,#0x0
+   \   000015   75..00       MOV     ?V13,#0x0
+    538            uint8 buf[512];
+    539            int i;
+    540            uint16 chunk_size = sizeof(buf);
+    541            *abort = FALSE;
+   \   000018   8A82         MOV     DPL,R2
+   \   00001A   8B83         MOV     DPH,R3
+   \   00001C   E4           CLR     A
+   \   00001D   F0           MOVX    @DPTR,A
+    542            uint8 sbExec_rc;
+    543            
+    544            if (znpCfg1 == ZNP_CFG1_UART)
+   \   00001E   90....       MOV     DPTR,#znpCfg1
+   \   000021   E0           MOVX    A,@DPTR
+   \   000022   7006         JNZ     ??calcCRC_0
+    545            {
+    546              URX0IE = 1;
+   \   000024   D2AA         SETB    0xa8.2
+    547              HAL_ENABLE_INTERRUPTS();
+   \   000026   D2AF         SETB    0xa8.7
+   \   000028   8004         SJMP    ??calcCRC_1
+    548            }
+    549          
+    550            if ((znpCfg1 == ZNP_CFG1_UART) || (znpCfg1 == ZNP_CFG1_UART_USB))
+   \                     ??calcCRC_0:
+   \   00002A   6402         XRL     A,#0x2
+   \   00002C   7005         JNZ     ??calcCRC_2
+    551            {
+    552              sbReportState(SB_STATE_VERIFYING);
+   \                     ??calcCRC_1:
+   \   00002E                ; Setup parameters for call to function sbReportState
+   \   00002E   7900         MOV     R1,#0x0
+   \   000030   12....       LCALL   sbReportState
+    553            }
+    554            
+    555            // Run the CRC calculation over the active body of code.
+    556            for (addr = HAL_SB_IMG_ADDR; addr < HAL_SB_IMG_ADDR + HAL_SB_IMG_SIZE; addr += chunk_size)
+   \                     ??calcCRC_2:
+   \   000033   75..00       MOV     ?V4,#0x0
+   \   000036   75..20       MOV     ?V5,#0x20
+   \   000039   75..00       MOV     ?V6,#0x0
+   \   00003C   75..00       MOV     ?V7,#0x0
+    557            {
+    558          	if ((znpCfg1 == ZNP_CFG1_UART) || (znpCfg1 == ZNP_CFG1_UART_USB))
+   \                     ??calcCRC_3:
+   \   00003F   90....       MOV     DPTR,#znpCfg1
+   \   000042   E0           MOVX    A,@DPTR
+   \   000043   6004         JZ      ??calcCRC_4
+   \   000045   6402         XRL     A,#0x2
+   \   000047   7015         JNZ     ??calcCRC_5
+    559              {
+    560                sbUartPoll();
+   \                     ??calcCRC_4:
+   \   000049                ; Setup parameters for call to function sbUartPoll
+   \   000049   12....       LCALL   sbUartPoll
+    561          
+    562                sbExec_rc = sbExec();
+   \   00004C                ; Setup parameters for call to function sbExec
+   \   00004C   12....       LCALL   sbExec
+   \   00004F   E9           MOV     A,R1
+   \   000050   F8           MOV     R0,A
+    563                if (sbExec_rc == SB_CMND_ENABLE_STATE_REPORTING)
+   \   000051   7409         MOV     A,#0x9
+   \   000053   68           XRL     A,R0
+   \   000054   6003         JZ      $+5
+   \   000056   02....       LJMP    ??calcCRC_6
+    564                {
+    565                  sbReportState(SB_STATE_VERIFYING);
+   \   000059                ; Setup parameters for call to function sbReportState
+   \   000059   7900         MOV     R1,#0x0
+   \   00005B   12....       LCALL   sbReportState
+    566                }
+    567                else if ((sbExec_rc != SB_CMND_IDLE) &&
+    568                         (sbExec_rc != SB_CMND_UNSUPPORTED) &&
+    569                         (sbExec_rc != SB_CMND_FORCE_RUN))
+    570                {
+    571                    *abort = TRUE;
+    572                    break;
+    573                }
+    574              }
+    575              
+    576              if ((znpCfg1 == ZNP_CFG1_UART_USB) && (SB1_PRESS))
+    577              {
+    578                break;
+    579              }
+    580              
+    581              HalFlashRead(addr / HAL_FLASH_PAGE_SIZE, addr % HAL_FLASH_PAGE_SIZE, buf, chunk_size);
+   \                     ??calcCRC_5:
+   \   00005E                ; Setup parameters for call to function HalFlashRead
+   \   00005E   75..00       MOV     ?V0,#0x0
+   \   000061   75..02       MOV     ?V1,#0x2
+   \   000064   78..         MOV     R0,#?V0
+   \   000066   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000069   7402         MOV     A,#0x2
+   \   00006B   12....       LCALL   ?XSTACK_DISP102_8
+   \   00006E   85....       MOV     ?V0,?V4
+   \   000071   85....       MOV     ?V1,?V5
+   \   000074   AA..         MOV     R2,?V0
+   \   000076   E5..         MOV     A,?V1
+   \   000078   5407         ANL     A,#0x7
+   \   00007A   FB           MOV     R3,A
+   \   00007B   85....       MOV     ?V2,?V6
+   \   00007E   85....       MOV     ?V3,?V7
+   \   000081   740B         MOV     A,#0xb
+   \   000083   78..         MOV     R0,#?V0
+   \   000085   12....       LCALL   ?UL_SHR
+   \   000088   A9..         MOV     R1,?V0
+   \   00008A   12....       LCALL   HalFlashRead
+   \   00008D   7402         MOV     A,#0x2
+   \   00008F   12....       LCALL   ?DEALLOC_XSTACK8
+    582              for (i = 0; i < chunk_size; i++)
+   \   000092   7E00         MOV     R6,#0x0
+   \   000094   7F00         MOV     R7,#0x0
+    583              {
+    584                if ((addr + i < HAL_SB_CRC_ADDR) || (addr + i >= HAL_SB_CRC_ADDR + HAL_SB_CRC_LEN))
+   \                     ??calcCRC_7:
+   \   000096   90....       MOV     DPTR,#__Constant_4
+   \   000099   C082         PUSH    DPL
+   \   00009B   8E..         MOV     ?V8,R6
+   \   00009D   EF           MOV     A,R7
+   \   00009E   F5..         MOV     ?V9,A
+   \   0000A0   33           RLC     A
+   \   0000A1   95E0         SUBB    A,0xE0 /* A   */
+   \   0000A3   F5..         MOV     ?V10,A
+   \   0000A5   F5..         MOV     ?V11,A
+   \   0000A7   85....       MOV     ?V0,?V4
+   \   0000AA   85....       MOV     ?V1,?V5
+   \   0000AD   85....       MOV     ?V2,?V6
+   \   0000B0   85....       MOV     ?V3,?V7
+   \   0000B3   78..         MOV     R0,#?V0
+   \   0000B5   79..         MOV     R1,#?V8
+   \   0000B7   12....       LCALL   ?L_ADD
+   \   0000BA   90....       MOV     DPTR,#__Constant_ffffdf70
+   \   0000BD   78..         MOV     R0,#?V0
+   \   0000BF   12....       LCALL   ?L_ADD_X
+   \   0000C2   7583..       MOV     DPH,#(__Constant_4 >> 8) & 0xff
+   \   0000C5   D082         POP     DPL
+   \   0000C7   78..         MOV     R0,#?V0
+   \   0000C9   12....       LCALL   ?UL_GE_X
+   \   0000CC   501D         JNC     ??calcCRC_8
+    585                {
+    586                  crc = runPoly(crc, buf[i]);
+   \   0000CE                ; Setup parameters for call to function runPoly
+   \   0000CE   85..82       MOV     DPL,?XSP + 0
+   \   0000D1   85..83       MOV     DPH,?XSP + 1
+   \   0000D4   E582         MOV     A,DPL
+   \   0000D6   2E           ADD     A,R6
+   \   0000D7   F582         MOV     DPL,A
+   \   0000D9   E583         MOV     A,DPH
+   \   0000DB   3F           ADDC    A,R7
+   \   0000DC   F583         MOV     DPH,A
+   \   0000DE   E0           MOVX    A,@DPTR
+   \   0000DF   F9           MOV     R1,A
+   \   0000E0   AA..         MOV     R2,?V12
+   \   0000E2   AB..         MOV     R3,?V13
+   \   0000E4   12....       LCALL   runPoly
+   \   0000E7   8A..         MOV     ?V12,R2
+   \   0000E9   8B..         MOV     ?V13,R3
+    587                }
+    588              }
+   \                     ??calcCRC_8:
+   \   0000EB   0E           INC     R6
+   \   0000EC   EE           MOV     A,R6
+   \   0000ED   7001         JNZ     ??calcCRC_9
+   \   0000EF   0F           INC     R7
+   \                     ??calcCRC_9:
+   \   0000F0   C3           CLR     C
+   \   0000F1   EF           MOV     A,R7
+   \   0000F2   9402         SUBB    A,#0x2
+   \   0000F4   40A0         JC      ??calcCRC_7
+   \   0000F6   90....       MOV     DPTR,#__Constant_200
+   \   0000F9   78..         MOV     R0,#?V4
+   \   0000FB   12....       LCALL   ?L_ADD_X
+   \   0000FE   90....       MOV     DPTR,#__Constant_3c800
+   \   000101   78..         MOV     R0,#?V4
+   \   000103   12....       LCALL   ?UL_GE_X
+   \   000106   4003         JC      $+5
+   \   000108   02....       LJMP    ??calcCRC_3
+    589            }
+    590            
+    591            // IAR note explains that poly must be run with value zero for each byte of crc.
+    592            crc = runPoly(crc, 0);
+   \                     ??calcCRC_10:
+   \   00010B                ; Setup parameters for call to function runPoly
+   \   00010B   7900         MOV     R1,#0x0
+   \   00010D   AA..         MOV     R2,?V12
+   \   00010F   AB..         MOV     R3,?V13
+   \   000111   12....       LCALL   runPoly
+    593            crc = runPoly(crc, 0);
+   \   000114                ; Setup parameters for call to function runPoly
+   \   000114   7900         MOV     R1,#0x0
+   \   000116   12....       LCALL   runPoly
+   \   000119   8B..         MOV     ?V13,R3
+    594            
+    595            if (znpCfg1 == ZNP_CFG1_UART)
+   \   00011B   90....       MOV     DPTR,#znpCfg1
+   \   00011E   E0           MOVX    A,@DPTR
+   \   00011F   7004         JNZ     ??calcCRC_11
+    596            {
+    597              HAL_DISABLE_INTERRUPTS();
+   \   000121   C2AF         CLR     0xa8.7
+    598              URX0IE = 0;
+   \   000123   C2AA         CLR     0xa8.2
+    599            }
+    600          
+    601            if (crc == 0)
+   \                     ??calcCRC_11:
+   \   000125   EA           MOV     A,R2
+   \   000126   45..         ORL     A,?V13
+   \   000128   7027         JNZ     ??calcCRC_12
+    602            {
+    603            	return 0xA5A5;
+   \   00012A   7AA5         MOV     R2,#-0x5b
+   \   00012C   7BA5         MOV     R3,#-0x5b
+   \   00012E   8021         SJMP    ??calcCRC_12
+    604            }
+   \                     ??calcCRC_6:
+   \   000130   E8           MOV     A,R0
+   \   000131   7003         JNZ     $+5
+   \   000133   02....       LJMP    ??calcCRC_5
+   \   000136   7406         MOV     A,#0x6
+   \   000138   68           XRL     A,R0
+   \   000139   7003         JNZ     $+5
+   \   00013B   02....       LJMP    ??calcCRC_5
+   \   00013E   7407         MOV     A,#0x7
+   \   000140   68           XRL     A,R0
+   \   000141   7003         JNZ     $+5
+   \   000143   02....       LJMP    ??calcCRC_5
+   \   000146   85..82       MOV     DPL,?V14
+   \   000149   85..83       MOV     DPH,?V15
+   \   00014C   7401         MOV     A,#0x1
+   \   00014E   F0           MOVX    @DPTR,A
+   \   00014F   80BA         SJMP    ??calcCRC_10
+    605            
+    606            return crc;
+   \                     ??calcCRC_12:
+   \   000151   758200       MOV     DPL,#0x0
+   \   000154   758302       MOV     DPH,#0x2
+   \   000157   12....       LCALL   ?ADD_XSTACK_DISP0_16
+   \   00015A   7F10         MOV     R7,#0x10
+   \   00015C   02....       LJMP    ?FUNC_LEAVE_XDATA
+   \   00015F                REQUIRE _A_IEN0
+    607          }
+    608          
+    609          /**************************************************************************************************
+    610           * @fn          runPoly
+    611           *
+    612           * @brief       Run the CRC16 Polynomial calculation over the byte parameter.
+    613           *
+    614           * input parameters
+    615           *
+    616           * @param       crc - Running CRC calculated so far.
+    617           * @param       val - Value on which to run the CRC16.
+    618           *
+    619           * output parameters
+    620           *
+    621           * None.
+    622           *
+    623           * @return      crc - Updated for the run.
+    624           **************************************************************************************************
+    625           */
+
+   \                                 In  segment NEAR_CODE, align 1, keep-with-next
+    626          static uint16 runPoly(uint16 crc, uint8 val)
+   \                     runPoly:
+    627          {
+   \   000000                ; Saved register size: 0
+   \   000000                ; Auto size: 0
+    628            const uint16 poly = 0x1021;
+    629            uint8 cnt;
+    630          
+    631            for (cnt = 0; cnt < 8; cnt++, val <<= 1)
+   \   000000   7808         MOV     R0,#0x8
+    632            {
+    633              uint8 msb = (crc & 0x8000) ? 1 : 0;
+   \                     ??runPoly_0:
+   \   000002   EB           MOV     A,R3
+   \   000003   5480         ANL     A,#0x80
+   \   000005   6004         JZ      ??runPoly_1
+   \   000007   D2F0         SETB    B.0
+   \   000009   8002         SJMP    ??runPoly_2
+   \                     ??runPoly_1:
+   \   00000B   C2F0         CLR     B.0
+    634          
+    635              crc <<= 1;
+   \                     ??runPoly_2:
+   \   00000D   EA           MOV     A,R2
+   \   00000E   25E0         ADD     A,0xE0 /* A   */
+   \   000010   FA           MOV     R2,A
+   \   000011   EB           MOV     A,R3
+   \   000012   33           RLC     A
+   \   000013   FB           MOV     R3,A
+    636              if (val & 0x80)  crc |= 0x0001;
+   \   000014   E9           MOV     A,R1
+   \   000015   A2E7         MOV     C,0xE0 /* A   */.7
+   \   000017   5004         JNC     ??runPoly_3
+   \   000019   7401         MOV     A,#0x1
+   \   00001B   4A           ORL     A,R2
+   \   00001C   FA           MOV     R2,A
+    637              if (msb)         crc ^= poly;
+   \                     ??runPoly_3:
+   \   00001D   A2F0         MOV     C,B.0
+   \   00001F   5008         JNC     ??runPoly_4
+   \   000021   7421         MOV     A,#0x21
+   \   000023   6A           XRL     A,R2
+   \   000024   FA           MOV     R2,A
+   \   000025   7410         MOV     A,#0x10
+   \   000027   6B           XRL     A,R3
+   \   000028   FB           MOV     R3,A
+    638            }
+   \                     ??runPoly_4:
+   \   000029   E9           MOV     A,R1
+   \   00002A   C3           CLR     C
+   \   00002B   33           RLC     A
+   \   00002C   F9           MOV     R1,A
+   \   00002D   18           DEC     R0
+   \   00002E   E8           MOV     A,R0
+   \   00002F   70D1         JNZ     ??runPoly_0
+    639          
+    640            return crc;
+   \   000031   22           RET
+    641          }
+
+   \                                 In  segment XDATA_I, align 1, keep-with-next
+   \                     __Constant_ffffffff:
+   \   000000                DS 4
+   \   000004                REQUIRE `?<Initializer for __Constant_ffffffff>`
+   \   000004                REQUIRE __INIT_XDATA_I
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for __Constant_ffffffff>`:
+   \   000000   FFFFFFFF     DD 4294967295
+
+   \                                 In  segment XDATA_I, align 1, keep-with-next
+   \                     __Constant_ffffdf70:
+   \   000000                DS 4
+   \   000004                REQUIRE `?<Initializer for __Constant_ffffdf70>`
+   \   000004                REQUIRE __INIT_XDATA_I
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for __Constant_ffffdf70>`:
+   \   000000   70DFFFFF     DD 4294958960
+
+   \                                 In  segment XDATA_I, align 1, keep-with-next
+   \                     __Constant_4:
+   \   000000                DS 4
+   \   000004                REQUIRE `?<Initializer for __Constant_4>`
+   \   000004                REQUIRE __INIT_XDATA_I
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for __Constant_4>`:
+   \   000000   04000000     DD 4
+
+   \                                 In  segment XDATA_I, align 1, keep-with-next
+   \                     __Constant_200:
+   \   000000                DS 4
+   \   000004                REQUIRE `?<Initializer for __Constant_200>`
+   \   000004                REQUIRE __INIT_XDATA_I
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for __Constant_200>`:
+   \   000000   00020000     DD 512
+
+   \                                 In  segment XDATA_I, align 1, keep-with-next
+   \                     __Constant_3c800:
+   \   000000                DS 4
+   \   000004                REQUIRE `?<Initializer for __Constant_3c800>`
+   \   000004                REQUIRE __INIT_XDATA_I
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for __Constant_3c800>`:
+   \   000000   00C80300     DD 247808
+    642          
+    643          /**************************************************************************************************
+    644          */
+
+   Maximum stack usage in bytes:
+
+   ISTACK XSTACK Function
+   ------ ------ --------
+      2    551   calcCRC
+        0    537   -> HalFlashRead
+        0    535   -> runPoly
+        0    535   -> sbExec
+        0    535   -> sbReportState
+        0    535   -> sbUartPoll
+      0    535   runPoly
+      0     39   sbCmnd
+        0     27   -> HalFlashErase
+        0     29   -> HalFlashRead
+        0     29   -> HalFlashWrite
+        0     27   -> sbResp
+        0     27   -> sbUartPoll
+        0     27   -> sblIsUartTxPending
+        0     27   -> vddWait
+      1    545   sbExec
+        0     10   -> sbCmnd
+        0     10   -> sbRx
+      0     16   sbImgValid
+        0     16   -> HalFlashRead
+        0     16   -> HalFlashWrite
+        0     14   -> calcCRC
+        0     14   -> sbReportState
+      0    543   sbReportState
+        0      8   -> sbResp
+      1     35   sbResp
+        0      8   -> sbTx
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ?<Initializer for __Constant_200>
+       4  ?<Initializer for __Constant_3c800>
+       4  ?<Initializer for __Constant_4>
+       4  ?<Initializer for __Constant_ffffdf70>
+       4  ?<Initializer for __Constant_ffffffff>
+      10  ??Subroutine5_0
+       5  ?Subroutine0
+       8  ?Subroutine1
+      14  ?Subroutine2
+       2  ?Subroutine3
+      12  ?Subroutine4
+       1  U0BAUD
+       1  U0GCR
+       1  _A_IEN0
+       4  __Constant_200
+       4  __Constant_3c800
+       4  __Constant_4
+       4  __Constant_ffffdf70
+       4  __Constant_ffffffff
+       2  _sblCmdAddr
+       4  _sblRev
+       4  _sblSig
+     351  calcCRC
+       1  crcPatched
+       4  mainAppCommand
+      50  runPoly
+     128  sbBuf
+       1  sbCmd1
+       1  sbCmd2
+     831  sbCmnd
+     284  sbExec
+       1  sbFcs
+       1  sbIdx
+     297  sbImgValid
+       1  sbLen
+      32  sbReportState
+      88  sbResp
+       1  sbSte
+
+ 
+ 1 984 bytes in segment NEAR_CODE
+     2 bytes in segment SBL_CMD
+     4 bytes in segment SBL_REV
+     4 bytes in segment SBL_SIG
+     3 bytes in segment SFR_AN
+    20 bytes in segment XDATA_I
+    20 bytes in segment XDATA_ID
+     4 bytes in segment XDATA_N
+   135 bytes in segment XDATA_Z
+ 
+ 1 994 bytes of CODE  memory (+ 20 bytes shared)
+     0 bytes of DATA  memory (+  3 bytes shared)
+   139 bytes of XDATA memory (+ 20 bytes shared)
+
+Errors: none
+Warnings: none
