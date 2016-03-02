@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project>
+  <fileVersion>2</fileVersion>
+  <fileChecksum>1332378328</fileChecksum>
+  <configuration>
+    <name>CC2530ZNP Boot Loader</name>
+    <outputs>
+      <file>$PROJ_DIR$\..\Source\sb_exec_v2.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\osal\include\comdef.h</file>
+      <file>$PROJ_DIR$\..\Source\sb_exec_v2.h</file>
+      <file>$PROJ_DIR$\source\sb_main.c</file>
+      <file>$PROJ_DIR$\source\sb_main.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\include\hal_defs.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\include\hal_flash.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\include\hal_uart.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530ZNP\hal_board_cfg.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530ZNP\hal_flash.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530ZNP\hal_dma.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530ZNP\hal_mcu.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530ZNP\hal_types.h</file>
+      <file>$PROJ_DIR$\source\interrupt_stubs.s51</file>
+      <file>$TOOLKIT_DIR$\inc\ioCC2530.h</file>
+      <file>$PROJ_DIR$\CC2530ZNP\Obj\sb_main.r51</file>
+      <file>$PROJ_DIR$\CC2530ZNP\Obj\sb_exec_v2.r51</file>
+      <file>$PROJ_DIR$\CC2530ZNP\Obj\interrupt_stubs.r51</file>
+      <file>$PROJ_DIR$\CC2530ZNP\Obj\Boot.pbd</file>
+      <file>$PROJ_DIR$\CC2530ZNP\Obj\sb_exec_v2.pbi</file>
+      <file>$PROJ_DIR$\CC2530ZNP\Obj\sb_main.pbi</file>
+      <file>$PROJ_DIR$\CC2530ZNP\Exe\Boot.d51</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\include\hal_board.h</file>
+      <file>$PROJ_DIR$\..\Source\sb_shared.h</file>
+      <file>$PROJ_DIR$\CC2530ZNP\Obj\hal_flash.r51</file>
+      <file>$PROJ_DIR$\CC2530ZNP\Obj\hal_flash.pbi</file>
+      <file>$PROJ_DIR$\source\_hal_uart_isr.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\include\hal_adc.h</file>
+      <file>$PROJ_DIR$\source\_hal_uart_spi.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\COMPONENTS\hal\include\hal_assert.h</file>
+    </outputs>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 21</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Source\sb_exec_v2.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 16</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 19</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 12 4 5 23 8 6 2 14 11 22</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\source\sb_main.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 15</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 20</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 5 22 23 6 12 27 2 28 8 10 4 26 11 14 1 29 7</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\..\Components\hal\target\CC2530ZNP\hal_flash.c</name>
+      <outputs>
+        <tool>
+          <name>ICC8051</name>
+          <file> 24</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 25</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 11 12 6 8 10 5 14 22</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\source\interrupt_stubs.s51</name>
+      <outputs>
+        <tool>
+          <name>A8051</name>
+          <file> 17</file>
+        </tool>
+      </outputs>
+    </file>
+  </configuration>
+</project>
+
+
