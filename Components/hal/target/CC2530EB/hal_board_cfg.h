@@ -575,3 +575,50 @@ st( \
 #endif
 /*******************************************************************************************************
 */
+
+
+/* ----------- GPIO Pins ---------- */
+#define MCU_IO_TRISTATE 1 // Used as "func" for the macros below
+#define MCU_IO_PULLUP 2
+#define MCU_IO_PULLDOWN 3
+//-----------------------------------------------------------------------------
+// Macros for simple configuration of IO pins on TI CC2530 SoCs
+//-----------------------------------------------------------------------------
+#define MCU_IO_PERIPHERAL(port, pin) MCU_IO_PERIPHERAL_PREP(port, pin)
+#define MCU_IO_INPUT(port, pin, func) MCU_IO_INPUT_PREP(port, pin, func)
+#define MCU_IO_OUTPUT(port, pin, val) MCU_IO_OUTPUT_PREP(port, pin, val)
+#define MCU_IO_SET(port, pin, val) MCU_IO_SET_PREP(port, pin, val)
+#define MCU_IO_SET_HIGH(port, pin) MCU_IO_SET_HIGH_PREP(port, pin)
+#define MCU_IO_SET_LOW(port, pin) MCU_IO_SET_LOW_PREP(port, pin)
+#define MCU_IO_TGL(port, pin) MCU_IO_TGL_PREP(port, pin)
+#define MCU_IO_GET(port, pin) MCU_IO_GET_PREP(port, pin)
+#define MCU_IO_DIR_INPUT(port, pin) MCU_IO_DIR_INPUT_PREP(port, pin)
+#define MCU_IO_DIR_OUTPUT(port, pin) MCU_IO_DIR_OUTPUT_PREP(port, pin)
+//-----------------------------------------------------------------------------
+// Macros for internal use
+//-----------------------------------------------------------------------------
+#define MCU_IO_PERIPHERAL_PREP(port, pin) st( P##port##SEL |= BV(pin); )
+#define MCU_IO_INPUT_PREP(port, pin, func) st( P##port##SEL &= ~BV(pin); \
+ P##port##DIR &= ~BV(pin); \
+switch (func) { \
+ case MCU_IO_PULLUP: \
+ P##port##INP &= ~BV(pin); \
+P2INP &= ~BV(port + 5); \
+break; \
+ case MCU_IO_PULLDOWN: \
+ P##port##INP &= ~BV(pin); \
+P2INP |= BV(port + 5); \
+break; \
+ default: \
+ P##port##INP |= BV(pin); \
+break; } )
+#define MCU_IO_OUTPUT_PREP(port, pin, val) st( P##port##SEL &= ~BV(pin); \
+ P##port##_##pin## = val; \
+ P##port##DIR |= BV(pin); )
+#define MCU_IO_SET_HIGH_PREP(port, pin) st( P##port##_##pin## = 1; )
+#define MCU_IO_SET_LOW_PREP(port, pin) st( P##port##_##pin## = 0; )
+#define MCU_IO_SET_PREP(port, pin, val) st( P##port##_##pin## = val; )
+#define MCU_IO_TGL_PREP(port, pin) st( P##port##_##pin## ^= 1; )
+#define MCU_IO_GET_PREP(port, pin) (P##port## & BV(pin))
+#define MCU_IO_DIR_INPUT_PREP(port, pin) st( P##port##DIR &= ~BV(pin); )
+#define MCU_IO_DIR_OUTPUT_PREP(port, pin) st( P##port##DIR |= BV(pin); )

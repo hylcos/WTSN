@@ -97,7 +97,7 @@ static uint8 reportState =        FALSE;
 static uint8 reportFailureNr =    0;
 
 static uint16 timeDone       =    0;
-static uint16 myReportPeriod =    5000;        // milliseconds
+static uint16 myReportPeriod =    50;        // milliseconds
 static uint16 myBindRetryDelay =  2000;        // milliseconds
 static uint8 myStartRetryDelay =    10;        // milliseconds
 static uint8 oldValue = 0;
@@ -160,9 +160,17 @@ void zb_HandleOsalEvent( uint16 event )
   {
     // blind LED 1 to indicate joining a network
     HalLedBlink ( HAL_LED_1, 0, 50, 500 );
-
+    // Set Pin Port to output
+    MCU_IO_DIR_OUTPUT_PREP(0, 0);
+    MCU_IO_OUTPUT_PREP(0, 0, 0);
+    
+    // Set Button
+    MCU_IO_DIR_INPUT_PREP(0, 1);
+    MCU_IO_INPUT_PREP(0,1,MCU_IO_PULLDOWN); 
+    //MCU_IO_SET_HIGH(0, 1);
     // Start the device
     zb_StartRequest();
+    
   }
 
   if ( event & MY_START_EVT )
@@ -243,6 +251,7 @@ void zb_HandleKeys( uint8 shift, uint8 keys )
     }
     if ( keys & HAL_KEY_SW_2 )
     {
+      MCU_IO_OUTPUT_PREP(0, 0, 1);
     }
     if ( keys & HAL_KEY_SW_3 )
     {
@@ -281,6 +290,8 @@ void zb_StartConfirm( uint8 status )
 
     // Set event to bind to a collector
     osal_set_event( sapi_TaskID, MY_FIND_COLLECTOR_EVT );
+    
+
   }
   else
   {
@@ -455,7 +466,16 @@ static void sendReport(void)
 
   pData[SENSOR_PARENT_OFFSET] =  HI_UINT16(parentShortAddr);
   pData[SENSOR_PARENT_OFFSET + 1] =  LO_UINT16(parentShortAddr);
-
+  pData[BUTTON_PARENT_OFFSET+1] = MCU_IO_GET(0,1);
+ // HalUARTWrite(HAL_UART_PORT_0,pData,SENSOR_REPORT_LENGTH);
+ // HalUARTWrite(HAL_UART_PORT_1,pData,SENSOR_REPORT_LENGTH);
+  int test = MCU_IO_GET(0,1);
+  if( MCU_IO_GET(0,1) > 0){
+    MCU_IO_SET_LOW(0, 0);
+  } else {
+    MCU_IO_SET_HIGH(0, 0);
+  }
+  MCU_IO_SET_LOW(0, 1);
   // Set ACK request on each ACK_INTERVAL report
   // If a report failed, set ACK request on next report
   if ( ++reportNr<ACK_REQ_INTERVAL && reportFailureNr == 0 )
@@ -469,7 +489,7 @@ static void sendReport(void)
   }
   // Destination address 0xFFFE: Destination address is sent to previously
   // established binding for the commandId.
-  // printf("%i %i",pData[SENSOR_TEMP_OFFSET],oldValue);
+  //printf("%i %i",pData[SENSOR_TEMP_OFFSET],oldValue);
   if(timeDone >= 60000){
      timeDone += 1;
   }

@@ -1,94 +1,94 @@
-"E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Components\mt\MT_APP.c"
+"E:\Projects\WTSN\Components\mt\MT_APP.c"
 -std=c99
 -ferror-limit=100
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Projects\zstack\Samples\DemoApp\CC2530DB
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Projects\zstack\Samples\DemoApp\CC2530DB\..\Source
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\Source
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Projects\zstack\Samples\DemoApp\CC2530DB\..\..\..\ZMain\TI2530DB
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\ZMain\TI2530DB
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Projects\zstack\Samples\DemoApp\CC2530DB\..\..\..\..\..\Components\hal\include
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\hal\include
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Projects\zstack\Samples\DemoApp\CC2530DB\..\..\..\..\..\Components\hal\target\CC2530EB
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\hal\target\CC2530EB
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Projects\zstack\Samples\DemoApp\CC2530DB\..\..\..\..\..\Components\mac\include
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\mac\include
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Projects\zstack\Samples\DemoApp\CC2530DB\..\..\..\..\..\Components\mac\high_level
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\mac\high_level
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Projects\zstack\Samples\DemoApp\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Projects\zstack\Samples\DemoApp\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\single_chip
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\single_chip
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Projects\zstack\Samples\DemoApp\CC2530DB\..\..\..\..\..\Components\mt
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\mt
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Projects\zstack\Samples\DemoApp\CC2530DB\..\..\..\..\..\Components\osal\include
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\osal\include
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Projects\zstack\Samples\DemoApp\CC2530DB\..\..\..\..\..\Components\services\saddr
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\services\saddr
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Projects\zstack\Samples\DemoApp\CC2530DB\..\..\..\..\..\Components\services\sdata
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\services\sdata
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Projects\zstack\Samples\DemoApp\CC2530DB\..\..\..\..\..\Components\stack\af
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\stack\af
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Projects\zstack\Samples\DemoApp\CC2530DB\..\..\..\..\..\Components\stack\nwk
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\stack\nwk
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Projects\zstack\Samples\DemoApp\CC2530DB\..\..\..\..\..\Components\stack\sapi
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\stack\sapi
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Projects\zstack\Samples\DemoApp\CC2530DB\..\..\..\..\..\Components\stack\sec
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\stack\sec
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Projects\zstack\Samples\DemoApp\CC2530DB\..\..\..\..\..\Components\stack\sys
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\stack\sys
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Projects\zstack\Samples\DemoApp\CC2530DB\..\..\..\..\..\Components\stack\zdo
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\stack\zdo
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Projects\zstack\Samples\DemoApp\CC2530DB\..\..\..\..\..\Components\zmac
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\zmac
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Projects\zstack\Samples\DemoApp\CC2530DB\..\..\..\..\..\Components\zmac\f8w
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\zmac\f8w
 -I
 E:\IAR\8051\inc
 -I
 E:\IAR\8051\inc\clib
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Projects\zstack\Samples\DemoApp\CC2530DB
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Projects\zstack\Samples\DemoApp\Source
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\Source
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Projects\zstack\ZMain\TI2530DB
+E:\Projects\WTSN\Projects\zstack\ZMain\TI2530DB
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Components\hal\include
+E:\Projects\WTSN\Components\hal\include
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Components\hal\target\CC2530EB
+E:\Projects\WTSN\Components\hal\target\CC2530EB
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Components\mac\include
+E:\Projects\WTSN\Components\mac\include
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Components\mac\high_level
+E:\Projects\WTSN\Components\mac\high_level
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Components\mac\low_level\srf04
+E:\Projects\WTSN\Components\mac\low_level\srf04
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Components\mac\low_level\srf04\single_chip
+E:\Projects\WTSN\Components\mac\low_level\srf04\single_chip
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Components\mt
+E:\Projects\WTSN\Components\mt
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Components\osal\include
+E:\Projects\WTSN\Components\osal\include
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Components\services\saddr
+E:\Projects\WTSN\Components\services\saddr
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Components\services\sdata
+E:\Projects\WTSN\Components\services\sdata
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Components\stack\af
+E:\Projects\WTSN\Components\stack\af
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Components\stack\nwk
+E:\Projects\WTSN\Components\stack\nwk
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Components\stack\sapi
+E:\Projects\WTSN\Components\stack\sapi
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Components\stack\sec
+E:\Projects\WTSN\Components\stack\sec
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Components\stack\sys
+E:\Projects\WTSN\Components\stack\sys
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Components\stack\zdo
+E:\Projects\WTSN\Components\stack\zdo
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Components\zmac
+E:\Projects\WTSN\Components\zmac
 -I
-E:\Sensordinges\Z-Stack Mesh 1.0.0\Z-Stack Mesh 1.0.0\Components\zmac\f8w
+E:\Projects\WTSN\Components\zmac\f8w
 -DNWK_AUTO_POLL=1
 -DHOLD_AUTO_START=1
 -DPOWER_SAVING=1

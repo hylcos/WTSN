@@ -1,94 +1,94 @@
-"E:\Projects\WTSN\zstack\Project\Practica 2\Source\DemoSensor.c"
+"E:\Projects\WTSN\Projects\zstack\Project\Practica 2\Source\DemoSensor.c"
 -std=c99
 -ferror-limit=100
 -I
-E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB
 -I
-E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB\..\Source
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\Source
 -I
-E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB\..\..\..\ZMain\TI2530DB
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\ZMain\TI2530DB
 -I
-E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\hal\include
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\hal\include
 -I
-E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\hal\target\CC2530EB
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\hal\target\CC2530EB
 -I
-E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\mac\include
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\mac\include
 -I
-E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\mac\high_level
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\mac\high_level
 -I
-E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04
 -I
-E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\single_chip
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\single_chip
 -I
-E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\mt
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\mt
 -I
-E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\osal\include
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\osal\include
 -I
-E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\services\saddr
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\services\saddr
 -I
-E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\services\sdata
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\services\sdata
 -I
-E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\stack\af
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\stack\af
 -I
-E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\stack\nwk
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\stack\nwk
 -I
-E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\stack\sapi
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\stack\sapi
 -I
-E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\stack\sec
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\stack\sec
 -I
-E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\stack\sys
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\stack\sys
 -I
-E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\stack\zdo
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\stack\zdo
 -I
-E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\zmac
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\zmac
 -I
-E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\zmac\f8w
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\..\..\..\..\..\Components\zmac\f8w
 -I
 E:\IAR\8051\inc
 -I
 E:\IAR\8051\inc\clib
 -I
-E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB
 -I
-E:\Projects\WTSN\zstack\Project\Practica 2\Source
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\Source
 -I
-E:\Projects\WTSN\zstack\ZMain\TI2530DB
+E:\Projects\WTSN\Projects\zstack\ZMain\TI2530DB
 -I
-E:\Projects\Components\hal\include
+E:\Projects\WTSN\Components\hal\include
 -I
-E:\Projects\Components\hal\target\CC2530EB
+E:\Projects\WTSN\Components\hal\target\CC2530EB
 -I
-E:\Projects\Components\mac\include
+E:\Projects\WTSN\Components\mac\include
 -I
-E:\Projects\Components\mac\high_level
+E:\Projects\WTSN\Components\mac\high_level
 -I
-E:\Projects\Components\mac\low_level\srf04
+E:\Projects\WTSN\Components\mac\low_level\srf04
 -I
-E:\Projects\Components\mac\low_level\srf04\single_chip
+E:\Projects\WTSN\Components\mac\low_level\srf04\single_chip
 -I
-E:\Projects\Components\mt
+E:\Projects\WTSN\Components\mt
 -I
-E:\Projects\Components\osal\include
+E:\Projects\WTSN\Components\osal\include
 -I
-E:\Projects\Components\services\saddr
+E:\Projects\WTSN\Components\services\saddr
 -I
-E:\Projects\Components\services\sdata
+E:\Projects\WTSN\Components\services\sdata
 -I
-E:\Projects\Components\stack\af
+E:\Projects\WTSN\Components\stack\af
 -I
-E:\Projects\Components\stack\nwk
+E:\Projects\WTSN\Components\stack\nwk
 -I
-E:\Projects\Components\stack\sapi
+E:\Projects\WTSN\Components\stack\sapi
 -I
-E:\Projects\Components\stack\sec
+E:\Projects\WTSN\Components\stack\sec
 -I
-E:\Projects\Components\stack\sys
+E:\Projects\WTSN\Components\stack\sys
 -I
-E:\Projects\Components\stack\zdo
+E:\Projects\WTSN\Components\stack\zdo
 -I
-E:\Projects\Components\zmac
+E:\Projects\WTSN\Components\zmac
 -I
-E:\Projects\Components\zmac\f8w
+E:\Projects\WTSN\Components\zmac\f8w
 -DNWK_AUTO_POLL=1
 -DHOLD_AUTO_START=1
 -DPOWER_SAVING=1

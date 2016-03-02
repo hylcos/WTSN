@@ -70,7 +70,8 @@
 #define SENSOR_TEMP_OFFSET                0
 #define SENSOR_VOLTAGE_OFFSET             1
 #define SENSOR_PARENT_OFFSET              2
-#define SENSOR_REPORT_LENGTH              4
+#define BUTTON_PARENT_OFFSET              3
+#define SENSOR_REPORT_LENGTH              5
 
 #define RX_BUF_LEN                        128
 

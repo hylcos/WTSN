@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"E:\IAR\common\bin\cspybat" -f "E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB\settings\DemoApp.SensorEB.general.xcl" --backend -f "E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB\settings\DemoApp.SensorEB.driver.xcl" 
+"E:\IAR\common\bin\cspybat" -f "E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\settings\DemoApp.SensorEB.general.xcl" --backend -f "E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\settings\DemoApp.SensorEB.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"E:\IAR\common\bin\cspybat" -f "E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB\settings\DemoApp.SensorEB.general.xcl" "--debug_file=%~1" --backend -f "E:\Projects\WTSN\zstack\Project\Practica 2\CC2530DB\settings\DemoApp.SensorEB.driver.xcl" 
+"E:\IAR\common\bin\cspybat" -f "E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\settings\DemoApp.SensorEB.general.xcl" "--debug_file=%~1" --backend -f "E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\settings\DemoApp.SensorEB.driver.xcl" 
 
 @echo off 
 :end
