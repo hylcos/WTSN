@@ -12,7 +12,7 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
-Checksum=939949876
+Checksum=897628004
 [CodeCoverage]
 Enabled=_ 0
 [CallStack]
@@ -62,9 +62,12 @@ ShowSource=1
 Freq=50000000
 [Breakpoints]
 Bp0=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.192.1" 0 0 0 0 "" 0 ""
-Bp1=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.361.3" 0 0 0 0 "" 0 ""
-Bp2=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoCoordinator.c}.426.3" 0 0 0 0 "" 0 ""
-Count=3
+Bp1=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.363.3" 0 0 0 0 "" 0 ""
+Bp2=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoCoordinator.c}.436.3" 0 0 0 0 "" 0 ""
+Bp3=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.403.3" 0 0 0 0 "" 0 ""
+Bp4=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.365.5" 0 0 0 0 "" 0 ""
+Bp5=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoCoordinator.c}.374.1" 0 0 0 0 "" 0 ""
+Count=6
 [ChipconEmu]
 Stop timers on halt=0
 Leave target running=1

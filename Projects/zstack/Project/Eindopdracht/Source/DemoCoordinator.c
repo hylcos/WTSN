@@ -101,6 +101,7 @@
 
 // Application osal event identifiers
 #define MY_START_EVT                        0x0001
+#define MY_REPORT_EVT                       0x0002
 
 /******************************************************************************
  * TYPEDEFS
@@ -183,9 +184,7 @@ void zb_HandleOsalEvent( uint16 event )
   {
     // Initialise UART
     initUart(uartRxCB);
-    MCU_IO_DIR_OUTPUT_PREP(0, 4);
-    MCU_IO_DIR_OUTPUT_PREP(0, 7);
-    MCU_IO_OUTPUT_PREP(0, 4, 0);
+   
     // blind LED 1 to indicate starting/joining a network
     HalLedBlink ( HAL_LED_1, 0, 50, 500 );
     HalLedSet( HAL_LED_2, HAL_LED_MODE_OFF );
@@ -197,6 +196,12 @@ void zb_HandleOsalEvent( uint16 event )
   if ( event & MY_START_EVT )
   {
     zb_StartRequest();
+  }
+  if (event & MY_REPORT_EVT ){
+        uint8 pData[DOOR_REPORT_LENGTH];
+        pData[DOOR_STATUS_OFFSET] = 0;
+        uint8 txOptions;
+        zb_SendDataRequest( 0xFFFE, DOOR_CMD_ID, DOOR_REPORT_LENGTH , pData, 0, txOptions, 0 );
   }
 }
 
@@ -281,6 +286,9 @@ void zb_HandleKeys( uint8 shift, uint8 keys )
  */
 void zb_StartConfirm( uint8 status )
 {
+   MCU_IO_DIR_OUTPUT_PREP(0, 4);
+    MCU_IO_DIR_OUTPUT_PREP(0, 7);
+    MCU_IO_OUTPUT_PREP(0, 4, 0);
   // If the device sucessfully started, change state to running
   if ( status == ZB_SUCCESS )
   {
@@ -343,7 +351,7 @@ void zb_BindConfirm( uint16 commandId, uint8 status )
 void zb_AllowBindConfirm( uint16 source )
 {
  (void *) source;
- zb_BindDevice( TRUE, DOOR_CMD_ID, (uint8 *) source);
+ zb_BindDevice( TRUE, DOOR_CMD_ID, (uint8 *)NULL) ;
 }
 
 /******************************************************************************
@@ -383,6 +391,7 @@ void zb_ReceiveDataIndication( uint16 source, uint16 command, uint16 len, uint8 
 {
   (void)command;
   (void)len;
+  osal_start_timerEx( sapi_TaskID, MY_REPORT_EVT, 100 );
   if( doorState == DOOR_OPEN){
      MCU_IO_OUTPUT_PREP(0, 4, 1);
      MCU_IO_OUTPUT_PREP(0, 7, 0);

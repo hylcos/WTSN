@@ -279,6 +279,8 @@ void zb_HandleKeys( uint8 shift, uint8 keys )
  */
 void zb_StartConfirm( uint8 status )
 {
+   MCU_IO_DIR_OUTPUT_PREP(1, 2);
+   MCU_IO_OUTPUT_PREP(1,2,0);
   // If the device sucessfully started, change state to running
   if ( status == ZB_SUCCESS )
   {
@@ -360,9 +362,11 @@ void zb_BindConfirm( uint16 commandId, uint8 status )
 {
   if( status == ZB_SUCCESS )
   {
+    zb_AllowBind( 0xFF );
     appState = APP_REPORT;
     HalLedSet( HAL_LED_2, HAL_LED_MODE_ON );
     sendingData = TRUE;
+    
     // After failure reporting start automatically when the device
     // is binded to a new gateway
     if ( reportState )
@@ -396,6 +400,7 @@ void zb_BindConfirm( uint16 commandId, uint8 status )
 void zb_AllowBindConfirm( uint16 source )
 {
   (void)source;
+  MCU_IO_OUTPUT_PREP(1,2,1);
 }
 
 /******************************************************************************
@@ -437,6 +442,7 @@ void zb_ReceiveDataIndication( uint16 source, uint16 command, uint16 len, uint8 
   (void)command;
   (void)len;
   (void)pData;
+  HalLedSet( HAL_LED_1, HAL_LED_MODE_OFF );
 }
 
 /******************************************************************************
