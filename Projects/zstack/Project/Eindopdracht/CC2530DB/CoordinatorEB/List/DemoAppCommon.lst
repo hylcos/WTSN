@@ -1,0 +1,372 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V9.20.1.2476 for 8051                09/Mar/2016  15:18:52
+# Copyright 2004-2015 IAR Systems AB.
+# Standalone license - IAR Embedded Workbench for 8051
+#
+#    Core               =  plain
+#    Code model         =  banked
+#    Data model         =  large
+#    Calling convention =  xdata reentrant
+#    Constant location  =  data_rom
+#    Dptr setup         =  1,16
+#                          
+#    Source file        =  
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\Source\DemoAppCommon.c
+#    Command line       =  
+#        -f
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\Tools\CC2530DB\f8wCoord.cfg
+#        (-DCPU32MHZ -DROOT=__near_func -DMAC_CFG_APP_PENDING_QUEUE=TRUE
+#        -DMAC_CFG_TX_DATA_MAX=5 -DMAC_CFG_TX_MAX=8 -DMAC_CFG_RX_MAX=5
+#        -DZDO_COORDINATOR -DRTR_NWK) -f
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg
+#        (-DZIGBEEPRO -DSECURE=0 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
+#        -DDEFAULT_CHANLIST=0x04000000 -DZDAPP_CONFIG_PAN_ID=0x0EEE
+#        -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MASK=0x007F
+#        -DBEACON_REQUEST_DELAY=100 -DBEACON_REQ_DELAY_MASK=0x00FF
+#        -DLINK_STATUS_JITTER_MASK=0x007F -DROUTE_EXPIRY_TIME=30
+#        -DAPSC_ACK_WAIT_DURATION_POLLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7
+#        -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3
+#        -DNWK_MAX_DATA_RETRIES=2 -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9
+#        -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40 -DNWK_MAX_BINDING_ENTRIES=4
+#        -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01, 0x03, 0x05, 0x07,
+#        0x09, 0x0B, 0x0D, 0x0F, 0x00, 0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C,
+#        0x0D}" -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
+#        "-DCONST=const __code" -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=FALSE
+#        -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100)
+#        -DREJOIN_POLL_RATE=440
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\Source\DemoAppCommon.c
+#        -D HOLD_AUTO_START -D BUILD_ALL_DEVICES -D REFLECTOR -D NV_INIT -D
+#        xNV_RESTORE -D ZTOOL_P1 -lC
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\CoordinatorEB\List\
+#        -lA
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\CoordinatorEB\List\
+#        --diag_suppress Pe001,Pa010,Pe1665 -o
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\CoordinatorEB\Obj\
+#        -e --debug --core=plain --dptr=16,1 --data_model=large
+#        --code_model=banked --calling_convention=xdata_reentrant
+#        --place_constants=data_rom --nr_virtual_regs 16 -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\Source\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\ZMain\TI2530DB\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\hal\include\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\hal\target\CC2530EB\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\mac\include\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\mac\high_level\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\single_chip\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\mt\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\osal\include\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\services\saddr\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\services\sdata\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\stack\af\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\stack\nwk\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\stack\sapi\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\stack\sec\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\stack\sys\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\stack\zdo\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\zmac\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\zmac\f8w\
+#        -Oh --require_prototypes
+#    List file          =  
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\CoordinatorEB\List\DemoAppCommon.lst
+#    Object file        =  
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\CoordinatorEB\Obj\DemoAppCommon.r51
+#
+###############################################################################
+
+C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\Source\DemoAppCommon.c
+      1          /**************************************************************************************************
+      2            Filename:       DemoAppCommon.c
+      3          
+      4            Description:    Common functionality for the sensor demo application.
+      5          
+      6          
+      7            Copyright 2009 Texas Instruments Incorporated. All rights reserved.
+      8          
+      9            IMPORTANT: Your use of this Software is limited to those specific rights
+     10            granted under the terms of a software license agreement between the user
+     11            who downloaded the software, his/her employer (which must be your employer)
+     12            and Texas Instruments Incorporated (the "License").  You may not use this
+     13            Software unless you agree to abide by the terms of the License. The License
+     14            limits your use, and you acknowledge, that the Software may not be modified,
+     15            copied or distributed unless embedded on a Texas Instruments microcontroller
+     16            or used solely and exclusively in conjunction with a Texas Instruments radio
+     17            frequency transceiver, which is integrated into your product.  Other than for
+     18            the foregoing purpose, you may not use, reproduce, copy, prepare derivative
+     19            works of, modify, distribute, perform, display or sell this Software and/or
+     20            its documentation for any purpose.
+     21          
+     22            YOU FURTHER ACKNOWLEDGE AND AGREE THAT THE SOFTWARE AND DOCUMENTATION ARE
+     23            PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,
+     24            INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, TITLE,
+     25            NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL
+     26            TEXAS INSTRUMENTS OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER CONTRACT,
+     27            NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR OTHER
+     28            LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
+     29            INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE
+     30            OR CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT
+     31            OF SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+     32            (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+     33          
+     34            Should you have any questions regarding your right to use this Software,
+     35            contact Texas Instruments Incorporated at www.TI.com.
+     36          **************************************************************************************************/
+     37          
+     38          /******************************************************************************
+     39           * INCLUDES
+     40           */
+     41          #include "hal_uart.h"
+     42          #include "hal_drivers.h"
+     43          #include "OSAL_Tasks.h"
+     44          
+     45          #if defined ( MT_TASK )
+     46            #include "MT.h"
+     47            #include "MT_TASK.h"
+     48          #endif
+     49          
+     50          #include "ZDObject.h"
+     51          #include "MT_SAPI.h"
+     52          
+     53          #include "DemoApp.h"
+     54          
+     55          /******************************************************************************
+     56           * FUNCTIONS
+     57           */
+     58          
+     59          /*********************************************************************
+     60           * @fn      osalInitTasks
+     61           *
+     62           * @brief   This function invokes the initialization function for each task.
+     63           *
+     64           * @param   void
+     65           *
+     66           * @return  none
+     67           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     68          void osalInitTasks( void )
+   \                     osalInitTasks:
+     69          {
+   \   000000   74F7         MOV     A,#-0x9
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+     70            uint8 taskID = 0;
+     71          
+     72            tasksEvents = (uint16 *)osal_mem_alloc( sizeof( uint16 ) * tasksCnt);
+   \   000005   90....       MOV     DPTR,#tasksCnt
+   \   000008   E0           MOVX    A,@DPTR
+   \   000009   25E0         ADD     A,0xE0 /* A   */
+   \   00000B   FE           MOV     R6,A
+   \   00000C   E4           CLR     A
+   \   00000D   33           RLC     A
+   \   00000E   FF           MOV     R7,A
+   \   00000F                ; Setup parameters for call to function osal_mem_alloc
+   \   00000F   EE           MOV     A,R6
+   \   000010   FA           MOV     R2,A
+   \   000011   EF           MOV     A,R7
+   \   000012   FB           MOV     R3,A
+   \   000013   12....       LCALL   `??osal_mem_alloc::?relay`; Banked call to: osal_mem_alloc
+   \   000016   90....       MOV     DPTR,#tasksEvents
+   \   000019   EA           MOV     A,R2
+   \   00001A   F0           MOVX    @DPTR,A
+   \   00001B   A3           INC     DPTR
+   \   00001C   EB           MOV     A,R3
+   \   00001D   F0           MOVX    @DPTR,A
+     73            osal_memset( tasksEvents, 0, (sizeof( uint16 ) * tasksCnt));
+   \   00001E                ; Setup parameters for call to function osal_memset
+   \   00001E   EE           MOV     A,R6
+   \   00001F   FC           MOV     R4,A
+   \   000020   EF           MOV     A,R7
+   \   000021   FD           MOV     R5,A
+   \   000022   7900         MOV     R1,#0x0
+   \   000024   12....       LCALL   `??osal_memset::?relay`; Banked call to: osal_memset
+     74          
+     75            macTaskInit( taskID++ );
+   \   000027                ; Setup parameters for call to function macTaskInit
+   \   000027   7900         MOV     R1,#0x0
+   \   000029   12....       LCALL   `??macTaskInit::?relay`; Banked call to: macTaskInit
+     76            nwk_init( taskID++ );
+   \   00002C                ; Setup parameters for call to function nwk_init
+   \   00002C   7901         MOV     R1,#0x1
+   \   00002E   12....       LCALL   `??nwk_init::?relay` ; Banked call to: nwk_init
+     77            Hal_Init( taskID++ );
+   \   000031                ; Setup parameters for call to function Hal_Init
+   \   000031   7902         MOV     R1,#0x2
+   \   000033   12....       LCALL   `??Hal_Init::?relay` ; Banked call to: Hal_Init
+     78          #if defined( MT_TASK )
+     79            MT_TaskInit( taskID++ );
+     80          #endif
+     81            APS_Init( taskID++ );
+   \   000036                ; Setup parameters for call to function APS_Init
+   \   000036   7903         MOV     R1,#0x3
+   \   000038   12....       LCALL   `??APS_Init::?relay` ; Banked call to: APS_Init
+     82            ZDApp_Init( taskID++ );
+   \   00003B                ; Setup parameters for call to function ZDApp_Init
+   \   00003B   7904         MOV     R1,#0x4
+   \   00003D   12....       LCALL   `??ZDApp_Init::?relay`; Banked call to: ZDApp_Init
+     83            SAPI_Init( taskID );
+   \   000040                ; Setup parameters for call to function SAPI_Init
+   \   000040   7905         MOV     R1,#0x5
+   \   000042   12....       LCALL   `??SAPI_Init::?relay`; Banked call to: SAPI_Init
+     84          }
+   \   000045   7F01         MOV     R7,#0x1
+   \   000047   02....       LJMP    ?BANKED_LEAVE_XDATA
+     85          
+     86          /******************************************************************************
+     87           * @fn          initUart
+     88           *
+     89           * @brief       Initialise UART
+     90           *
+     91           * @param       pf - Function pointer to UART callback function
+     92           *
+     93           * @return      none
+     94           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+     95          void initUart(halUARTCBack_t pf)
+   \                     initUart:
+     96          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 29
+   \   000004   74E3         MOV     A,#-0x1d
+   \   000006   12....       LCALL   ?ALLOC_XSTACK8
+     97            halUARTCfg_t uartConfig;
+     98          
+     99            uartConfig.configured           = TRUE;
+   \   000009   85..82       MOV     DPL,?XSP + 0
+   \   00000C   85..83       MOV     DPH,?XSP + 1
+   \   00000F   7401         MOV     A,#0x1
+   \   000011   F0           MOVX    @DPTR,A
+    100            uartConfig.baudRate             = HAL_UART_BR_38400;
+   \   000012   12....       LCALL   ?XSTACK_DISP0_8
+   \   000015   7402         MOV     A,#0x2
+   \   000017   F0           MOVX    @DPTR,A
+    101            uartConfig.flowControl          = FALSE;
+   \   000018   12....       LCALL   ?XSTACK_DISP0_8
+   \   00001B   E4           CLR     A
+   \   00001C   F0           MOVX    @DPTR,A
+    102            uartConfig.flowControlThreshold = 48;
+   \   00001D   7403         MOV     A,#0x3
+   \   00001F   12....       LCALL   ?XSTACK_DISP0_8
+   \   000022   7430         MOV     A,#0x30
+   \   000024   F0           MOVX    @DPTR,A
+   \   000025   A3           INC     DPTR
+   \   000026   E4           CLR     A
+   \   000027   F0           MOVX    @DPTR,A
+    103            uartConfig.rx.maxBufSize        = RX_BUF_LEN;
+   \   000028   740A         MOV     A,#0xa
+   \   00002A   12....       LCALL   ?XSTACK_DISP0_8
+   \   00002D   7480         MOV     A,#-0x80
+   \   00002F   F0           MOVX    @DPTR,A
+   \   000030   A3           INC     DPTR
+   \   000031   E4           CLR     A
+   \   000032   F0           MOVX    @DPTR,A
+    104            uartConfig.tx.maxBufSize        = 128;
+   \   000033   7412         MOV     A,#0x12
+   \   000035   12....       LCALL   ?XSTACK_DISP0_8
+   \   000038   7480         MOV     A,#-0x80
+   \   00003A   F0           MOVX    @DPTR,A
+   \   00003B   A3           INC     DPTR
+   \   00003C   E4           CLR     A
+   \   00003D   F0           MOVX    @DPTR,A
+    105          
+    106            uartConfig.idleTimeout          = 6;
+   \   00003E   7405         MOV     A,#0x5
+   \   000040   12....       LCALL   ?XSTACK_DISP0_8
+   \   000043   7406         MOV     A,#0x6
+   \   000045   F0           MOVX    @DPTR,A
+    107            uartConfig.intEnable            = TRUE;
+   \   000046   7416         MOV     A,#0x16
+   \   000048   12....       LCALL   ?XSTACK_DISP0_8
+   \   00004B   7401         MOV     A,#0x1
+   \   00004D   F0           MOVX    @DPTR,A
+    108            uartConfig.callBackFunc         = pf;
+   \   00004E   741B         MOV     A,#0x1b
+   \   000050   12....       LCALL   ?XSTACK_DISP0_8
+   \   000053   EA           MOV     A,R2
+   \   000054   F0           MOVX    @DPTR,A
+   \   000055   A3           INC     DPTR
+   \   000056   EB           MOV     A,R3
+   \   000057   F0           MOVX    @DPTR,A
+    109          
+    110            HalUARTOpen (HAL_UART_PORT_0, &uartConfig);
+   \   000058                ; Setup parameters for call to function HalUARTOpen
+   \   000058   AA..         MOV     R2,?XSP + 0
+   \   00005A   AB..         MOV     R3,?XSP + 1
+   \   00005C   7900         MOV     R1,#0x0
+   \   00005E   12....       LCALL   `??HalUARTOpen::?relay`; Banked call to: HalUARTOpen
+    111          }
+   \   000061   741D         MOV     A,#0x1d
+   \   000063   12....       LCALL   ?DEALLOC_XSTACK8
+   \   000066   D083         POP     DPH
+   \   000068   D082         POP     DPL
+   \   00006A   02....       LJMP    ?BRET
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     `??osalInitTasks::?relay`:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    osalInitTasks
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     `??initUart::?relay`:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    initUart
+
+   Maximum stack usage in bytes:
+
+   ISTACK XSTACK Function
+   ------ ------ --------
+      2     29   initUart
+        2     29   -> HalUARTOpen
+      0      9   osalInitTasks
+        0      9   -> APS_Init
+        0      9   -> Hal_Init
+        0      9   -> SAPI_Init
+        0      9   -> ZDApp_Init
+        0      9   -> macTaskInit
+        0      9   -> nwk_init
+        0      9   -> osal_mem_alloc
+        0      9   -> osal_memset
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+     109  initUart
+       6  initUart::?relay
+      74  osalInitTasks
+       6  osalInitTasks::?relay
+
+ 
+ 183 bytes in segment BANKED_CODE
+  12 bytes in segment BANK_RELAYS
+ 
+ 195 bytes of CODE memory
+
+Errors: none
+Warnings: none

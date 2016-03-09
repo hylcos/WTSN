@@ -1,0 +1,674 @@
+###############################################################################
+#
+# IAR C/C++ Compiler V9.20.1.2476 for 8051                09/Mar/2016  15:26:10
+# Copyright 2004-2015 IAR Systems AB.
+# Standalone license - IAR Embedded Workbench for 8051
+#
+#    Core               =  plain
+#    Code model         =  banked
+#    Data model         =  large
+#    Calling convention =  xdata reentrant
+#    Constant location  =  data_rom
+#    Dptr setup         =  1,16
+#                          
+#    Source file        =  
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\Source\DemoCoordinator.c
+#    Command line       =  
+#        -f
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\Tools\CC2530DB\f8wCoord.cfg
+#        (-DCPU32MHZ -DROOT=__near_func -DMAC_CFG_APP_PENDING_QUEUE=TRUE
+#        -DMAC_CFG_TX_DATA_MAX=5 -DMAC_CFG_TX_MAX=8 -DMAC_CFG_RX_MAX=5
+#        -DZDO_COORDINATOR -DRTR_NWK) -f
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg
+#        (-DZIGBEEPRO -DSECURE=0 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
+#        -DDEFAULT_CHANLIST=0x04000000 -DZDAPP_CONFIG_PAN_ID=0x0EEE
+#        -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MASK=0x007F
+#        -DBEACON_REQUEST_DELAY=100 -DBEACON_REQ_DELAY_MASK=0x00FF
+#        -DLINK_STATUS_JITTER_MASK=0x007F -DROUTE_EXPIRY_TIME=30
+#        -DAPSC_ACK_WAIT_DURATION_POLLED=3000 -DNWK_INDIRECT_MSG_TIMEOUT=7
+#        -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3
+#        -DNWK_MAX_DATA_RETRIES=2 -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9
+#        -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40 -DNWK_MAX_BINDING_ENTRIES=4
+#        -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01, 0x03, 0x05, 0x07,
+#        0x09, 0x0B, 0x0D, 0x0F, 0x00, 0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C,
+#        0x0D}" -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
+#        "-DCONST=const __code" -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=FALSE
+#        -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100)
+#        -DREJOIN_POLL_RATE=440
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\Source\DemoCoordinator.c
+#        -D HOLD_AUTO_START -D BUILD_ALL_DEVICES -D REFLECTOR -D NV_INIT -D
+#        xNV_RESTORE -D ZTOOL_P1 -lC
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\CoordinatorEB\List\
+#        -lA
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\CoordinatorEB\List\
+#        --diag_suppress Pe001,Pa010,Pe1665 -o
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\CoordinatorEB\Obj\
+#        -e --debug --core=plain --dptr=16,1 --data_model=large
+#        --code_model=banked --calling_convention=xdata_reentrant
+#        --place_constants=data_rom --nr_virtual_regs 16 -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\Source\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\ZMain\TI2530DB\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\hal\include\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\hal\target\CC2530EB\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\mac\include\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\mac\high_level\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\single_chip\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\mt\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\osal\include\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\services\saddr\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\services\sdata\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\stack\af\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\stack\nwk\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\stack\sapi\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\stack\sec\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\stack\sys\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\stack\zdo\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\zmac\
+#        -I
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\zmac\f8w\
+#        -Oh --require_prototypes
+#    List file          =  
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\CoordinatorEB\List\DemoCoordinator.lst
+#    Object file        =  
+#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\CoordinatorEB\Obj\DemoCoordinator.r51
+#
+###############################################################################
+
+C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\Source\DemoCoordinator.c
+      1          /**************************************************************************************************
+      2            Filename:       DemoCoordinator.c
+      3          
+      4            Description:    Coordinator application for the sensor demo utilizing Simple API.
+      5          
+      6                            The collector node can be set in a state where it accepts
+      7                            incoming reports from the sensor nodes, and can send the reports
+      8                            via the UART to a PC tool. The collector node in this state
+      9                            functions as a gateway. The collector nodes that are not in the
+     10                            gateway node function as routers in the network.
+     11          
+     12          
+     13            Copyright 2009 Texas Instruments Incorporated. All rights reserved.
+     14          
+     15            IMPORTANT: Your use of this Software is limited to those specific rights
+     16            granted under the terms of a software license agreement between the user
+     17            who downloaded the software, his/her employer (which must be your employer)
+     18            and Texas Instruments Incorporated (the "License").  You may not use this
+     19            Software unless you agree to abide by the terms of the License. The License
+     20            limits your use, and you acknowledge, that the Software may not be modified,
+     21            copied or distributed unless embedded on a Texas Instruments microcontroller
+     22            or used solely and exclusively in conjunction with a Texas Instruments radio
+     23            frequency transceiver, which is integrated into your product.  Other than for
+     24            the foregoing purpose, you may not use, reproduce, copy, prepare derivative
+     25            works of, modify, distribute, perform, display or sell this Software and/or
+     26            its documentation for any purpose.
+     27          
+     28            YOU FURTHER ACKNOWLEDGE AND AGREE THAT THE SOFTWARE AND DOCUMENTATION ARE
+     29            PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED,
+     30            INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY, TITLE,
+     31            NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT SHALL
+     32            TEXAS INSTRUMENTS OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER CONTRACT,
+     33            NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR OTHER
+     34            LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
+     35            INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE
+     36            OR CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT
+     37            OF SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+     38            (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+     39          
+     40            Should you have any questions regarding your right to use this Software,
+     41            contact Texas Instruments Incorporated at www.TI.com.
+     42          **************************************************************************************************/
+     43          
+     44          /******************************************************************************
+     45           * INCLUDES
+     46           */
+     47          
+     48          #include "ZComDef.h"
+     49          #include "OSAL.h"
+     50          #include "OSAL_Nv.h"
+     51          #include "sapi.h"
+     52          #include "hal_key.h"
+     53          #include "hal_led.h"
+     54          #include "hal_lcd.h"
+     55          #include "hal_uart.h"
+     56          #include "DemoApp.h"
+     57          
+     58          /******************************************************************************
+     59           * CONSTANTS
+     60           */
+     61          
+     62          // General UART frame offsets
+     63          #define FRAME_SOF_OFFSET                    0
+     64          #define FRAME_LENGTH_OFFSET                 1
+     65          #define FRAME_CMD0_OFFSET                   2
+     66          #define FRAME_CMD1_OFFSET                   3
+     67          #define FRAME_DATA_OFFSET                   4
+     68          
+     69          // ZB_RECEIVE_DATA_INDICATION offsets
+     70          #define ZB_RECV_SRC_OFFSET                  0
+     71          #define ZB_RECV_CMD_OFFSET                  2
+     72          #define ZB_RECV_LEN_OFFSET                  4
+     73          #define ZB_RECV_DATA_OFFSET                 6
+     74          #define ZB_RECV_FCS_OFFSET                  8
+     75          
+     76          // ZB_RECEIVE_DATA_INDICATION frame length
+     77          #define ZB_RECV_LENGTH                      15
+     78          
+     79          // PING response frame length and offset
+     80          #define SYS_PING_RSP_LENGTH                 7
+     81          #define SYS_PING_CMD_OFFSET                 1
+     82          
+     83          // Stack Profile
+     84          #define ZIGBEE_2007                         0x0040
+     85          #define ZIGBEE_PRO_2007                     0x0041
+     86          
+     87          #ifdef ZIGBEEPRO
+     88          #define STACK_PROFILE                       ZIGBEE_PRO_2007
+     89          #else
+     90          #define STACK_PROFILE                       ZIGBEE_2007
+     91          #endif
+     92          
+     93          #define CPT_SOP                             0xFE
+     94          #define SYS_PING_REQUEST                    0x0021
+     95          #define SYS_PING_RESPONSE                   0x0161
+     96          #define ZB_RECEIVE_DATA_INDICATION          0x8746
+     97          
+     98          // Application States
+     99          #define APP_INIT                            0
+    100          #define APP_START                           2
+    101          
+    102          // Application osal event identifiers
+    103          #define MY_START_EVT                        0x0001
+    104          
+    105          /******************************************************************************
+    106           * TYPEDEFS
+    107           */
+    108          typedef struct
+    109          {
+    110            uint16              source;
+    111            uint16              parent;
+    112            uint8               temp;
+    113            uint8               voltage;
+    114          } gtwData_t;
+    115          
+    116          /******************************************************************************
+    117           * LOCAL VARIABLES
+    118           */
+    119          
+    120          static uint8 appState =             APP_INIT;
+    121          static uint8 myStartRetryDelay =    10;          // milliseconds
+    122          static gtwData_t gtwData;
+    123          static uint8 doorState         =        DOOR_OPEN;
+    124          /******************************************************************************
+    125           * LOCAL FUNCTIONS
+    126           */
+    127          
+    128          static uint8 calcFCS(uint8 *pBuf, uint8 len);
+    129          static void sysPingReqRcvd(void);
+    130          static void sysPingRsp(void);
+    131          static void sendGtwReport(gtwData_t *gtwData);
+    132          
+    133          /******************************************************************************
+    134           * GLOBAL VARIABLES
+    135           */
+    136          
+    137          // Inputs and Outputs for Collector device
+    138          #define NUM_OUT_CMD_COLLECTOR           0
+    139          #define NUM_IN_CMD_COLLECTOR            2
+    140          
+    141          // List of output and input commands for Collector device
+    142          const cId_t zb_InCmdList[NUM_IN_CMD_COLLECTOR] =
+    143          {
+    144            DOOR_CMD_ID,
+    145            LIGHT_CMD_ID
+    146          };
+    147          
+    148          // Define SimpleDescriptor for Collector device
+    149          const SimpleDescriptionFormat_t zb_SimpleDesc =
+    150          {
+    151            MY_ENDPOINT_ID,             //  Endpoint
+    152            MY_PROFILE_ID,              //  Profile ID
+    153            DEV_ID_COLLECTOR,           //  Device ID
+    154            DEVICE_VERSION_COLLECTOR,   //  Device Version
+    155            0,                          //  Reserved
+    156            NUM_IN_CMD_COLLECTOR,       //  Number of Input Commands
+    157            (cId_t *) zb_InCmdList,     //  Input Command List
+    158            NUM_OUT_CMD_COLLECTOR,      //  Number of Output Commands
+    159            (cId_t *) NULL              //  Output Command List
+    160          };
+    161          
+    162          /******************************************************************************
+    163           * FUNCTIONS
+    164           */
+    165          
+    166          /******************************************************************************
+    167           * @fn          zb_HandleOsalEvent
+    168           *
+    169           * @brief       The zb_HandleOsalEvent function is called by the operating
+    170           *              system when a task event is set
+    171           *
+    172           * @param       event - Bitmask containing the events that have been set
+    173           *
+    174           * @return      none
+    175           */
+    176          void zb_HandleOsalEvent( uint16 event )
+    177          {
+    178            if( event & SYS_EVENT_MSG )
+    179            {
+    180            }
+    181          
+    182            if( event & ZB_ENTRY_EVENT )
+    183            {
+    184              // Initialise UART
+    185              initUart(uartRxCB);
+    186              MCU_IO_DIR_OUTPUT_PREP(0, 4);
+    187              MCU_IO_DIR_OUTPUT_PREP(0, 7);
+    188              MCU_IO_OUTPUT_PREP(0, 4, 0);
+    189              // blind LED 1 to indicate starting/joining a network
+    190              HalLedBlink ( HAL_LED_1, 0, 50, 500 );
+    191              HalLedSet( HAL_LED_2, HAL_LED_MODE_OFF );
+    192          
+    193              // Start the device
+    194              zb_StartRequest();
+    195            }
+    196          
+    197            if ( event & MY_START_EVT )
+    198            {
+    199              zb_StartRequest();
+    200            }
+    201          }
+    202          
+    203          /******************************************************************************
+    204           * @fn      zb_HandleKeys
+    205           *
+    206           * @brief   Handles all key events for this device.
+    207           *
+    208           * @param   shift - true if in shift/alt.
+    209           * @param   keys - bit field for key events. Valid entries:
+    210           *                 EVAL_SW4
+    211           *                 EVAL_SW3
+    212           *                 EVAL_SW2
+    213           *                 EVAL_SW1
+    214           *
+    215           * @return  none
+    216           */
+    217          void zb_HandleKeys( uint8 shift, uint8 keys )
+    218          {
+    219            static uint8 allowBind = FALSE;
+    220          
+    221            // Shift is used to make each button/switch dual purpose.
+    222            if ( shift )
+    223            {
+    224              if ( keys & HAL_KEY_SW_1 )
+    225              {
+    226              }
+    227              if ( keys & HAL_KEY_SW_2 )
+    228              {
+    229              }
+    230              if ( keys & HAL_KEY_SW_3 )
+    231              {
+    232              }
+    233              if ( keys & HAL_KEY_SW_4 )
+    234              {
+    235              }
+    236            }
+    237            else
+    238            {
+    239              if ( keys & HAL_KEY_SW_1 )
+    240              {
+    241                if ( appState == APP_START )
+    242                {
+    243                  allowBind ^= 1;
+    244                  if ( allowBind )
+    245                  {
+    246                    // Turn ON Allow Bind mode infinitly
+    247                    zb_AllowBind( 0xFF );
+    248                    HalLedSet( HAL_LED_2, HAL_LED_MODE_ON );
+    249                  }
+    250                  else
+    251                  {
+    252                    // Turn OFF Allow Bind mode infinitly
+    253                    zb_AllowBind( 0x00 );
+    254                    HalLedSet( HAL_LED_2, HAL_LED_MODE_OFF );
+    255                  }
+    256                }
+    257              }
+    258              if ( keys & HAL_KEY_SW_2 )
+    259              {
+    260              }
+    261              if ( keys & HAL_KEY_SW_3 )
+    262              {
+    263              }
+    264              if ( keys & HAL_KEY_SW_4 )
+    265              {
+    266              }
+    267            }
+    268          }
+    269          
+    270          /******************************************************************************
+    271           * @fn          zb_StartConfirm
+    272           *
+    273           * @brief       The zb_StartConfirm callback is called by the ZigBee stack
+    274           *              after a start request operation completes
+    275           *
+    276           * @param       status - The status of the start operation.  Status of
+    277           *                       ZB_SUCCESS indicates the start operation completed
+    278           *                       successfully.  Else the status is an error code.
+    279           *
+    280           * @return      none
+    281           */
+    282          void zb_StartConfirm( uint8 status )
+    283          {
+    284            // If the device sucessfully started, change state to running
+    285            if ( status == ZB_SUCCESS )
+    286            {
+    287              // Set LED 1 to indicate that node is operational on the network
+    288              HalLedSet( HAL_LED_1, HAL_LED_MODE_ON );
+    289          
+    290              // Change application state
+    291              appState = APP_START;
+    292            }
+    293            else
+    294            {
+    295              // Try again later with a delay
+    296              osal_start_timerEx( sapi_TaskID, MY_START_EVT, myStartRetryDelay );
+    297            }
+    298          }
+    299          
+    300          /******************************************************************************
+    301           * @fn          zb_SendDataConfirm
+    302           *
+    303           * @brief       The zb_SendDataConfirm callback function is called by the
+    304           *              ZigBee stack after a send data operation completes
+    305           *
+    306           * @param       handle - The handle identifying the data transmission.
+    307           *              status - The status of the operation.
+    308           *
+    309           * @return      none
+    310           */
+    311          void zb_SendDataConfirm( uint8 handle, uint8 status )
+    312          {
+    313            (void)handle;
+    314            (void)status;
+    315          }
+    316          
+    317          /******************************************************************************
+    318           * @fn          zb_BindConfirm
+    319           *
+    320           * @brief       The zb_BindConfirm callback is called by the ZigBee stack
+    321           *              after a bind operation completes.
+    322           *
+    323           * @param       commandId - The command ID of the binding being confirmed.
+    324           *              status - The status of the bind operation.
+    325           *
+    326           * @return      none
+    327           */
+    328          void zb_BindConfirm( uint16 commandId, uint8 status )
+    329          {
+    330            (void)commandId;
+    331            (void)status;
+    332          }
+    333          
+    334          /******************************************************************************
+    335           * @fn          zb_AllowBindConfirm
+    336           *
+    337           * @brief       Indicates when another device attempted to bind to this device
+    338           *
+    339           * @param
+    340           *
+    341           * @return      none
+    342           */
+    343          void zb_AllowBindConfirm( uint16 source )
+    344          {
+    345           (void *) source;
+                  ^
+Warning[Pe174]: expression has no effect
+    346           zb_BindDevice( TRUE, DOOR_CMD_ID, source);
+                                                    ^
+Error[Pe167]: argument of type "uint16" is incompatible with parameter of type
+          "unsigned char *"
+
+  static gtwData_t gtwData;
+                   ^
+"C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\Source\DemoCoordinator.c",122  Warning[Pe177]: 
+          variable "gtwData" was declared but never referenced
+    347          }
+    348          
+    349          /******************************************************************************
+    350           * @fn          zb_FindDeviceConfirm
+    351           *
+    352           * @brief       The zb_FindDeviceConfirm callback function is called by the
+    353           *              ZigBee stack when a find device operation completes.
+    354           *
+    355           * @param       searchType - The type of search that was performed.
+    356           *              searchKey - Value that the search was executed on.
+    357           *              result - The result of the search.
+    358           *
+    359           * @return      none
+    360           */
+    361          void zb_FindDeviceConfirm( uint8 searchType, uint8 *searchKey, uint8 *result )
+    362          {
+    363            (void)searchType;
+    364            (void)searchKey;
+    365            (void)result;
+    366          }
+    367          
+    368          /******************************************************************************
+    369           * @fn          zb_ReceiveDataIndication
+    370           *
+    371           * @brief       The zb_ReceiveDataIndication callback function is called
+    372           *              asynchronously by the ZigBee stack to notify the application
+    373           *              when data is received from a peer device.
+    374           *
+    375           * @param       source - The short address of the peer device that sent the data
+    376           *              command - The commandId associated with the data
+    377           *              len - The number of bytes in the pData parameter
+    378           *              pData - The data sent by the peer device
+    379           *
+    380           * @return      none
+    381           */
+    382          void zb_ReceiveDataIndication( uint16 source, uint16 command, uint16 len, uint8 *pData  )
+    383          {
+    384            (void)command;
+    385            (void)len;
+    386            if( doorState == DOOR_OPEN){
+    387               MCU_IO_OUTPUT_PREP(0, 4, 1);
+    388               MCU_IO_OUTPUT_PREP(0, 7, 0);
+    389               doorState = DOOR_CLOSE;
+    390            } else {
+    391               MCU_IO_OUTPUT_PREP(0, 4, 0);
+    392               MCU_IO_OUTPUT_PREP(0, 7, 1);
+    393               doorState = DOOR_OPEN;
+    394            }
+    395           
+    396            //gtwData.parent = BUILD_UINT16(pData[SENSOR_PARENT_OFFSET+ 1], pData[SENSOR_PARENT_OFFSET]);
+    397            /*gtwData.source = source;
+    398            gtwData.temp = *pData;
+    399            gtwData.voltage = *(pData+1);
+    400          
+    401            // Flash LED 2 once to indicate data reception
+    402            HalLedSet ( HAL_LED_2, HAL_LED_MODE_FLASH );
+    403          
+    404            // Send gateway report
+    405            sendGtwReport(&gtwData);*/
+    406            
+    407          }
+    408          
+    409          /******************************************************************************
+    410           * @fn          uartRxCB
+    411           *
+    412           * @brief       Callback function for UART
+    413           *
+    414           * @param       port - UART port
+    415           *              event - UART event that caused callback
+    416           *
+    417           * @return      none
+    418           */
+    419          void uartRxCB( uint8 port, uint8 event )
+    420          {
+    421            (void)port;
+    422          
+    423            uint8 pBuf[RX_BUF_LEN];
+    424            uint16 cmd;
+    425            uint16 len;
+    426          
+    427            if ( event != HAL_UART_TX_EMPTY )
+    428            {
+    429              // Read from UART
+    430              len = HalUARTRead( HAL_UART_PORT_0, pBuf, RX_BUF_LEN );
+    431          
+    432              if ( len > 0 )
+    433              {
+    434                cmd = BUILD_UINT16(pBuf[SYS_PING_CMD_OFFSET + 1], pBuf[SYS_PING_CMD_OFFSET]);
+    435          
+    436                if( (pBuf[FRAME_SOF_OFFSET] == CPT_SOP) && (cmd == SYS_PING_REQUEST) )
+    437                {
+    438                  sysPingReqRcvd();
+    439                }
+    440              }
+    441            }
+    442          }
+    443          
+    444          /******************************************************************************
+    445           * @fn          sysPingReqRcvd
+    446           *
+    447           * @brief       Ping request received
+    448           *
+    449           * @param       none
+    450           *
+    451           * @return      none
+    452           */
+    453          static void sysPingReqRcvd(void)
+    454          {
+    455             sysPingRsp();
+    456          }
+    457          
+    458          /******************************************************************************
+    459           * @fn          sysPingRsp
+    460           *
+    461           * @brief       Build and send Ping response
+    462           *
+    463           * @param       none
+    464           *
+    465           * @return      none
+    466           */
+    467          static void sysPingRsp(void)
+    468          {
+    469            uint8 pBuf[SYS_PING_RSP_LENGTH];
+    470          
+    471            // Start of Frame Delimiter
+    472            pBuf[FRAME_SOF_OFFSET] = CPT_SOP;
+    473          
+    474            // Length
+    475            pBuf[FRAME_LENGTH_OFFSET] = 2;
+    476          
+    477            // Command type
+    478            pBuf[FRAME_CMD0_OFFSET] = LO_UINT16(SYS_PING_RESPONSE);
+    479            pBuf[FRAME_CMD1_OFFSET] = HI_UINT16(SYS_PING_RESPONSE);
+    480          
+    481            // Stack profile
+    482            pBuf[FRAME_DATA_OFFSET] = LO_UINT16(STACK_PROFILE);
+    483            pBuf[FRAME_DATA_OFFSET + 1] = HI_UINT16(STACK_PROFILE);
+    484          
+    485            // Frame Check Sequence
+    486            pBuf[SYS_PING_RSP_LENGTH - 1] = calcFCS(&pBuf[FRAME_LENGTH_OFFSET], (SYS_PING_RSP_LENGTH - 2));
+    487          
+    488            // Write frame to UART
+    489            HalUARTWrite(HAL_UART_PORT_0,pBuf, SYS_PING_RSP_LENGTH);
+    490          }
+    491          
+    492          /******************************************************************************
+    493           * @fn          sendGtwReport
+    494           *
+    495           * @brief       Build and send gateway report
+    496           *
+    497           * @param       none
+    498           *
+    499           * @return      none
+    500           */
+    501          static void sendGtwReport(gtwData_t *gtwData)
+                             ^
+Warning[Pe177]: function "sendGtwReport" was declared but never referenced
+    502          {
+    503            uint8 pFrame[ZB_RECV_LENGTH];
+    504          
+    505            // Start of Frame Delimiter
+    506            pFrame[FRAME_SOF_OFFSET] = CPT_SOP; // Start of Frame Delimiter
+    507          
+    508            // Length
+    509            pFrame[FRAME_LENGTH_OFFSET] = 10;
+    510          
+    511            // Command type
+    512            pFrame[FRAME_CMD0_OFFSET] = LO_UINT16(ZB_RECEIVE_DATA_INDICATION);
+    513            pFrame[FRAME_CMD1_OFFSET] = HI_UINT16(ZB_RECEIVE_DATA_INDICATION);
+    514          
+    515            // Source address
+    516            pFrame[FRAME_DATA_OFFSET + ZB_RECV_SRC_OFFSET] = LO_UINT16(gtwData->source);
+    517            pFrame[FRAME_DATA_OFFSET + ZB_RECV_SRC_OFFSET+ 1] = HI_UINT16(gtwData->source);
+    518          
+    519            // Command ID
+    520           // pFrame[FRAME_DATA_OFFSET + ZB_RECV_CMD_OFFSET] = LO_UINT16(SENSOR_REPORT_CMD_ID);
+    521           // pFrame[FRAME_DATA_OFFSET + ZB_RECV_CMD_OFFSET+ 1] = HI_UINT16(SENSOR_REPORT_CMD_ID);
+    522          
+    523            // Length
+    524            pFrame[FRAME_DATA_OFFSET + ZB_RECV_LEN_OFFSET] = LO_UINT16(4);
+    525            pFrame[FRAME_DATA_OFFSET + ZB_RECV_LEN_OFFSET+ 1] = HI_UINT16(4);
+    526          
+    527            // Data
+    528            pFrame[FRAME_DATA_OFFSET + ZB_RECV_DATA_OFFSET] = gtwData->temp;
+    529            pFrame[FRAME_DATA_OFFSET + ZB_RECV_DATA_OFFSET+ 1] = gtwData->voltage;
+    530            pFrame[FRAME_DATA_OFFSET + ZB_RECV_DATA_OFFSET+ 2] = LO_UINT16(gtwData->parent);
+    531            pFrame[FRAME_DATA_OFFSET + ZB_RECV_DATA_OFFSET+ 3] = HI_UINT16(gtwData->parent);
+    532          
+    533            // Frame Check Sequence
+    534            pFrame[ZB_RECV_LENGTH - 1] = calcFCS(&pFrame[FRAME_LENGTH_OFFSET], (ZB_RECV_LENGTH - 2) );
+    535          
+    536            // Write report to UART
+    537            HalUARTWrite(HAL_UART_PORT_0,pFrame, ZB_RECV_LENGTH);
+    538          }
+    539          
+    540          /******************************************************************************
+    541           * @fn          calcFCS
+    542           *
+    543           * @brief       This function calculates the FCS checksum for the serial message
+    544           *
+    545           * @param       pBuf - Pointer to the end of a buffer to calculate the FCS.
+    546           *              len - Length of the pBuf.
+    547           *
+    548           * @return      The calculated FCS.
+    549           ******************************************************************************
+    550           */
+    551          static uint8 calcFCS(uint8 *pBuf, uint8 len)
+    552          {
+    553            uint8 rtrn = 0;
+    554          
+    555            while ( len-- )
+    556            {
+    557              rtrn ^= *pBuf++;
+    558            }
+    559          
+    560            return rtrn;
+    561          }
+
+Errors: 1
+Warnings: 3
