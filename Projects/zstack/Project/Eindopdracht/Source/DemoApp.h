@@ -63,12 +63,13 @@
 #define DEVICE_VERSION_COLLECTOR          1
 
 // Define the Command ID's used in this application
-#define DOOR_CMD_ID                       1
-#define LIGHT_CMD_ID                      2
+#define LOCK_CONTROL_CMD_ID                       1
+#define LIGHT_CMD_ID                                   2
+#define LOCK_STATUS_CMD_ID                       3
 
 // Door report data format
-#define DOOR_STATUS_OFFSET                0
-#define DOOR_REPORT_LENGTH                1
+#define LOCK_CMD_OFFSET                0
+#define LOCK_CMD_LENGTH                1
 
 // Light report data format
 #define LIGHT_STATUS_OFFSET               0

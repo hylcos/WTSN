@@ -122,6 +122,7 @@ static uint8 appState =             APP_INIT;
 static uint8 myStartRetryDelay =    10;          // milliseconds
 static gtwData_t gtwData;
 static uint8 doorState         =        DOOR_OPEN;
+static uint8 buttonState       =        0;
 /******************************************************************************
  * LOCAL FUNCTIONS
  */
@@ -136,16 +137,18 @@ static void sendGtwReport(gtwData_t *gtwData);
  */
 
 // Inputs and Outputs for Collector device
-#define NUM_OUT_CMD_COLLECTOR           0
-#define NUM_IN_CMD_COLLECTOR            2
+#define NUM_OUT_CMD_COLLECTOR           1
+#define NUM_IN_CMD_COLLECTOR            1
 
 // List of output and input commands for Collector device
 const cId_t zb_InCmdList[NUM_IN_CMD_COLLECTOR] =
 {
-  DOOR_CMD_ID,
-  LIGHT_CMD_ID
+  LOCK_CONTROL_CMD_ID,
 };
-
+const cId_t zb_OutCmdList[NUM_OUT_CMD_COLLECTOR] =
+{
+  LOCK_STATUS_CMD_ID,
+};
 // Define SimpleDescriptor for Collector device
 const SimpleDescriptionFormat_t zb_SimpleDesc =
 {
@@ -157,7 +160,7 @@ const SimpleDescriptionFormat_t zb_SimpleDesc =
   NUM_IN_CMD_COLLECTOR,       //  Number of Input Commands
   (cId_t *) zb_InCmdList,     //  Input Command List
   NUM_OUT_CMD_COLLECTOR,      //  Number of Output Commands
-  (cId_t *) NULL              //  Output Command List
+  (cId_t *) zb_OutCmdList             //  Output Command List
 };
 
 /******************************************************************************
@@ -184,7 +187,7 @@ void zb_HandleOsalEvent( uint16 event )
   {
     // Initialise UART
     initUart(uartRxCB);
-   
+    osal_start_timerEx( sapi_TaskID, MY_REPORT_EVT, 100 );
     // blind LED 1 to indicate starting/joining a network
     HalLedBlink ( HAL_LED_1, 0, 50, 500 );
     HalLedSet( HAL_LED_2, HAL_LED_MODE_OFF );
@@ -198,10 +201,15 @@ void zb_HandleOsalEvent( uint16 event )
     zb_StartRequest();
   }
   if (event & MY_REPORT_EVT ){
-        uint8 pData[DOOR_REPORT_LENGTH];
-        pData[DOOR_STATUS_OFFSET] = 0;
-        uint8 txOptions;
-        zb_SendDataRequest( 0xFFFE, DOOR_CMD_ID, DOOR_REPORT_LENGTH , pData, 0, txOptions, 0 );
+        int buttonStateNew =  MCU_IO_GET(0,2);
+        if (buttonState != buttonStateNew){
+          uint8 pData[LOCK_CMD_LENGTH];
+          pData[LOCK_CMD_OFFSET] = buttonStateNew % 3;
+          uint8 txOptions;
+          zb_SendDataRequest( 0xFFFE, LOCK_STATUS_CMD_ID, LOCK_CMD_LENGTH , pData, 0, txOptions, 0 );
+          buttonState = buttonStateNew;
+        }
+        osal_start_timerEx( sapi_TaskID, MY_REPORT_EVT, 100 );
   }
 }
 
@@ -286,9 +294,13 @@ void zb_HandleKeys( uint8 shift, uint8 keys )
  */
 void zb_StartConfirm( uint8 status )
 {
-   MCU_IO_DIR_OUTPUT_PREP(0, 4);
-    MCU_IO_DIR_OUTPUT_PREP(0, 7);
-    MCU_IO_OUTPUT_PREP(0, 4, 0);
+  MCU_IO_DIR_OUTPUT_PREP(0, 4);
+  MCU_IO_DIR_OUTPUT_PREP(0, 7);
+  MCU_IO_DIR_INPUT_PREP(0, 2);
+  MCU_IO_INPUT_PREP(0,2,MCU_IO_PULLDOWN); 
+  MCU_IO_OUTPUT_PREP(0, 4, 0);
+  MCU_IO_OUTPUT_PREP(0, 7, DOOR_OPEN);
+  
   // If the device sucessfully started, change state to running
   if ( status == ZB_SUCCESS )
   {
@@ -318,8 +330,12 @@ void zb_StartConfirm( uint8 status )
  */
 void zb_SendDataConfirm( uint8 handle, uint8 status )
 {
-  (void)handle;
-  (void)status;
+  if (status == ZB_SUCCESS){
+    
+  //(void)handle;
+  //(void)status;
+  HalLedSet( HAL_LED_1, HAL_LED_MODE_OFF );
+  }
 }
 
 /******************************************************************************
@@ -335,8 +351,14 @@ void zb_SendDataConfirm( uint8 handle, uint8 status )
  */
 void zb_BindConfirm( uint16 commandId, uint8 status )
 {
-  (void)commandId;
-  (void)status;
+  HalLedSet ( HAL_LED_1, HAL_LED_MODE_OFF);
+  MCU_IO_OUTPUT_PREP(0, 4, 0);
+  if (status == ZB_SUCCESS){
+    MCU_IO_OUTPUT_PREP(0, 4, 1);
+    int i = 0;
+    i + status;
+    //do something
+  }
 }
 
 /******************************************************************************
@@ -350,8 +372,10 @@ void zb_BindConfirm( uint16 commandId, uint8 status )
  */
 void zb_AllowBindConfirm( uint16 source )
 {
- (void *) source;
- zb_BindDevice( TRUE, DOOR_CMD_ID, (uint8 *)NULL) ;
+  zb_AllowBind( 0x00 );
+  zb_BindDevice( TRUE, LOCK_STATUS_CMD_ID, (uint8 *)NULL) ;
+  HalLedSet ( HAL_LED_1, HAL_LED_MODE_FLASH );
+  
 }
 
 /******************************************************************************
@@ -391,7 +415,7 @@ void zb_ReceiveDataIndication( uint16 source, uint16 command, uint16 len, uint8 
 {
   (void)command;
   (void)len;
-  osal_start_timerEx( sapi_TaskID, MY_REPORT_EVT, 100 );
+  
   if( doorState == DOOR_OPEN){
      MCU_IO_OUTPUT_PREP(0, 4, 1);
      MCU_IO_OUTPUT_PREP(0, 7, 0);

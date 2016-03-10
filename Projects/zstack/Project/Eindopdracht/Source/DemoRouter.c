@@ -109,14 +109,18 @@ static uint16 parentShortAddr;
 
 // Inputs and Outputs for Sensor device
 #define NUM_OUT_CMD_SENSOR        1
-#define NUM_IN_CMD_SENSOR         0
+#define NUM_IN_CMD_SENSOR         1
 
 // List of output and input commands for Sensor device
 const cId_t zb_OutCmdList[NUM_OUT_CMD_SENSOR] =
 {
-  DOOR_CMD_ID
+  LOCK_CONTROL_CMD_ID
 };
 
+const cId_t zb_InCmdList[NUM_IN_CMD_SENSOR] =
+{
+  LOCK_STATUS_CMD_ID
+};
 // Define SimpleDescriptor for Sensor device
 const SimpleDescriptionFormat_t zb_SimpleDesc =
 {
@@ -126,7 +130,7 @@ const SimpleDescriptionFormat_t zb_SimpleDesc =
   DEVICE_VERSION_SENSOR,      //  Device Version
   0,                          //  Reserved
   NUM_IN_CMD_SENSOR,          //  Number of Input Commands
-  (cId_t *) NULL,             //  Input Command List
+  (cId_t *) zb_InCmdList,             //  Input Command List
   NUM_OUT_CMD_SENSOR,         //  Number of Output Commands
   (cId_t *) zb_OutCmdList     //  Output Command List
 };
@@ -237,15 +241,15 @@ void zb_HandleKeys( uint8 shift, uint8 keys )
 
       appState = APP_BIND;
       // Find and bind to a collector device
-      zb_BindDevice( TRUE, DOOR_CMD_ID, (uint8 *)NULL );
+      zb_BindDevice( TRUE, LOCK_CONTROL_CMD_ID, (uint8 *)NULL );
       
       
       if ( sendingData == TRUE ){
         
-        uint8 pData[DOOR_REPORT_LENGTH];
-        pData[DOOR_STATUS_OFFSET] = 1;
+        uint8 pData[LOCK_CMD_LENGTH];
+        pData[LOCK_CMD_OFFSET] = 1;
         uint8 txOptions;
-        zb_SendDataRequest( 0xFFFE, DOOR_CMD_ID, DOOR_REPORT_LENGTH , pData, 0, txOptions, 0 );
+        zb_SendDataRequest( 0xFFFE, LOCK_CONTROL_CMD_ID, LOCK_CMD_LENGTH , pData, 0, txOptions, 0 );
         
       }
     }
@@ -254,7 +258,7 @@ void zb_HandleKeys( uint8 shift, uint8 keys )
       HalLedBlink ( HAL_LED_2, 0, 50, 500 );
 
       appState = APP_BIND;
-      zb_BindDevice( TRUE, DOOR_CMD_ID, (uint8 *)NULL );
+      zb_BindDevice( TRUE, LOCK_CONTROL_CMD_ID, (uint8 *)NULL );
     }
     if ( keys & HAL_KEY_SW_3 )
     {
@@ -281,6 +285,7 @@ void zb_StartConfirm( uint8 status )
 {
    MCU_IO_DIR_OUTPUT_PREP(1, 2);
    MCU_IO_OUTPUT_PREP(1,2,0);
+   zb_AllowBind( 0xFF );
   // If the device sucessfully started, change state to running
   if ( status == ZB_SUCCESS )
   {
@@ -297,7 +302,7 @@ void zb_StartConfirm( uint8 status )
     zb_GetDeviceInfo(ZB_INFO_PARENT_SHORT_ADDR, &parentShortAddr);
 
     // Turn OFF Allow Bind mode infinitly
-    zb_AllowBind( 0x00 );
+    //zb_AllowBind( 0x00 );
     HalLedSet( HAL_LED_2, HAL_LED_MODE_OFF );
   }
   else
@@ -332,7 +337,7 @@ void zb_SendDataConfirm( uint8 handle, uint8 status )
        reportState = TRUE;
 
        // Delete previous binding
-       zb_BindDevice( FALSE, DOOR_CMD_ID, (uint8 *)NULL );
+       zb_BindDevice( FALSE, LOCK_CONTROL_CMD_ID, (uint8 *)NULL );
 
       // Try to bind a new gateway
        osal_start_timerEx( sapi_TaskID, MY_FIND_COLLECTOR_EVT, myBindRetryDelay );
@@ -360,9 +365,10 @@ void zb_SendDataConfirm( uint8 handle, uint8 status )
  */
 void zb_BindConfirm( uint16 commandId, uint8 status )
 {
+  
   if( status == ZB_SUCCESS )
   {
-    zb_AllowBind( 0xFF );
+    
     appState = APP_REPORT;
     HalLedSet( HAL_LED_2, HAL_LED_MODE_ON );
     sendingData = TRUE;
@@ -399,8 +405,10 @@ void zb_BindConfirm( uint16 commandId, uint8 status )
  */
 void zb_AllowBindConfirm( uint16 source )
 {
-  (void)source;
-  MCU_IO_OUTPUT_PREP(1,2,1);
+  if(source){
+  }
+  zb_AllowBind( 0x00 );
+  //MCU_IO_OUTPUT_PREP(1,2,1);
 }
 
 /******************************************************************************
@@ -440,9 +448,9 @@ void zb_ReceiveDataIndication( uint16 source, uint16 command, uint16 len, uint8 
 {
   (void)source;
   (void)command;
-  (void)len;
-  (void)pData;
   HalLedSet( HAL_LED_1, HAL_LED_MODE_OFF );
+  uint8 lockState = *pData;
+  MCU_IO_OUTPUT_PREP(1,2,lockState);
 }
 
 /******************************************************************************
