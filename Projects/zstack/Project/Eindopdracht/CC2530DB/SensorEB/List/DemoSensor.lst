@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V9.20.1.2476 for 8051                10/Mar/2016  12:27:07
+# IAR C/C++ Compiler V9.20.1.2476 for 8051                02/Mar/2016  14:10:22
 # Copyright 2004-2015 IAR Systems AB.
 # Standalone license - IAR Embedded Workbench for 8051
 #
@@ -12,15 +12,17 @@
 #    Dptr setup         =  1,16
 #                          
 #    Source file        =  
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\Source\DemoSensor.c
+#        E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\Source\DemoSensor.c
 #    Command line       =  
-#        -f
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\Tools\CC2530DB\f8wEndev.cfg
-#        (-DCPU32MHZ -DROOT=__near_func -DMAC_CFG_TX_DATA_MAX=3
-#        -DMAC_CFG_TX_MAX=6 -DMAC_CFG_RX_MAX=3) -f
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg
-#        (-DZIGBEEPRO -DSECURE=0 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
-#        -DDEFAULT_CHANLIST=0x04000000 -DZDAPP_CONFIG_PAN_ID=0x0EEE
+#        -f "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\..\..\..\Tools\CC2530DB\f8wEndev.cfg" (-DCPU32MHZ
+#        -DROOT=__near_func -DMAC_CFG_TX_DATA_MAX=3 -DMAC_CFG_TX_MAX=6
+#        -DMAC_CFG_RX_MAX=3) -f
+#        "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg" (-DZIGBEEPRO
+#        -DSECURE=0 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
+#        -DDEFAULT_CHANLIST=0x00008000 -DZDAPP_CONFIG_PAN_ID=0x0EEE
 #        -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MASK=0x007F
 #        -DBEACON_REQUEST_DELAY=100 -DBEACON_REQ_DELAY_MASK=0x00FF
 #        -DLINK_STATUS_JITTER_MASK=0x007F -DROUTE_EXPIRY_TIME=30
@@ -34,67 +36,70 @@
 #        "-DCONST=const __code" -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=FALSE
 #        -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100)
 #        -DREJOIN_POLL_RATE=440
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\Source\DemoSensor.c
-#        -D NWK_AUTO_POLL -D HOLD_AUTO_START -D POWER_SAVING -D NV_INIT -D
-#        DEVICE_LOGICAL_TYPE=ZG_DEVICETYPE_ENDDEVICE -lC
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\SensorEB\List\
-#        -lA
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\SensorEB\List\
-#        --diag_suppress Pe001,Pa010,Pe1665 -o
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\SensorEB\Obj\
-#        -e --debug --core=plain --dptr=16,1 --data_model=large
-#        --code_model=banked --calling_convention=xdata_reentrant
-#        --place_constants=data_rom --nr_virtual_regs 16 -I
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\
-#        -I
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\Source\
-#        -I
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\ZMain\TI2530DB\
-#        -I
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\hal\include\
-#        -I
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\hal\target\CC2530EB\
-#        -I
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\mac\include\
-#        -I
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\mac\high_level\
-#        -I
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\
-#        -I
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\single_chip\
-#        -I
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\mt\
-#        -I
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\osal\include\
-#        -I
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\services\saddr\
-#        -I
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\services\sdata\
-#        -I
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\stack\af\
-#        -I
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\stack\nwk\
-#        -I
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\stack\sapi\
-#        -I
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\stack\sec\
-#        -I
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\stack\sys\
-#        -I
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\stack\zdo\
-#        -I
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\zmac\
-#        -I
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\..\..\Components\zmac\f8w\
-#        -Oh --require_prototypes
+#        "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\Source\DemoSensor.c" -D NWK_AUTO_POLL -D HOLD_AUTO_START -D
+#        POWER_SAVING -D NV_INIT -D DEVICE_LOGICAL_TYPE=ZG_DEVICETYPE_ENDDEVICE
+#        -lC "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\SensorEB\List\" -lA
+#        "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\SensorEB\List\" --diag_suppress Pe001,Pa010,Pe1665 -o
+#        "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\SensorEB\Obj\" -e --debug --core=plain --dptr=16,1
+#        --data_model=large --code_model=banked
+#        --calling_convention=xdata_reentrant --place_constants=data_rom
+#        --nr_virtual_regs 16 -I
+#        "E:\Projects\WTSN\Projects\zstack\Project\Practica 2\CC2530DB\" -I
+#        "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\..\Source\" -I
+#        "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\..\..\..\ZMain\TI2530DB\" -I
+#        "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\..\..\..\..\..\Components\hal\include\" -I
+#        "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\..\..\..\..\..\Components\hal\target\CC2530EB\" -I
+#        "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\..\..\..\..\..\Components\mac\include\" -I
+#        "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\..\..\..\..\..\Components\mac\high_level\" -I
+#        "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\" -I
+#        "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\..\..\..\..\..\Components\mac\low_level\srf04\single_chip\"
+#        -I "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\..\..\..\..\..\Components\mt\" -I
+#        "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\..\..\..\..\..\Components\osal\include\" -I
+#        "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\..\..\..\..\..\Components\services\saddr\" -I
+#        "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\..\..\..\..\..\Components\services\sdata\" -I
+#        "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\..\..\..\..\..\Components\stack\af\" -I
+#        "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\..\..\..\..\..\Components\stack\nwk\" -I
+#        "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\..\..\..\..\..\Components\stack\sapi\" -I
+#        "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\..\..\..\..\..\Components\stack\sec\" -I
+#        "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\..\..\..\..\..\Components\stack\sys\" -I
+#        "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\..\..\..\..\..\Components\stack\zdo\" -I
+#        "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\..\..\..\..\..\Components\zmac\" -I
+#        "E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\..\..\..\..\..\Components\zmac\f8w\" -Oh
+#        --require_prototypes
 #    List file          =  
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\SensorEB\List\DemoSensor.lst
+#        E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\SensorEB\List\DemoSensor.lst
 #    Object file        =  
-#        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\SensorEB\Obj\DemoSensor.r51
+#        E:\Projects\WTSN\Projects\zstack\Project\Practica
+#        2\CC2530DB\SensorEB\Obj\DemoSensor.r51
 #
 ###############################################################################
 
-C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\Source\DemoSensor.c
+E:\Projects\WTSN\Projects\zstack\Project\Practica 2\Source\DemoSensor.c
       1          /**************************************************************************************************
       2            Filename:       DemoSensor.c
       3          
@@ -145,6 +150,31 @@ C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\Source\
      48          #include "OSAL.h"
      49          #include "sapi.h"
      50          #include "hal_key.h"
+
+   \                                 In  segment SFR_AN, at 0x80
+   \   union <unnamed> volatile __sfr _A_P0
+   \                     _A_P0:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0x8f
+   \   unsigned char volatile __sfr P0INP
+   \                     P0INP:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xf3
+   \   unsigned char volatile __sfr P0SEL
+   \                     P0SEL:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xf7
+   \   unsigned char volatile __sfr P2INP
+   \                     P2INP:
+   \   000000                DS 1
+
+   \                                 In  segment SFR_AN, at 0xfd
+   \   unsigned char volatile __sfr P0DIR
+   \                     P0DIR:
+   \   000000                DS 1
      51          #include "hal_lcd.h"
      52          #include "hal_led.h"
      53          #include "hal_adc.h"
@@ -188,17 +218,65 @@ C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\Source\
      91           * LOCAL VARIABLES
      92           */
      93          
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
      94          static uint8 appState =           APP_INIT;
+   \                     appState:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
      95          static uint8 reportState =        FALSE;
+   \                     reportState:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
      96          
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
      97          static uint8 reportFailureNr =    0;
+   \                     reportFailureNr:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
      98          
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
      99          static uint16 timeDone       =    0;
+   \                     timeDone:
+   \   000000                DS 2
+   \   000002                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_I, align 1, keep-with-next
     100          static uint16 myReportPeriod =    50;        // milliseconds
+   \                     myReportPeriod:
+   \   000000                DS 2
+   \   000002                REQUIRE `?<Initializer for myReportPeriod>`
+   \   000002                REQUIRE __INIT_XDATA_I
+
+   \                                 In  segment XDATA_I, align 1, keep-with-next
     101          static uint16 myBindRetryDelay =  2000;        // milliseconds
+   \                     myBindRetryDelay:
+   \   000000                DS 2
+   \   000002                REQUIRE `?<Initializer for myBindRetryDelay>`
+   \   000002                REQUIRE __INIT_XDATA_I
+
+   \                                 In  segment XDATA_I, align 1, keep-with-next
     102          static uint8 myStartRetryDelay =    10;        // milliseconds
+   \                     myStartRetryDelay:
+   \   000000                DS 1
+   \   000001                REQUIRE `?<Initializer for myStartRetryDelay>`
+   \   000001                REQUIRE __INIT_XDATA_I
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
     103          static uint8 oldValue = 0;
+   \                     oldValue:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
     104          static uint16 parentShortAddr;
+   \                     parentShortAddr:
+   \   000000                DS 2
+   \   000002                REQUIRE __INIT_XDATA_Z
     105          
     106          /******************************************************************************
     107           * GLOBAL VARIABLES
@@ -209,15 +287,28 @@ C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\Source\
     112          #define NUM_IN_CMD_SENSOR                 0
     113          
     114          // List of output and input commands for Sensor device
+
+   \                                 In  segment XDATA_ROM_C, align 1
     115          const cId_t zb_OutCmdList[NUM_OUT_CMD_SENSOR] =
+   \                     zb_OutCmdList:
+   \   000000   0200         DW 2
     116          {
     117            SENSOR_REPORT_CMD_ID
-                   ^
-Error[Pe020]: identifier "SENSOR_REPORT_CMD_ID" is undefined
     118          };
     119          
     120          // Define SimpleDescriptor for Sensor device
+
+   \                                 In  segment XDATA_ROM_C, align 1
     121          const SimpleDescriptionFormat_t zb_SimpleDesc =
+   \                     zb_SimpleDesc:
+   \   000000   02           DB 2
+   \   000001   200F         DW 3872
+   \   000003   0100         DW 1
+   \   000005   01           DB 1
+   \   000006   00           DB 0
+   \   000007   0000         DW 0H
+   \   000009   01           DB 1
+   \   00000A   ....         DW zb_OutCmdList
     122          {
     123            MY_ENDPOINT_ID,             //  Endpoint
     124            MY_PROFILE_ID,              //  Profile ID
@@ -249,59 +340,181 @@ Error[Pe020]: identifier "SENSOR_REPORT_CMD_ID" is undefined
     150           *
     151           * @return      none
     152           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
     153          void zb_HandleOsalEvent( uint16 event )
+   \                     zb_HandleOsalEvent:
     154          {
+   \   000000                REQUIRE ?V0
+   \   000000                REQUIRE ?V1
+   \   000000                REQUIRE ?V2
+   \   000000                REQUIRE ?V3
+   \   000000   74F4         MOV     A,#-0xc
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 12
+   \   000005                ; Auto size: 0
+   \   000005   EA           MOV     A,R2
+   \   000006   FE           MOV     R6,A
+   \   000007   EB           MOV     A,R3
     155            if( event & SYS_EVENT_MSG )
     156            {
     157            }
     158          
     159            if( event & ZB_ENTRY_EVENT )
+   \   000008   5410         ANL     A,#0x10
+   \   00000A   602A         JZ      ??zb_HandleOsalEvent_0
     160            {
     161              // blind LED 1 to indicate joining a network
     162              HalLedBlink ( HAL_LED_1, 0, 50, 500 );
+   \   00000C                ; Setup parameters for call to function HalLedBlink
+   \   00000C   7CF4         MOV     R4,#-0xc
+   \   00000E   7D01         MOV     R5,#0x1
+   \   000010   7B32         MOV     R3,#0x32
+   \   000012   7A00         MOV     R2,#0x0
+   \   000014   7901         MOV     R1,#0x1
+   \   000016   12....       LCALL   `??HalLedBlink::?relay`; Banked call to: HalLedBlink
     163              // Set Pin Port to output
     164              MCU_IO_DIR_OUTPUT_PREP(0, 0);
+   \   000019   43FD01       ORL     0xfd,#0x1
     165              MCU_IO_OUTPUT_PREP(0, 0, 0);
+   \   00001C   53F3FE       ANL     0xf3,#0xfe
+   \   00001F   C280         CLR     0x80.0
+   \   000021   43FD01       ORL     0xfd,#0x1
     166              
     167              // Set Button
     168              MCU_IO_DIR_INPUT_PREP(0, 1);
+   \   000024   53FDFD       ANL     0xfd,#0xfd
     169              MCU_IO_INPUT_PREP(0,1,MCU_IO_PULLDOWN); 
+   \   000027   53F3FD       ANL     0xf3,#0xfd
+   \   00002A   53FDFD       ANL     0xfd,#0xfd
+   \   00002D   538FFD       ANL     0x8f,#0xfd
+   \   000030   43F720       ORL     0xf7,#0x20
     170              //MCU_IO_SET_HIGH(0, 1);
     171              // Start the device
     172              zb_StartRequest();
+   \   000033                ; Setup parameters for call to function zb_StartRequest
+   \   000033   12....       LCALL   `??zb_StartRequest::?relay`; Banked call to: zb_StartRequest
     173              
     174            }
     175          
     176            if ( event & MY_START_EVT )
+   \                     ??zb_HandleOsalEvent_0:
+   \   000036   EE           MOV     A,R6
+   \   000037   A2E0         MOV     C,0xE0 /* A   */.0
+   \   000039   5003         JNC     ??zb_HandleOsalEvent_1
     177            {
     178              zb_StartRequest();
+   \   00003B                ; Setup parameters for call to function zb_StartRequest
+   \   00003B   12....       LCALL   `??zb_StartRequest::?relay`; Banked call to: zb_StartRequest
     179            }
     180          
     181            if ( event & MY_REPORT_EVT )
+   \                     ??zb_HandleOsalEvent_1:
+   \   00003E   EE           MOV     A,R6
+   \   00003F   5402         ANL     A,#0x2
+   \   000041   6025         JZ      ??zb_HandleOsalEvent_2
     182            {
     183              if ( appState == APP_REPORT )
+   \   000043   90....       MOV     DPTR,#appState
+   \   000046   E0           MOVX    A,@DPTR
+   \   000047   6404         XRL     A,#0x4
+   \   000049   701D         JNZ     ??zb_HandleOsalEvent_2
     184              {
     185                sendReport();
+   \   00004B                ; Setup parameters for call to function sendReport
+   \   00004B   12....       LCALL   `??sendReport::?relay`; Banked call to: sendReport
     186                osal_start_timerEx( sapi_TaskID, MY_REPORT_EVT, myReportPeriod );
+   \   00004E                ; Setup parameters for call to function osal_start_timerEx
+   \   00004E   90....       MOV     DPTR,#myReportPeriod
+   \   000051   12....       LCALL   ?Subroutine2 & 0xFFFF
     187              }
     188            }
+   \                     ??CrossCallReturnLabel_0:
+   \   000054   12....       LCALL   ?PUSH_XSTACK_I_FOUR
+   \   000057   7A02         MOV     R2,#0x2
+   \   000059   7B00         MOV     R3,#0x0
+   \   00005B   90....       MOV     DPTR,#sapi_TaskID
+   \   00005E   E0           MOVX    A,@DPTR
+   \   00005F   F9           MOV     R1,A
+   \   000060   12....       LCALL   `??osal_start_timerEx::?relay`; Banked call to: osal_start_timerEx
+   \   000063   7404         MOV     A,#0x4
+   \   000065   12....       LCALL   ?DEALLOC_XSTACK8
     189          
     190            if ( event & MY_FIND_COLLECTOR_EVT )
+   \                     ??zb_HandleOsalEvent_2:
+   \   000068   EE           MOV     A,R6
+   \   000069   5404         ANL     A,#0x4
+   \   00006B   6034         JZ      ??zb_HandleOsalEvent_3
     191            {
     192              // Delete previous binding
     193              if ( appState == APP_REPORT )
+   \   00006D   90....       MOV     DPTR,#appState
+   \   000070   E0           MOVX    A,@DPTR
+   \   000071   6404         XRL     A,#0x4
+   \   000073   700D         JNZ     ??zb_HandleOsalEvent_4
     194              {
     195                zb_BindDevice( FALSE, SENSOR_REPORT_CMD_ID, (uint8 *)NULL );
+   \   000075                ; Setup parameters for call to function zb_BindDevice
+   \   000075   7C00         MOV     R4,#0x0
+   \   000077   7D00         MOV     R5,#0x0
+   \   000079   7A02         MOV     R2,#0x2
+   \   00007B   7B00         MOV     R3,#0x0
+   \   00007D   7900         MOV     R1,#0x0
+   \   00007F   12....       LCALL   `??zb_BindDevice::?relay`; Banked call to: zb_BindDevice
     196              }
     197          
     198              appState = APP_BIND;
+   \                     ??zb_HandleOsalEvent_4:
+   \   000082   90....       MOV     DPTR,#appState
+   \   000085   7402         MOV     A,#0x2
+   \   000087   F0           MOVX    @DPTR,A
     199              // blink LED 2 to indicate discovery and binding
     200              HalLedBlink ( HAL_LED_2, 0, 50, 500 );
+   \   000088                ; Setup parameters for call to function HalLedBlink
+   \   000088   7CF4         MOV     R4,#-0xc
+   \   00008A   7D01         MOV     R5,#0x1
+   \   00008C   7B32         MOV     R3,#0x32
+   \   00008E   7A00         MOV     R2,#0x0
+   \   000090   F9           MOV     R1,A
+   \   000091   12....       LCALL   `??HalLedBlink::?relay`; Banked call to: HalLedBlink
     201          
     202              // Find and bind to a collector device
     203              zb_BindDevice( TRUE, SENSOR_REPORT_CMD_ID, (uint8 *)NULL );
+   \   000094                ; Setup parameters for call to function zb_BindDevice
+   \   000094   7C00         MOV     R4,#0x0
+   \   000096   7D00         MOV     R5,#0x0
+   \   000098   7A02         MOV     R2,#0x2
+   \   00009A   7B00         MOV     R3,#0x0
+   \   00009C   7901         MOV     R1,#0x1
+   \   00009E   12....       LCALL   `??zb_BindDevice::?relay`; Banked call to: zb_BindDevice
     204            }
     205          }
+   \                     ??zb_HandleOsalEvent_3:
+   \   0000A1                REQUIRE ?Subroutine0
+   \   0000A1                REQUIRE P0DIR
+   \   0000A1                REQUIRE P0SEL
+   \   0000A1                REQUIRE _A_P0
+   \   0000A1                REQUIRE P0INP
+   \   0000A1                REQUIRE P2INP
+   \   0000A1                ; // Fall through to label ?Subroutine0
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine0:
+   \   000000   7F04         MOV     R7,#0x4
+   \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine2:
+   \   000000   E0           MOVX    A,@DPTR
+   \   000001   F5..         MOV     ?V0,A
+   \   000003   A3           INC     DPTR
+   \   000004   E0           MOVX    A,@DPTR
+   \   000005   F5..         MOV     ?V1,A
+   \   000007   E4           CLR     A
+   \   000008   F5..         MOV     ?V2,A
+   \   00000A   F5..         MOV     ?V3,A
+   \   00000C   78..         MOV     R0,#?V0
+   \   00000E   22           RET
     206          
     207          /******************************************************************************
     208           * @fn      zb_HandleKeys
@@ -317,10 +530,23 @@ Error[Pe020]: identifier "SENSOR_REPORT_CMD_ID" is undefined
     218           *
     219           * @return  none
     220           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
     221          void zb_HandleKeys( uint8 shift, uint8 keys )
+   \                     zb_HandleKeys:
     222          {
+   \   000000   74F7         MOV     A,#-0x9
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+   \   000005   E9           MOV     A,R1
+   \   000006   FE           MOV     R6,A
+   \   000007   EA           MOV     A,R2
+   \   000008   FF           MOV     R7,A
     223            // Shift is used to make each button/switch dual purpose.
     224            if ( shift )
+   \   000009   EE           MOV     A,R6
+   \   00000A   7036         JNZ     ??zb_HandleKeys_0
     225            {
     226              if ( keys & HAL_KEY_SW_1 )
     227              {
@@ -338,19 +564,49 @@ Error[Pe020]: identifier "SENSOR_REPORT_CMD_ID" is undefined
     239            else
     240            {
     241              if ( keys & HAL_KEY_SW_1 )
+   \   00000C   EF           MOV     A,R7
+   \   00000D   A2E0         MOV     C,0xE0 /* A   */.0
+   \   00000F   5024         JNC     ??zb_HandleKeys_1
     242              {
     243                // Start reporting
     244                if ( reportState == FALSE ) {
+   \   000011   90....       MOV     DPTR,#reportState
+   \   000014   E0           MOVX    A,@DPTR
+   \   000015   701E         JNZ     ??zb_HandleKeys_1
     245                  osal_set_event( sapi_TaskID, MY_REPORT_EVT );
+   \   000017                ; Setup parameters for call to function osal_set_event
+   \   000017   7A02         MOV     R2,#0x2
+   \   000019   7B00         MOV     R3,#0x0
+   \   00001B   90....       MOV     DPTR,#sapi_TaskID
+   \   00001E   E0           MOVX    A,@DPTR
+   \   00001F   F9           MOV     R1,A
+   \   000020   12....       LCALL   `??osal_set_event::?relay`; Banked call to: osal_set_event
     246                  reportState = TRUE;
+   \   000023   90....       MOV     DPTR,#reportState
+   \   000026   7401         MOV     A,#0x1
+   \   000028   F0           MOVX    @DPTR,A
     247          
     248                  // blink LED 2 to indicate reporting
     249                  HalLedBlink ( HAL_LED_2, 0, 50, 500 );
+   \   000029                ; Setup parameters for call to function HalLedBlink
+   \   000029   7CF4         MOV     R4,#-0xc
+   \   00002B   FD           MOV     R5,A
+   \   00002C   7B32         MOV     R3,#0x32
+   \   00002E   7A00         MOV     R2,#0x0
+   \   000030   7902         MOV     R1,#0x2
+   \   000032   12....       LCALL   `??HalLedBlink::?relay`; Banked call to: HalLedBlink
     250                }
     251              }
     252              if ( keys & HAL_KEY_SW_2 )
+   \                     ??zb_HandleKeys_1:
+   \   000035   EF           MOV     A,R7
+   \   000036   A2E1         MOV     C,0xE0 /* A   */.1
+   \   000038   5008         JNC     ??zb_HandleKeys_0
     253              {
     254                MCU_IO_OUTPUT_PREP(0, 0, 1);
+   \   00003A   53F3FE       ANL     0xf3,#0xfe
+   \   00003D   D280         SETB    0x80.0
+   \   00003F   43FD01       ORL     0xfd,#0x1
     255              }
     256              if ( keys & HAL_KEY_SW_3 )
     257              {
@@ -360,6 +616,17 @@ Error[Pe020]: identifier "SENSOR_REPORT_CMD_ID" is undefined
     261              }
     262            }
     263          }
+   \                     ??zb_HandleKeys_0:
+   \   000042                REQUIRE ?Subroutine1
+   \   000042                REQUIRE P0SEL
+   \   000042                REQUIRE _A_P0
+   \   000042                REQUIRE P0DIR
+   \   000042                ; // Fall through to label ?Subroutine1
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine1:
+   \   000000   7F01         MOV     R7,#0x1
+   \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
     264          
     265          /******************************************************************************
     266           * @fn          zb_StartConfirm
@@ -373,22 +640,55 @@ Error[Pe020]: identifier "SENSOR_REPORT_CMD_ID" is undefined
     274           *
     275           * @return      none
     276           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
     277          void zb_StartConfirm( uint8 status )
+   \                     zb_StartConfirm:
     278          {
+   \   000000                REQUIRE ?V0
+   \   000000                REQUIRE ?V1
+   \   000000                REQUIRE ?V2
+   \   000000                REQUIRE ?V3
+   \   000000   74F4         MOV     A,#-0xc
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 12
+   \   000005                ; Auto size: 0
+   \   000005   E9           MOV     A,R1
     279            // If the device sucessfully started, change state to running
     280            if ( status == ZB_SUCCESS )
+   \   000006   7022         JNZ     ??zb_StartConfirm_0
     281            {
     282              // Change application state
     283              appState = APP_START;
+   \   000008   90....       MOV     DPTR,#appState
+   \   00000B   7401         MOV     A,#0x1
+   \   00000D   F0           MOVX    @DPTR,A
     284          
     285              // Set LED 1 to indicate that node is operational on the network
     286              HalLedSet( HAL_LED_1, HAL_LED_MODE_ON );
+   \   00000E                ; Setup parameters for call to function HalLedSet
+   \   00000E   FA           MOV     R2,A
+   \   00000F   F9           MOV     R1,A
+   \   000010   12....       LCALL   `??HalLedSet::?relay`; Banked call to: HalLedSet
     287          
     288              // Store parent short address
     289              zb_GetDeviceInfo(ZB_INFO_PARENT_SHORT_ADDR, &parentShortAddr);
+   \   000013                ; Setup parameters for call to function zb_GetDeviceInfo
+   \   000013   7A..         MOV     R2,#parentShortAddr & 0xff
+   \   000015   7B..         MOV     R3,#(parentShortAddr >> 8) & 0xff
+   \   000017   7903         MOV     R1,#0x3
+   \   000019   12....       LCALL   `??zb_GetDeviceInfo::?relay`; Banked call to: zb_GetDeviceInfo
     290          
     291              // Set event to bind to a collector
     292              osal_set_event( sapi_TaskID, MY_FIND_COLLECTOR_EVT );
+   \   00001C                ; Setup parameters for call to function osal_set_event
+   \   00001C   7A04         MOV     R2,#0x4
+   \   00001E   7B00         MOV     R3,#0x0
+   \   000020   90....       MOV     DPTR,#sapi_TaskID
+   \   000023   E0           MOVX    A,@DPTR
+   \   000024   F9           MOV     R1,A
+   \   000025   12....       LCALL   `??osal_set_event::?relay`; Banked call to: osal_set_event
+   \   000028   8023         SJMP    ??zb_StartConfirm_1
     293              
     294          
     295            }
@@ -396,8 +696,29 @@ Error[Pe020]: identifier "SENSOR_REPORT_CMD_ID" is undefined
     297            {
     298              // Try again later with a delay
     299              osal_start_timerEx( sapi_TaskID, MY_START_EVT, myStartRetryDelay );
+   \                     ??zb_StartConfirm_0:
+   \   00002A                ; Setup parameters for call to function osal_start_timerEx
+   \   00002A   90....       MOV     DPTR,#myStartRetryDelay
+   \   00002D   E0           MOVX    A,@DPTR
+   \   00002E   F5..         MOV     ?V0,A
+   \   000030   E4           CLR     A
+   \   000031   F5..         MOV     ?V1,A
+   \   000033   F5..         MOV     ?V2,A
+   \   000035   F5..         MOV     ?V3,A
+   \   000037   78..         MOV     R0,#?V0
+   \   000039   12....       LCALL   ?PUSH_XSTACK_I_FOUR
+   \   00003C   7A01         MOV     R2,#0x1
+   \   00003E   7B00         MOV     R3,#0x0
+   \   000040   90....       MOV     DPTR,#sapi_TaskID
+   \   000043   E0           MOVX    A,@DPTR
+   \   000044   F9           MOV     R1,A
+   \   000045   12....       LCALL   `??osal_start_timerEx::?relay`; Banked call to: osal_start_timerEx
+   \   000048   7404         MOV     A,#0x4
+   \   00004A   12....       LCALL   ?DEALLOC_XSTACK8
     300            }
     301          }
+   \                     ??zb_StartConfirm_1:
+   \   00004D   02....       LJMP    ?Subroutine0 & 0xFFFF
     302          
     303          /******************************************************************************
     304           * @fn          zb_SendDataConfirm
@@ -410,21 +731,54 @@ Error[Pe020]: identifier "SENSOR_REPORT_CMD_ID" is undefined
     311           *
     312           * @return      none
     313           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
     314          void zb_SendDataConfirm( uint8 handle, uint8 status )
+   \                     zb_SendDataConfirm:
     315          {
+   \   000000   74F7         MOV     A,#-0x9
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 9
+   \   000005                ; Auto size: 0
+   \   000005   EA           MOV     A,R2
     316            if(status != ZB_SUCCESS)
+   \   000006   6029         JZ      ??zb_SendDataConfirm_0
     317            {
     318              if ( ++reportFailureNr >= REPORT_FAILURE_LIMIT )
+   \   000008   90....       MOV     DPTR,#reportFailureNr
+   \   00000B   E0           MOVX    A,@DPTR
+   \   00000C   04           INC     A
+   \   00000D   F0           MOVX    @DPTR,A
+   \   00000E   C3           CLR     C
+   \   00000F   9404         SUBB    A,#0x4
+   \   000011   4023         JC      ??zb_SendDataConfirm_1
     319              {
     320                 // Stop reporting
     321                 osal_stop_timerEx( sapi_TaskID, MY_REPORT_EVT );
+   \   000013                ; Setup parameters for call to function osal_stop_timerEx
+   \   000013   7A02         MOV     R2,#0x2
+   \   000015   7B00         MOV     R3,#0x0
+   \   000017   90....       MOV     DPTR,#sapi_TaskID
+   \   00001A   E0           MOVX    A,@DPTR
+   \   00001B   F9           MOV     R1,A
+   \   00001C   12....       LCALL   `??osal_stop_timerEx::?relay`; Banked call to: osal_stop_timerEx
     322          
     323                 // After failure start reporting automatically when the device
     324                 // is binded to a new gateway
     325                 reportState = TRUE;
+   \   00001F   90....       MOV     DPTR,#reportState
+   \   000022   7401         MOV     A,#0x1
+   \   000024   F0           MOVX    @DPTR,A
     326          
     327                 // Try binding to a new gateway
     328                 osal_set_event( sapi_TaskID, MY_FIND_COLLECTOR_EVT );
+   \   000025                ; Setup parameters for call to function osal_set_event
+   \   000025   7A04         MOV     R2,#0x4
+   \   000027   7B00         MOV     R3,#0x0
+   \   000029   90....       MOV     DPTR,#sapi_TaskID
+   \   00002C   E0           MOVX    A,@DPTR
+   \   00002D   F9           MOV     R1,A
+   \   00002E   12....       LCALL   `??osal_set_event::?relay`; Banked call to: osal_set_event
     329                 reportFailureNr = 0;
     330              }
     331            }
@@ -433,8 +787,14 @@ Error[Pe020]: identifier "SENSOR_REPORT_CMD_ID" is undefined
     334            {
     335              // Reset failure counter
     336              reportFailureNr = 0;
+   \                     ??zb_SendDataConfirm_0:
+   \   000031   90....       MOV     DPTR,#reportFailureNr
+   \   000034   E4           CLR     A
+   \   000035   F0           MOVX    @DPTR,A
     337            }
     338          }
+   \                     ??zb_SendDataConfirm_1:
+   \   000036   02....       LJMP    ?Subroutine1 & 0xFFFF
     339          
     340          /******************************************************************************
     341           * @fn          zb_BindConfirm
@@ -447,29 +807,83 @@ Error[Pe020]: identifier "SENSOR_REPORT_CMD_ID" is undefined
     348           *
     349           * @return      none
     350           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
     351          void zb_BindConfirm( uint16 commandId, uint8 status )
+   \                     zb_BindConfirm:
     352          {
+   \   000000                REQUIRE ?V0
+   \   000000                REQUIRE ?V1
+   \   000000                REQUIRE ?V2
+   \   000000                REQUIRE ?V3
+   \   000000   74F4         MOV     A,#-0xc
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 12
+   \   000005                ; Auto size: 0
+   \   000005   E9           MOV     A,R1
     353            if( status == ZB_SUCCESS )
+   \   000006   702E         JNZ     ??zb_BindConfirm_0
     354            {
     355              appState = APP_REPORT;
+   \   000008   90....       MOV     DPTR,#appState
+   \   00000B   7404         MOV     A,#0x4
+   \   00000D   F0           MOVX    @DPTR,A
     356              HalLedSet( HAL_LED_2, HAL_LED_MODE_OFF );
+   \   00000E                ; Setup parameters for call to function HalLedSet
+   \   00000E   7A00         MOV     R2,#0x0
+   \   000010   7902         MOV     R1,#0x2
+   \   000012   12....       LCALL   `??HalLedSet::?relay`; Banked call to: HalLedSet
     357          
     358              // After failure reporting start automatically when the device
     359              // is binded to a new gateway
     360              if ( reportState )
+   \   000015   90....       MOV     DPTR,#reportState
+   \   000018   E0           MOVX    A,@DPTR
+   \   000019   6035         JZ      ??zb_BindConfirm_1
     361              {
     362                // blink LED 2 to indicate reporting
     363                HalLedBlink ( HAL_LED_2, 0, 50, 500 );
+   \   00001B                ; Setup parameters for call to function HalLedBlink
+   \   00001B   7CF4         MOV     R4,#-0xc
+   \   00001D   7D01         MOV     R5,#0x1
+   \   00001F   7B32         MOV     R3,#0x32
+   \   000021   7A00         MOV     R2,#0x0
+   \   000023   7902         MOV     R1,#0x2
+   \   000025   12....       LCALL   `??HalLedBlink::?relay`; Banked call to: HalLedBlink
     364          
     365                // Start reporting
     366                osal_set_event( sapi_TaskID, MY_REPORT_EVT );
+   \   000028                ; Setup parameters for call to function osal_set_event
+   \   000028   7A02         MOV     R2,#0x2
+   \   00002A   7B00         MOV     R3,#0x0
+   \   00002C   90....       MOV     DPTR,#sapi_TaskID
+   \   00002F   E0           MOVX    A,@DPTR
+   \   000030   F9           MOV     R1,A
+   \   000031   12....       LCALL   `??osal_set_event::?relay`; Banked call to: osal_set_event
+   \   000034   801A         SJMP    ??zb_BindConfirm_1
     367              }
     368            }
     369            else
     370            {
     371              osal_start_timerEx( sapi_TaskID, MY_FIND_COLLECTOR_EVT, myBindRetryDelay );
+   \                     ??zb_BindConfirm_0:
+   \   000036                ; Setup parameters for call to function osal_start_timerEx
+   \   000036   90....       MOV     DPTR,#myBindRetryDelay
+   \   000039   12....       LCALL   ?Subroutine2 & 0xFFFF
     372            }
+   \                     ??CrossCallReturnLabel_1:
+   \   00003C   12....       LCALL   ?PUSH_XSTACK_I_FOUR
+   \   00003F   7A04         MOV     R2,#0x4
+   \   000041   7B00         MOV     R3,#0x0
+   \   000043   90....       MOV     DPTR,#sapi_TaskID
+   \   000046   E0           MOVX    A,@DPTR
+   \   000047   F9           MOV     R1,A
+   \   000048   12....       LCALL   `??osal_start_timerEx::?relay`; Banked call to: osal_start_timerEx
+   \   00004B   7404         MOV     A,#0x4
+   \   00004D   12....       LCALL   ?DEALLOC_XSTACK8
     373          }
+   \                     ??zb_BindConfirm_1:
+   \   000050   02....       LJMP    ?Subroutine0 & 0xFFFF
     374          
     375          /******************************************************************************
     376           * @fn          zb_AllowBindConfirm
@@ -480,10 +894,16 @@ Error[Pe020]: identifier "SENSOR_REPORT_CMD_ID" is undefined
     381           *
     382           * @return      none
     383           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
     384          void zb_AllowBindConfirm( uint16 source )
+   \                     zb_AllowBindConfirm:
     385          {
+   \   000000                ; Saved register size: 0
+   \   000000                ; Auto size: 0
     386            (void)source;
     387          }
+   \   000000   02....       LJMP    ?BRET
     388          
     389          /******************************************************************************
     390           * @fn          zb_FindDeviceConfirm
@@ -497,12 +917,18 @@ Error[Pe020]: identifier "SENSOR_REPORT_CMD_ID" is undefined
     398           *
     399           * @return      none
     400           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
     401          void zb_FindDeviceConfirm( uint8 searchType, uint8 *searchKey, uint8 *result )
+   \                     zb_FindDeviceConfirm:
     402          {
+   \   000000                ; Saved register size: 0
+   \   000000                ; Auto size: 0
     403            (void)searchType;
     404            (void)searchKey;
     405            (void)result;
     406          }
+   \   000000   02....       LJMP    ?BRET
     407          
     408          /******************************************************************************
     409           * @fn          zb_ReceiveDataIndication
@@ -518,13 +944,19 @@ Error[Pe020]: identifier "SENSOR_REPORT_CMD_ID" is undefined
     419           *
     420           * @return      none
     421           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
     422          void zb_ReceiveDataIndication( uint16 source, uint16 command, uint16 len, uint8 *pData  )
+   \                     zb_ReceiveDataIndication:
     423          {
+   \   000000                ; Saved register size: 0
+   \   000000                ; Auto size: 0
     424            (void)source;
     425            (void)command;
     426            (void)len;
     427            (void)pData;
     428          }
+   \   000000   02....       LJMP    ?BRET
     429          
     430          /******************************************************************************
     431           * @fn          uartRxCB
@@ -536,11 +968,17 @@ Error[Pe020]: identifier "SENSOR_REPORT_CMD_ID" is undefined
     437           *
     438           * @return      none
     439           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
     440          void uartRxCB( uint8 port, uint8 event )
+   \                     uartRxCB:
     441          {
+   \   000000                ; Saved register size: 0
+   \   000000                ; Auto size: 0
     442            (void)port;
     443            (void)event;
     444          }
+   \   000000   02....       LJMP    ?BRET
     445          
     446          /******************************************************************************
     447           * @fn          sendReport
@@ -551,65 +989,307 @@ Error[Pe020]: identifier "SENSOR_REPORT_CMD_ID" is undefined
     452           *
     453           * @return      none
     454           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
     455          static void sendReport(void)
+   \                     sendReport:
     456          {
+   \   000000                REQUIRE ?V0
+   \   000000                REQUIRE ?V1
+   \   000000                REQUIRE ?V2
+   \   000000                REQUIRE ?V3
+   \   000000                REQUIRE ?V4
+   \   000000                REQUIRE ?V5
+   \   000000                REQUIRE ?V6
+   \   000000                REQUIRE ?V7
+   \   000000   74F0         MOV     A,#-0x10
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 16
+   \   000005                ; Auto size: 5
+   \   000005   74FB         MOV     A,#-0x5
+   \   000007   12....       LCALL   ?ALLOC_XSTACK8
     457            uint8 pData[SENSOR_REPORT_LENGTH];
-                               ^
-Error[Pe020]: identifier "SENSOR_REPORT_LENGTH" is undefined
     458            static uint8 reportNr = 0;
     459            uint8 txOptions;
     460          
     461            // Read and report temperature value
     462            pData[SENSOR_TEMP_OFFSET] = readTemp();
-                         ^
-Error[Pe020]: identifier "SENSOR_TEMP_OFFSET" is undefined
+   \   00000A                ; Setup parameters for call to function HalReadTemp
+   \   00000A   12....       LCALL   `??HalReadTemp::?relay`; Banked call to: HalReadTemp
+   \   00000D   8A..         MOV     ?V0,R2
+   \   00000F   8B..         MOV     ?V1,R3
+   \   000011   7404         MOV     A,#0x4
+   \   000013   78..         MOV     R0,#?V0
+   \   000015   12....       LCALL   ?US_SHR
+   \   000018   A8..         MOV     R0,?V0
+   \   00001A   A9..         MOV     R1,?V1
+   \   00001C   90....       MOV     DPTR,#??bCalibrate
+   \   00001F   E0           MOVX    A,@DPTR
+   \   000020   600D         JZ      ??sendReport_0
+   \   000022   90....       MOV     DPTR,#??voltageAtTemp22
+   \   000025   E8           MOV     A,R0
+   \   000026   F0           MOVX    @DPTR,A
+   \   000027   A3           INC     DPTR
+   \   000028   E9           MOV     A,R1
+   \   000029   F0           MOVX    @DPTR,A
+   \   00002A   90....       MOV     DPTR,#??bCalibrate
+   \   00002D   E4           CLR     A
+   \   00002E   F0           MOVX    @DPTR,A
+   \                     ??sendReport_0:
+   \   00002F   90....       MOV     DPTR,#??voltageAtTemp22
+   \   000032   E0           MOVX    A,@DPTR
+   \   000033   FA           MOV     R2,A
+   \   000034   A3           INC     DPTR
+   \   000035   E0           MOVX    A,@DPTR
+   \   000036   FB           MOV     R3,A
+   \   000037   E8           MOV     A,R0
+   \   000038   C3           CLR     C
+   \   000039   9A           SUBB    A,R2
+   \   00003A   F5..         MOV     ?V0,A
+   \   00003C   E9           MOV     A,R1
+   \   00003D   9B           SUBB    A,R3
+   \   00003E   F5..         MOV     ?V1,A
+   \   000040   7402         MOV     A,#0x2
+   \   000042   78..         MOV     R0,#?V0
+   \   000044   12....       LCALL   ?US_SHR
+   \   000047   E5..         MOV     A,?V0
+   \   000049   2416         ADD     A,#0x16
+   \   00004B   F8           MOV     R0,A
+   \   00004C   C3           CLR     C
+   \   00004D   9464         SUBB    A,#0x64
+   \   00004F   A2D2         MOV     C,0xD0 /* PSW */.2
+   \   000051   65D0         XRL     A,PSW
+   \   000053   33           RLC     A
+   \   000054   4004         JC      ??sendReport_1
+   \   000056   7E64         MOV     R6,#0x64
+   \   000058   8011         SJMP    ??sendReport_2
+   \                     ??sendReport_1:
+   \   00005A   E8           MOV     A,R0
+   \   00005B   C3           CLR     C
+   \   00005C   9401         SUBB    A,#0x1
+   \   00005E   A2D2         MOV     C,0xD0 /* PSW */.2
+   \   000060   65D0         XRL     A,PSW
+   \   000062   33           RLC     A
+   \   000063   5004         JNC     ??sendReport_3
+   \   000065   7E00         MOV     R6,#0x0
+   \   000067   8002         SJMP    ??sendReport_2
+   \                     ??sendReport_3:
+   \   000069   E8           MOV     A,R0
+   \   00006A   FE           MOV     R6,A
+   \                     ??sendReport_2:
+   \   00006B   EE           MOV     A,R6
+   \   00006C   85..82       MOV     DPL,?XSP + 0
+   \   00006F   85..83       MOV     DPH,?XSP + 1
+   \   000072   F0           MOVX    @DPTR,A
     463          
     464            // Read and report voltage value
     465            pData[SENSOR_VOLTAGE_OFFSET] = readVoltage();
-                         ^
-Error[Pe020]: identifier "SENSOR_VOLTAGE_OFFSET" is undefined
+   \   000073                ; Setup parameters for call to function HalReadTemp
+   \   000073   12....       LCALL   `??HalReadTemp::?relay`; Banked call to: HalReadTemp
+   \   000076   8A..         MOV     ?V0,R2
+   \   000078   8B..         MOV     ?V1,R3
+   \   00007A   7406         MOV     A,#0x6
+   \   00007C   78..         MOV     R0,#?V0
+   \   00007E   12....       LCALL   ?US_SHR
+   \   000081   F5..         MOV     ?V2,A
+   \   000083   F5..         MOV     ?V3,A
+   \   000085   78..         MOV     R0,#?V0
+   \   000087   12....       LCALL   ?UL_TO_FLT
+   \   00008A   90....       MOV     DPTR,#__Constant_42160000
+   \   00008D   78..         MOV     R0,#?V4
+   \   00008F   12....       LCALL   ?L_MOV_X
+   \   000092   78..         MOV     R0,#?V0
+   \   000094   79..         MOV     R1,#?V4
+   \   000096   12....       LCALL   ?FLT_MUL
+   \   000099   78..         MOV     R0,#?V0
+   \   00009B   12....       LCALL   ?FLT_TO_L
+   \   00009E   7409         MOV     A,#0x9
+   \   0000A0   78..         MOV     R0,#?V0
+   \   0000A2   12....       LCALL   ?US_SHR
+   \   0000A5   04           INC     A
+   \   0000A6   12....       LCALL   ?XSTACK_DISP0_8
+   \   0000A9   E5..         MOV     A,?V0
+   \   0000AB   F0           MOVX    @DPTR,A
     466          
     467            pData[SENSOR_PARENT_OFFSET] =  HI_UINT16(parentShortAddr);
-                         ^
-Error[Pe020]: identifier "SENSOR_PARENT_OFFSET" is undefined
+   \   0000AC   90....       MOV     DPTR,#parentShortAddr + 1
+   \   0000AF   E0           MOVX    A,@DPTR
+   \   0000B0   C0E0         PUSH    A
+   \   0000B2   7402         MOV     A,#0x2
+   \   0000B4   12....       LCALL   ?XSTACK_DISP0_8
+   \   0000B7   D0E0         POP     A
+   \   0000B9   F0           MOVX    @DPTR,A
     468            pData[SENSOR_PARENT_OFFSET + 1] =  LO_UINT16(parentShortAddr);
+   \   0000BA   90....       MOV     DPTR,#parentShortAddr
+   \   0000BD   E0           MOVX    A,@DPTR
+   \   0000BE   C0E0         PUSH    A
+   \   0000C0   7403         MOV     A,#0x3
+   \   0000C2   12....       LCALL   ?XSTACK_DISP0_8
+   \   0000C5   D0E0         POP     A
+   \   0000C7   F0           MOVX    @DPTR,A
     469            pData[BUTTON_PARENT_OFFSET+1] = MCU_IO_GET(0,1);
-                         ^
-Error[Pe020]: identifier "BUTTON_PARENT_OFFSET" is undefined
+   \   0000C8   E580         MOV     A,0x80
+   \   0000CA   5402         ANL     A,#0x2
+   \   0000CC   C0E0         PUSH    A
+   \   0000CE   7404         MOV     A,#0x4
+   \   0000D0   12....       LCALL   ?XSTACK_DISP0_8
+   \   0000D3   D0E0         POP     A
+   \   0000D5   F0           MOVX    @DPTR,A
     470           // HalUARTWrite(HAL_UART_PORT_0,pData,SENSOR_REPORT_LENGTH);
     471           // HalUARTWrite(HAL_UART_PORT_1,pData,SENSOR_REPORT_LENGTH);
     472            int test = MCU_IO_GET(0,1);
+   \   0000D6   E580         MOV     A,0x80
     473            if( MCU_IO_GET(0,1) > 0){
+   \   0000D8   A281         MOV     C,0x80.1
+   \   0000DA   5004         JNC     ??sendReport_4
     474              MCU_IO_SET_LOW(0, 0);
+   \   0000DC   C280         CLR     0x80.0
+   \   0000DE   8002         SJMP    ??sendReport_5
     475            } else {
     476              MCU_IO_SET_HIGH(0, 0);
+   \                     ??sendReport_4:
+   \   0000E0   D280         SETB    0x80.0
     477            }
     478            MCU_IO_SET_LOW(0, 1);
+   \                     ??sendReport_5:
+   \   0000E2   C281         CLR     0x80.1
     479            // Set ACK request on each ACK_INTERVAL report
     480            // If a report failed, set ACK request on next report
     481            if ( ++reportNr<ACK_REQ_INTERVAL && reportFailureNr == 0 )
+   \   0000E4   90....       MOV     DPTR,#??reportNr
+   \   0000E7   E0           MOVX    A,@DPTR
+   \   0000E8   04           INC     A
+   \   0000E9   F0           MOVX    @DPTR,A
+   \   0000EA   C3           CLR     C
+   \   0000EB   9405         SUBB    A,#0x5
+   \   0000ED   500A         JNC     ??sendReport_6
+   \   0000EF   90....       MOV     DPTR,#reportFailureNr
+   \   0000F2   E0           MOVX    A,@DPTR
+   \   0000F3   7004         JNZ     ??sendReport_6
     482            {
     483              txOptions = AF_TX_OPTIONS_NONE;
+   \   0000F5   7900         MOV     R1,#0x0
+   \   0000F7   8007         SJMP    ??sendReport_7
     484            }
     485            else
     486            {
     487              txOptions = AF_MSG_ACK_REQUEST;
+   \                     ??sendReport_6:
+   \   0000F9   7910         MOV     R1,#0x10
     488              reportNr = 0;
+   \   0000FB   90....       MOV     DPTR,#??reportNr
+   \   0000FE   E4           CLR     A
+   \   0000FF   F0           MOVX    @DPTR,A
     489            }
     490            // Destination address 0xFFFE: Destination address is sent to previously
     491            // established binding for the commandId.
     492            //printf("%i %i",pData[SENSOR_TEMP_OFFSET],oldValue);
     493            if(timeDone >= 60000){
+   \                     ??sendReport_7:
+   \   000100   90....       MOV     DPTR,#timeDone
+   \   000103   C3           CLR     C
+   \   000104   E0           MOVX    A,@DPTR
+   \   000105   9460         SUBB    A,#0x60
+   \   000107   A3           INC     DPTR
+   \   000108   E0           MOVX    A,@DPTR
+   \   000109   94EA         SUBB    A,#-0x16
+   \   00010B   400C         JC      ??sendReport_8
     494               timeDone += 1;
+   \   00010D   90....       MOV     DPTR,#timeDone
+   \   000110   E0           MOVX    A,@DPTR
+   \   000111   2401         ADD     A,#0x1
+   \   000113   F0           MOVX    @DPTR,A
+   \   000114   A3           INC     DPTR
+   \   000115   E0           MOVX    A,@DPTR
+   \   000116   3400         ADDC    A,#0x0
+   \   000118   F0           MOVX    @DPTR,A
     495            }
     496            if(pData[SENSOR_TEMP_OFFSET] != oldValue && timeDone >= 60000){
+   \                     ??sendReport_8:
+   \   000119   85..82       MOV     DPL,?XSP + 0
+   \   00011C   85..83       MOV     DPH,?XSP + 1
+   \   00011F   E0           MOVX    A,@DPTR
+   \   000120   F8           MOV     R0,A
+   \   000121   90....       MOV     DPTR,#oldValue
+   \   000124   E0           MOVX    A,@DPTR
+   \   000125   68           XRL     A,R0
+   \   000126   6058         JZ      ??sendReport_9
+   \   000128   90....       MOV     DPTR,#timeDone
+   \   00012B   C3           CLR     C
+   \   00012C   E0           MOVX    A,@DPTR
+   \   00012D   9460         SUBB    A,#0x60
+   \   00012F   A3           INC     DPTR
+   \   000130   E0           MOVX    A,@DPTR
+   \   000131   94EA         SUBB    A,#-0x16
+   \   000133   404B         JC      ??sendReport_9
     497              oldValue = pData[SENSOR_TEMP_OFFSET];
+   \   000135   85..82       MOV     DPL,?XSP + 0
+   \   000138   85..83       MOV     DPH,?XSP + 1
+   \   00013B   E0           MOVX    A,@DPTR
+   \   00013C   90....       MOV     DPTR,#oldValue
+   \   00013F   F0           MOVX    @DPTR,A
     498              zb_SendDataRequest( 0xFFFE, SENSOR_REPORT_CMD_ID, SENSOR_REPORT_LENGTH, pData, 0, txOptions, 0 );
+   \   000140                ; Setup parameters for call to function zb_SendDataRequest
+   \   000140   75..00       MOV     ?V0,#0x0
+   \   000143   78..         MOV     R0,#?V0
+   \   000145   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   000148   E9           MOV     A,R1
+   \   000149   F5..         MOV     ?V0,A
+   \   00014B   78..         MOV     R0,#?V0
+   \   00014D   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   000150   75..00       MOV     ?V0,#0x0
+   \   000153   78..         MOV     R0,#?V0
+   \   000155   12....       LCALL   ?PUSH_XSTACK_I_ONE
+   \   000158   7403         MOV     A,#0x3
+   \   00015A   12....       LCALL   ?XSTACK_DISP100_8
+   \   00015D   88..         MOV     ?V0,R0
+   \   00015F   89..         MOV     ?V1,R1
+   \   000161   78..         MOV     R0,#?V0
+   \   000163   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000166   7905         MOV     R1,#0x5
+   \   000168   7C02         MOV     R4,#0x2
+   \   00016A   7D00         MOV     R5,#0x0
+   \   00016C   7AFE         MOV     R2,#-0x2
+   \   00016E   7BFF         MOV     R3,#-0x1
+   \   000170   12....       LCALL   `??zb_SendDataRequest::?relay`; Banked call to: zb_SendDataRequest
+   \   000173   7405         MOV     A,#0x5
+   \   000175   12....       LCALL   ?DEALLOC_XSTACK8
     499              timeDone = 0;
+   \   000178   90....       MOV     DPTR,#timeDone
+   \   00017B   E4           CLR     A
+   \   00017C   F0           MOVX    @DPTR,A
+   \   00017D   A3           INC     DPTR
+   \   00017E   8011         SJMP    ??sendReport_10
     500            } else {
     501              timeDone += myReportPeriod;
+   \                     ??sendReport_9:
+   \   000180   90....       MOV     DPTR,#myReportPeriod
+   \   000183   E0           MOVX    A,@DPTR
+   \   000184   F8           MOV     R0,A
+   \   000185   A3           INC     DPTR
+   \   000186   E0           MOVX    A,@DPTR
+   \   000187   F9           MOV     R1,A
+   \   000188   90....       MOV     DPTR,#timeDone
+   \   00018B   E0           MOVX    A,@DPTR
+   \   00018C   28           ADD     A,R0
+   \   00018D   F0           MOVX    @DPTR,A
+   \   00018E   A3           INC     DPTR
+   \   00018F   E0           MOVX    A,@DPTR
+   \   000190   39           ADDC    A,R1
+   \                     ??sendReport_10:
+   \   000191   F0           MOVX    @DPTR,A
     502            }
     503          }
+   \   000192   7405         MOV     A,#0x5
+   \   000194   12....       LCALL   ?DEALLOC_XSTACK8
+   \   000197   7F08         MOV     R7,#0x8
+   \   000199   02....       LJMP    ?BANKED_LEAVE_XDATA
+   \   00019C                REQUIRE _A_P0
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
+   \                     ??reportNr:
+   \   000000                DS 1
+   \   000001                REQUIRE __INIT_XDATA_Z
     504          /******************************************************************************
     505           * @fn          readTemp
     506           *
@@ -621,8 +1301,89 @@ Error[Pe020]: identifier "BUTTON_PARENT_OFFSET" is undefined
     512           */
     513          static int8 readTemp(void)
     514          {
+
+   \                                 In  segment XDATA_Z, align 1, keep-with-next
     515            static uint16 voltageAtTemp22;
+   \                     ??voltageAtTemp22:
+   \   000000                DS 2
+   \   000002                REQUIRE __INIT_XDATA_Z
+
+   \                                 In  segment XDATA_I, align 1, keep-with-next
     516            static uint8 bCalibrate = TRUE; // Calibrate the first time the temp sensor is read
+   \                     ??bCalibrate:
+   \   000000                DS 1
+   \   000001                REQUIRE `?<Initializer for bCalibrate>`
+   \   000001                REQUIRE __INIT_XDATA_I
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for myReportPeriod>`:
+   \   000000   3200         DW 50
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for myBindRetryDelay>`:
+   \   000000   D007         DW 2000
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for myStartRetryDelay>`:
+   \   000000   0A           DB 10
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for bCalibrate>`:
+   \   000000   01           DB 1
+
+   \                                 In  segment XDATA_ROM_C, align 1
+   \                     __Constant_42160000:
+   \   000000   00001642     DD 42160000H
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     `??zb_HandleOsalEvent::?relay`:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    zb_HandleOsalEvent
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     `??zb_HandleKeys::?relay`:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    zb_HandleKeys
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     `??zb_StartConfirm::?relay`:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    zb_StartConfirm
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     `??zb_SendDataConfirm::?relay`:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    zb_SendDataConfirm
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     `??zb_BindConfirm::?relay`:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    zb_BindConfirm
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     `??zb_AllowBindConfirm::?relay`:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    zb_AllowBindConfirm
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     `??zb_FindDeviceConfirm::?relay`:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    zb_FindDeviceConfirm
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     `??zb_ReceiveDataIndication::?relay`:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    zb_ReceiveDataIndication
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     `??uartRxCB::?relay`:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    uartRxCB
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     `??sendReport::?relay`:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    sendReport
     517            uint16 value;
     518            int8 temp;
     519          
@@ -701,5 +1462,106 @@ Error[Pe020]: identifier "BUTTON_PARENT_OFFSET" is undefined
     592            #endif // CC2530
     593          }
 
-Errors: 6
+   Maximum stack usage in bytes:
+
+   ISTACK XSTACK Function
+   ------ ------ --------
+      1     38   sendReport
+        0     21   -> HalReadTemp
+        0     26   -> zb_SendDataRequest
+      0      0   uartRxCB
+      0      0   zb_AllowBindConfirm
+      0     16   zb_BindConfirm
+        0     12   -> HalLedBlink
+        0     12   -> HalLedSet
+        0     12   -> osal_set_event
+        0     16   -> osal_start_timerEx
+      0      0   zb_FindDeviceConfirm
+      0      9   zb_HandleKeys
+        0      9   -> HalLedBlink
+        0      9   -> osal_set_event
+      0     16   zb_HandleOsalEvent
+        0     12   -> HalLedBlink
+        0     16   -> osal_start_timerEx
+        0     12   -> sendReport
+        0     12   -> zb_BindDevice
+        0     12   -> zb_StartRequest
+      0      4   zb_ReceiveDataIndication
+      0      9   zb_SendDataConfirm
+        0      9   -> osal_set_event
+        0      9   -> osal_stop_timerEx
+      0     16   zb_StartConfirm
+        0     12   -> HalLedSet
+        0     12   -> osal_set_event
+        0     16   -> osal_start_timerEx
+        0     12   -> zb_GetDeviceInfo
+
+
+   Segment part sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       1  ?<Initializer for bCalibrate>
+       2  ?<Initializer for myBindRetryDelay>
+       2  ?<Initializer for myReportPeriod>
+       1  ?<Initializer for myStartRetryDelay>
+       5  ?Subroutine0
+       5  ?Subroutine1
+      15  ?Subroutine2
+       1  P0DIR
+       1  P0INP
+       1  P0SEL
+       1  P2INP
+       1  _A_P0
+       4  __Constant_42160000
+       1  appState
+       1  bCalibrate
+       2  myBindRetryDelay
+       2  myReportPeriod
+       1  myStartRetryDelay
+       1  oldValue
+       2  parentShortAddr
+       1  reportFailureNr
+       1  reportNr
+       1  reportState
+     412  sendReport
+       6  sendReport::?relay
+       2  timeDone
+       3  uartRxCB
+       6  uartRxCB::?relay
+       2  voltageAtTemp22
+       3  zb_AllowBindConfirm
+       6  zb_AllowBindConfirm::?relay
+      83  zb_BindConfirm
+       6  zb_BindConfirm::?relay
+       3  zb_FindDeviceConfirm
+       6  zb_FindDeviceConfirm::?relay
+      66  zb_HandleKeys
+       6  zb_HandleKeys::?relay
+     161  zb_HandleOsalEvent
+       6  zb_HandleOsalEvent::?relay
+       2  zb_OutCmdList
+       3  zb_ReceiveDataIndication
+       6  zb_ReceiveDataIndication::?relay
+      57  zb_SendDataConfirm
+       6  zb_SendDataConfirm::?relay
+      12  zb_SimpleDesc
+      80  zb_StartConfirm
+       6  zb_StartConfirm::?relay
+
+ 
+ 896 bytes in segment BANKED_CODE
+  60 bytes in segment BANK_RELAYS
+   5 bytes in segment SFR_AN
+   6 bytes in segment XDATA_I
+   6 bytes in segment XDATA_ID
+  18 bytes in segment XDATA_ROM_C
+  11 bytes in segment XDATA_Z
+ 
+ 962 bytes of CODE  memory
+  14 bytes of CONST memory (+ 4 bytes shared)
+   0 bytes of DATA  memory (+ 5 bytes shared)
+  17 bytes of XDATA memory
+
+Errors: none
 Warnings: none
