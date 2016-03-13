@@ -101,7 +101,7 @@
 
 // Application osal event identifiers
 #define MY_START_EVT                        0x0001
-#define MY_REPORT_EVT                       0x0002
+#define LOCK_CHECK_EVT                       0x0002
 
 /******************************************************************************
  * TYPEDEFS
@@ -187,11 +187,9 @@ void zb_HandleOsalEvent( uint16 event )
   {
     // Initialise UART
     initUart(uartRxCB);
-    osal_start_timerEx( sapi_TaskID, MY_REPORT_EVT, 100 );
-    // blind LED 1 to indicate starting/joining a network
-    HalLedBlink ( HAL_LED_1, 0, 50, 500 );
-    HalLedSet( HAL_LED_2, HAL_LED_MODE_OFF );
+    osal_start_timerEx( sapi_TaskID, LOCK_CHECK_EVT , 100 );
 
+    
     // Start the device
     zb_StartRequest();
   }
@@ -200,16 +198,16 @@ void zb_HandleOsalEvent( uint16 event )
   {
     zb_StartRequest();
   }
-  if (event & MY_REPORT_EVT ){
-        int buttonStateNew =  MCU_IO_GET(0,2);
+  if (event & LOCK_CHECK_EVT ){
+        int buttonStateNew = (MCU_IO_GET(0,2) == 0);
         if (buttonState != buttonStateNew){
           uint8 pData[LOCK_CMD_LENGTH];
-          pData[LOCK_CMD_OFFSET] = buttonStateNew % 3;
+          pData[LOCK_CMD_OFFSET] = buttonStateNew;
           uint8 txOptions;
           zb_SendDataRequest( 0xFFFE, LOCK_STATUS_CMD_ID, LOCK_CMD_LENGTH , pData, 0, txOptions, 0 );
           buttonState = buttonStateNew;
         }
-        osal_start_timerEx( sapi_TaskID, MY_REPORT_EVT, 100 );
+        osal_start_timerEx( sapi_TaskID, LOCK_CHECK_EVT , 100 );
   }
 }
 
@@ -258,13 +256,11 @@ void zb_HandleKeys( uint8 shift, uint8 keys )
         {
           // Turn ON Allow Bind mode infinitly
           zb_AllowBind( 0xFF );
-          HalLedSet( HAL_LED_2, HAL_LED_MODE_ON );
         }
         else
         {
           // Turn OFF Allow Bind mode infinitly
           zb_AllowBind( 0x00 );
-          HalLedSet( HAL_LED_2, HAL_LED_MODE_OFF );
         }
       }
     }
@@ -304,11 +300,14 @@ void zb_StartConfirm( uint8 status )
   // If the device sucessfully started, change state to running
   if ( status == ZB_SUCCESS )
   {
-    // Set LED 1 to indicate that node is operational on the network
-    HalLedSet( HAL_LED_1, HAL_LED_MODE_ON );
-
     // Change application state
     appState = APP_START;
+    
+    zb_AllowBind( 0xFF );
+    
+    HalLedSet( HAL_LED_1, HAL_LED_MODE_ON );
+    HalLedSet( HAL_LED_2, HAL_LED_MODE_OFF );
+    HalLedSet( HAL_LED_3, HAL_LED_MODE_OFF );
   }
   else
   {
@@ -334,7 +333,7 @@ void zb_SendDataConfirm( uint8 handle, uint8 status )
     
   //(void)handle;
   //(void)status;
-  HalLedSet( HAL_LED_1, HAL_LED_MODE_OFF );
+    //HalLedSet( HAL_LED_1, HAL_LED_MODE_OFF );
   }
 }
 
@@ -351,13 +350,11 @@ void zb_SendDataConfirm( uint8 handle, uint8 status )
  */
 void zb_BindConfirm( uint16 commandId, uint8 status )
 {
-  HalLedSet ( HAL_LED_1, HAL_LED_MODE_OFF);
+  
   MCU_IO_OUTPUT_PREP(0, 4, 0);
   if (status == ZB_SUCCESS){
     MCU_IO_OUTPUT_PREP(0, 4, 1);
-    int i = 0;
-    i + status;
-    //do something
+    HalLedSet ( HAL_LED_2, HAL_LED_MODE_ON);
   }
 }
 
@@ -373,9 +370,7 @@ void zb_BindConfirm( uint16 commandId, uint8 status )
 void zb_AllowBindConfirm( uint16 source )
 {
   zb_AllowBind( 0x00 );
-  zb_BindDevice( TRUE, LOCK_STATUS_CMD_ID, (uint8 *)NULL) ;
-  HalLedSet ( HAL_LED_1, HAL_LED_MODE_FLASH );
-  
+  zb_BindDevice( TRUE, LOCK_STATUS_CMD_ID, (uint8 *)NULL) ;  
 }
 
 /******************************************************************************
@@ -417,11 +412,11 @@ void zb_ReceiveDataIndication( uint16 source, uint16 command, uint16 len, uint8 
   (void)len;
   
   if( doorState == DOOR_OPEN){
-     MCU_IO_OUTPUT_PREP(0, 4, 1);
+     //MCU_IO_OUTPUT_PREP(0, 4, 1);
      MCU_IO_OUTPUT_PREP(0, 7, 0);
      doorState = DOOR_CLOSE;
   } else {
-     MCU_IO_OUTPUT_PREP(0, 4, 0);
+     //MCU_IO_OUTPUT_PREP(0, 4, 0);
      MCU_IO_OUTPUT_PREP(0, 7, 1);
      doorState = DOOR_OPEN;
   }

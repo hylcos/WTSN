@@ -163,9 +163,6 @@ void zb_HandleOsalEvent( uint16 event )
 
   if( event & ZB_ENTRY_EVENT )
   {
-    // blind LED 1 to indicate joining a network
-    HalLedBlink ( HAL_LED_1, 0, 50, 500 );
-
     // Start the device
     zb_StartRequest();
   }
@@ -186,9 +183,6 @@ void zb_HandleOsalEvent( uint16 event )
 
   if ( event & MY_FIND_COLLECTOR_EVT )
   {
-    // blind LED 2 to indicate discovery and binding
-    //HalLedBlink ( HAL_LED_2, 0, 50, 500 );
-
    // appState = APP_BIND;
     // Find and bind to a collector device
     //zb_BindDevice( TRUE, DOOR_CMD_ID, (uint8 *)NULL );
@@ -231,19 +225,6 @@ void zb_HandleKeys( uint8 shift, uint8 keys )
   {
     if ( keys & HAL_KEY_SW_1 )
     {
-      // Start reporting
-      if ( reportState == FALSE ) {
-        osal_set_event( sapi_TaskID, MY_REPORT_EVT );
-        reportState = TRUE;
-        HalLedSet( HAL_LED_2, HAL_LED_MODE_ON );
-      }
-      HalLedBlink ( HAL_LED_2, 0, 50, 500 );
-
-      appState = APP_BIND;
-      // Find and bind to a collector device
-      zb_BindDevice( TRUE, LOCK_CONTROL_CMD_ID, (uint8 *)NULL );
-      
-      
       if ( sendingData == TRUE ){
         
         uint8 pData[LOCK_CMD_LENGTH];
@@ -255,7 +236,7 @@ void zb_HandleKeys( uint8 shift, uint8 keys )
     }
     if ( keys & HAL_KEY_SW_2 )
     {
-      HalLedBlink ( HAL_LED_2, 0, 50, 500 );
+      //HalLedBlink ( HAL_LED_2, 0, 50, 500 );
 
       appState = APP_BIND;
       zb_BindDevice( TRUE, LOCK_CONTROL_CMD_ID, (uint8 *)NULL );
@@ -290,7 +271,7 @@ void zb_StartConfirm( uint8 status )
   if ( status == ZB_SUCCESS )
   {
     // Set LED 1 to indicate that node is operational on the network
-    HalLedSet( HAL_LED_1, HAL_LED_MODE_ON );
+    //HalLedSet( HAL_LED_1, HAL_LED_MODE_ON );
 
     // Change application state
     appState = APP_START;
@@ -301,9 +282,12 @@ void zb_StartConfirm( uint8 status )
     // Store parent short address
     zb_GetDeviceInfo(ZB_INFO_PARENT_SHORT_ADDR, &parentShortAddr);
 
-    // Turn OFF Allow Bind mode infinitly
-    //zb_AllowBind( 0x00 );
-    HalLedSet( HAL_LED_2, HAL_LED_MODE_OFF );
+    
+    HalLedSet( HAL_LED_1, HAL_LED_MODE_ON );
+    HalLedSet( HAL_LED_2, HAL_LED_MODE_BLINK );
+    HalLedSet( HAL_LED_3, HAL_LED_MODE_BLINK );
+    
+    zb_BindDevice( TRUE, LOCK_CONTROL_CMD_ID, (uint8 *)NULL );
   }
   else
   {
@@ -405,9 +389,8 @@ void zb_BindConfirm( uint16 commandId, uint8 status )
  */
 void zb_AllowBindConfirm( uint16 source )
 {
-  if(source){
-  }
   zb_AllowBind( 0x00 );
+  HalLedSet( HAL_LED_3, HAL_LED_MODE_ON );
   //MCU_IO_OUTPUT_PREP(1,2,1);
 }
 
@@ -448,7 +431,6 @@ void zb_ReceiveDataIndication( uint16 source, uint16 command, uint16 len, uint8 
 {
   (void)source;
   (void)command;
-  HalLedSet( HAL_LED_1, HAL_LED_MODE_OFF );
   uint8 lockState = *pData;
   MCU_IO_OUTPUT_PREP(1,2,lockState);
 }
