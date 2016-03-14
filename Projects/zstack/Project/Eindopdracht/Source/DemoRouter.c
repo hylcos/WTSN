@@ -130,7 +130,7 @@ const SimpleDescriptionFormat_t zb_SimpleDesc =
   DEVICE_VERSION_SENSOR,      //  Device Version
   0,                          //  Reserved
   NUM_IN_CMD_SENSOR,          //  Number of Input Commands
-  (cId_t *) zb_InCmdList,             //  Input Command List
+  (cId_t *) zb_InCmdList,     //  Input Command List
   NUM_OUT_CMD_SENSOR,         //  Number of Output Commands
   (cId_t *) zb_OutCmdList     //  Output Command List
 };

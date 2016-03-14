@@ -131,7 +131,7 @@ const SimpleDescriptionFormat_t zb_SimpleDesc =
   DEVICE_VERSION_SENSOR,      //  Device Version
   0,                          //  Reserved
   NUM_IN_CMD_SENSOR,          //  Number of Input Commands
-  (cId_t *) NULL,             //  Input Command List
+  (cId_t *) zb_InCmdList,     //  Input Command List
   NUM_OUT_CMD_SENSOR,         //  Number of Output Commands
   (cId_t *) zb_OutCmdList     //  Output Command List
 };
@@ -183,7 +183,7 @@ void zb_HandleOsalEvent( uint16 event )
 
   if ( event & MY_FIND_COLLECTOR_EVT )
   {
-    // Delete previous binding
+    /*// Delete previous binding
     if ( appState == APP_REPORT )
     {
       //zb_BindDevice( FALSE, SENSOR_REPORT_CMD_ID, (uint8 *)NULL );
@@ -194,7 +194,7 @@ void zb_HandleOsalEvent( uint16 event )
     HalLedBlink ( HAL_LED_2, 0, 50, 500 );
 
     // Find and bind to a collector device
-    //zb_BindDevice( TRUE, SENSOR_REPORT_CMD_ID, (uint8 *)NULL );
+    //zb_BindDevice( TRUE, SENSOR_REPORT_CMD_ID, (uint8 *)NULL );*/
   }
 }
 
@@ -261,6 +261,9 @@ void zb_HandleKeys( uint8 shift, uint8 keys )
  */
 void zb_StartConfirm( uint8 status )
 {
+  MCU_IO_DIR_OUTPUT_PREP(1, 2);
+  MCU_IO_OUTPUT_PREP(1,2,0);
+  
   // If the device sucessfully started, change state to running
   if ( status == ZB_SUCCESS )
   {
@@ -279,7 +282,7 @@ void zb_StartConfirm( uint8 status )
     HalLedSet( HAL_LED_2, HAL_LED_MODE_OFF );
     HalLedSet( HAL_LED_3, HAL_LED_MODE_OFF );
     
-    zb_AllowBind( 0xFF );
+    zb_AllowBind( 0x00 );
 
     zb_BindDevice( TRUE, LIGHT_CONTROL_CMD_ID, (uint8 *)NULL );
   }
@@ -344,6 +347,8 @@ void zb_BindConfirm( uint16 commandId, uint8 status )
   {
     appState = APP_REPORT;
     HalLedSet( HAL_LED_2, HAL_LED_MODE_ON );
+    
+    zb_AllowBind( 0xFF );
     
     uint8 pData[LIGHT_CMD_LENGTH];
     pData[LIGHT_CMD_OFFSET] = IDENTIFIER_COMMAND; 
