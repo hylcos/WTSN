@@ -231,15 +231,10 @@ void zb_HandleKeys( uint8 shift, uint8 keys )
         pData[LOCK_CMD_OFFSET] = 1;
         uint8 txOptions;
         zb_SendDataRequest( 0xFFFE, LOCK_CONTROL_CMD_ID, LOCK_CMD_LENGTH , pData, 0, txOptions, 0 );
-        
       }
     }
     if ( keys & HAL_KEY_SW_2 )
     {
-      //HalLedBlink ( HAL_LED_2, 0, 50, 500 );
-
-      appState = APP_BIND;
-      zb_BindDevice( TRUE, LOCK_CONTROL_CMD_ID, (uint8 *)NULL );
     }
     if ( keys & HAL_KEY_SW_3 )
     {
@@ -266,7 +261,7 @@ void zb_StartConfirm( uint8 status )
 {
    MCU_IO_DIR_OUTPUT_PREP(1, 2);
    MCU_IO_OUTPUT_PREP(1,2,0);
-   zb_AllowBind( 0xFF );
+   
   // If the device sucessfully started, change state to running
   if ( status == ZB_SUCCESS )
   {
@@ -284,8 +279,10 @@ void zb_StartConfirm( uint8 status )
 
     
     HalLedSet( HAL_LED_1, HAL_LED_MODE_ON );
-    HalLedSet( HAL_LED_2, HAL_LED_MODE_BLINK );
-    HalLedSet( HAL_LED_3, HAL_LED_MODE_BLINK );
+    HalLedSet( HAL_LED_2, HAL_LED_MODE_OFF );
+    HalLedSet( HAL_LED_3, HAL_LED_MODE_OFF );
+   
+    zb_AllowBind( 0xFF );
     
     zb_BindDevice( TRUE, LOCK_CONTROL_CMD_ID, (uint8 *)NULL );
   }
@@ -352,10 +349,14 @@ void zb_BindConfirm( uint16 commandId, uint8 status )
   
   if( status == ZB_SUCCESS )
   {
-    
     appState = APP_REPORT;
     HalLedSet( HAL_LED_2, HAL_LED_MODE_ON );
     sendingData = TRUE;
+    
+    uint8 pData[LOCK_CMD_LENGTH];
+    pData[LOCK_CMD_OFFSET] = IDENTIFIER_COMMAND; 
+    uint8 txOptions;
+    zb_SendDataRequest( 0xFFFE, LOCK_CONTROL_CMD_ID, LOCK_CMD_LENGTH , pData, 0, txOptions, 0 );
     
     // After failure reporting start automatically when the device
     // is binded to a new gateway
@@ -429,8 +430,6 @@ void zb_FindDeviceConfirm( uint8 searchType, uint8 *searchKey, uint8 *result )
  */
 void zb_ReceiveDataIndication( uint16 source, uint16 command, uint16 len, uint8 *pData  )
 {
-  (void)source;
-  (void)command;
   uint8 lockState = *pData;
   MCU_IO_OUTPUT_PREP(1,2,lockState);
 }

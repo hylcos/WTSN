@@ -63,22 +63,32 @@
 #define DEVICE_VERSION_COLLECTOR          1
 
 // Define the Command ID's used in this application
-#define LOCK_CONTROL_CMD_ID                       1
-#define LIGHT_CMD_ID                                   2
-#define LOCK_STATUS_CMD_ID                       3
+#define LOCK_CONTROL_CMD_ID             1
+#define LIGHT_CONTROL_CMD_ID            2
+#define LOCK_STATUS_CMD_ID              3
+#define LIGHT_STATUS_CMD_ID             4
 
 // Door report data format
 #define LOCK_CMD_OFFSET                0
 #define LOCK_CMD_LENGTH                1
 
 // Light report data format
-#define LIGHT_STATUS_OFFSET               0
-#define LIGHT_REPORT_LENGTH               1
+#define LIGHT_CMD_OFFSET               0
+#define LIGHT_CMD_LENGTH               1
 
 #define RX_BUF_LEN                        128
 
+#define IDENTIFIER_MESSAGE      0
+#define COMMAND_MESSAGE         1 
+#define STATUS_MESSAGE          2
+
+#define IDENTIFIER_COMMAND       0xF0
+
 #define DOOR_OPEN                         1
 #define DOOR_CLOSE                        0
+
+#define LIGHT_ON                         1
+#define LIGHT_OFF                        0
 /******************************************************************************
  * PUBLIC FUNCTIONS
  */

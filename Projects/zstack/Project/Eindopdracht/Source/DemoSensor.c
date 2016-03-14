@@ -109,12 +109,17 @@ static uint16 parentShortAddr;
 
 // Inputs and Outputs for Sensor device
 #define NUM_OUT_CMD_SENSOR                1
-#define NUM_IN_CMD_SENSOR                 0
+#define NUM_IN_CMD_SENSOR                 1
 
 // List of output and input commands for Sensor device
 const cId_t zb_OutCmdList[NUM_OUT_CMD_SENSOR] =
 {
-  SENSOR_REPORT_CMD_ID
+  LIGHT_CONTROL_CMD_ID
+};
+
+const cId_t zb_InCmdList[NUM_IN_CMD_SENSOR] =
+{
+  LIGHT_STATUS_CMD_ID
 };
 
 // Define SimpleDescriptor for Sensor device
@@ -158,17 +163,6 @@ void zb_HandleOsalEvent( uint16 event )
 
   if( event & ZB_ENTRY_EVENT )
   {
-    // blind LED 1 to indicate joining a network
-    HalLedBlink ( HAL_LED_1, 0, 50, 500 );
-    // Set Pin Port to output
-    MCU_IO_DIR_OUTPUT_PREP(0, 0);
-    MCU_IO_OUTPUT_PREP(0, 0, 0);
-    
-    // Set Button
-    MCU_IO_DIR_INPUT_PREP(0, 1);
-    MCU_IO_INPUT_PREP(0,1,MCU_IO_PULLDOWN); 
-    //MCU_IO_SET_HIGH(0, 1);
-    // Start the device
     zb_StartRequest();
     
   }
@@ -192,7 +186,7 @@ void zb_HandleOsalEvent( uint16 event )
     // Delete previous binding
     if ( appState == APP_REPORT )
     {
-      zb_BindDevice( FALSE, SENSOR_REPORT_CMD_ID, (uint8 *)NULL );
+      //zb_BindDevice( FALSE, SENSOR_REPORT_CMD_ID, (uint8 *)NULL );
     }
 
     appState = APP_BIND;
@@ -200,7 +194,7 @@ void zb_HandleOsalEvent( uint16 event )
     HalLedBlink ( HAL_LED_2, 0, 50, 500 );
 
     // Find and bind to a collector device
-    zb_BindDevice( TRUE, SENSOR_REPORT_CMD_ID, (uint8 *)NULL );
+    //zb_BindDevice( TRUE, SENSOR_REPORT_CMD_ID, (uint8 *)NULL );
   }
 }
 
@@ -239,19 +233,10 @@ void zb_HandleKeys( uint8 shift, uint8 keys )
   else
   {
     if ( keys & HAL_KEY_SW_1 )
-    {
-      // Start reporting
-      if ( reportState == FALSE ) {
-        osal_set_event( sapi_TaskID, MY_REPORT_EVT );
-        reportState = TRUE;
-
-        // blink LED 2 to indicate reporting
-        HalLedBlink ( HAL_LED_2, 0, 50, 500 );
-      }
+    {   
     }
     if ( keys & HAL_KEY_SW_2 )
     {
-      MCU_IO_OUTPUT_PREP(0, 0, 1);
     }
     if ( keys & HAL_KEY_SW_3 )
     {
@@ -282,8 +267,6 @@ void zb_StartConfirm( uint8 status )
     // Change application state
     appState = APP_START;
 
-    // Set LED 1 to indicate that node is operational on the network
-    HalLedSet( HAL_LED_1, HAL_LED_MODE_ON );
 
     // Store parent short address
     zb_GetDeviceInfo(ZB_INFO_PARENT_SHORT_ADDR, &parentShortAddr);
@@ -291,7 +274,14 @@ void zb_StartConfirm( uint8 status )
     // Set event to bind to a collector
     osal_set_event( sapi_TaskID, MY_FIND_COLLECTOR_EVT );
     
+    
+    HalLedSet( HAL_LED_1, HAL_LED_MODE_ON );
+    HalLedSet( HAL_LED_2, HAL_LED_MODE_OFF );
+    HalLedSet( HAL_LED_3, HAL_LED_MODE_OFF );
+    
+    zb_AllowBind( 0xFF );
 
+    zb_BindDevice( TRUE, LIGHT_CONTROL_CMD_ID, (uint8 *)NULL );
   }
   else
   {
@@ -353,15 +343,17 @@ void zb_BindConfirm( uint16 commandId, uint8 status )
   if( status == ZB_SUCCESS )
   {
     appState = APP_REPORT;
-    HalLedSet( HAL_LED_2, HAL_LED_MODE_OFF );
+    HalLedSet( HAL_LED_2, HAL_LED_MODE_ON );
+    
+    uint8 pData[LIGHT_CMD_LENGTH];
+    pData[LIGHT_CMD_OFFSET] = IDENTIFIER_COMMAND; 
+    uint8 txOptions;
+    zb_SendDataRequest( 0xFFFE, LIGHT_CONTROL_CMD_ID, LIGHT_CMD_LENGTH , pData, 0, txOptions, 0 );
 
     // After failure reporting start automatically when the device
     // is binded to a new gateway
     if ( reportState )
     {
-      // blink LED 2 to indicate reporting
-      HalLedBlink ( HAL_LED_2, 0, 50, 500 );
-
       // Start reporting
       osal_set_event( sapi_TaskID, MY_REPORT_EVT );
     }
@@ -383,7 +375,8 @@ void zb_BindConfirm( uint16 commandId, uint8 status )
  */
 void zb_AllowBindConfirm( uint16 source )
 {
-  (void)source;
+  zb_AllowBind( 0x00 );
+  HalLedSet( HAL_LED_3, HAL_LED_MODE_ON );
 }
 
 /******************************************************************************
@@ -421,10 +414,8 @@ void zb_FindDeviceConfirm( uint8 searchType, uint8 *searchKey, uint8 *result )
  */
 void zb_ReceiveDataIndication( uint16 source, uint16 command, uint16 len, uint8 *pData  )
 {
-  (void)source;
-  (void)command;
-  (void)len;
-  (void)pData;
+  uint8 lightState = *pData;
+  MCU_IO_OUTPUT_PREP(1,2,lightState);
 }
 
 /******************************************************************************
@@ -454,12 +445,12 @@ void uartRxCB( uint8 port, uint8 event )
  */
 static void sendReport(void)
 {
-  uint8 pData[SENSOR_REPORT_LENGTH];
+  /*uint8 pData[LIGHT_CMD_LENGTH];
   static uint8 reportNr = 0;
   uint8 txOptions;
 
   // Read and report temperature value
-  pData[SENSOR_TEMP_OFFSET] = readTemp();
+  pData[LIGHT_CMD_OFFSET] = readTemp();
 
   // Read and report voltage value
   pData[SENSOR_VOLTAGE_OFFSET] = readVoltage();
@@ -499,7 +490,7 @@ static void sendReport(void)
     timeDone = 0;
   } else {
     timeDone += myReportPeriod;
-  }
+  }*/
 }
 /******************************************************************************
  * @fn          readTemp

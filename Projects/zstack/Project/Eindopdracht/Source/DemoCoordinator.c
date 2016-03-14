@@ -137,18 +137,22 @@ static void sendGtwReport(gtwData_t *gtwData);
  */
 
 // Inputs and Outputs for Collector device
-#define NUM_OUT_CMD_COLLECTOR           1
-#define NUM_IN_CMD_COLLECTOR            1
+#define NUM_OUT_CMD_COLLECTOR           2
+#define NUM_IN_CMD_COLLECTOR            2
 
 // List of output and input commands for Collector device
 const cId_t zb_InCmdList[NUM_IN_CMD_COLLECTOR] =
 {
   LOCK_CONTROL_CMD_ID,
+  LIGHT_CONTROL_CMD_ID
 };
 const cId_t zb_OutCmdList[NUM_OUT_CMD_COLLECTOR] =
 {
   LOCK_STATUS_CMD_ID,
+  LIGHT_STATUS_CMD_ID
 };
+
+
 // Define SimpleDescriptor for Collector device
 const SimpleDescriptionFormat_t zb_SimpleDesc =
 {
@@ -227,8 +231,6 @@ void zb_HandleOsalEvent( uint16 event )
  */
 void zb_HandleKeys( uint8 shift, uint8 keys )
 {
-  static uint8 allowBind = FALSE;
-
   // Shift is used to make each button/switch dual purpose.
   if ( shift )
   {
@@ -249,20 +251,6 @@ void zb_HandleKeys( uint8 shift, uint8 keys )
   {
     if ( keys & HAL_KEY_SW_1 )
     {
-      if ( appState == APP_START )
-      {
-        allowBind ^= 1;
-        if ( allowBind )
-        {
-          // Turn ON Allow Bind mode infinitly
-          zb_AllowBind( 0xFF );
-        }
-        else
-        {
-          // Turn OFF Allow Bind mode infinitly
-          zb_AllowBind( 0x00 );
-        }
-      }
     }
     if ( keys & HAL_KEY_SW_2 )
     {
@@ -290,18 +278,20 @@ void zb_HandleKeys( uint8 shift, uint8 keys )
  */
 void zb_StartConfirm( uint8 status )
 {
-  MCU_IO_DIR_OUTPUT_PREP(0, 4);
-  MCU_IO_DIR_OUTPUT_PREP(0, 7);
-  MCU_IO_DIR_INPUT_PREP(0, 2);
-  MCU_IO_INPUT_PREP(0,2,MCU_IO_PULLDOWN); 
-  MCU_IO_OUTPUT_PREP(0, 4, 0);
-  MCU_IO_OUTPUT_PREP(0, 7, DOOR_OPEN);
+  
   
   // If the device sucessfully started, change state to running
   if ( status == ZB_SUCCESS )
   {
     // Change application state
     appState = APP_START;
+    
+    MCU_IO_DIR_OUTPUT_PREP(0, 4);
+    MCU_IO_DIR_OUTPUT_PREP(0, 7);
+    MCU_IO_DIR_INPUT_PREP(0, 2);
+    MCU_IO_INPUT_PREP(0,2,MCU_IO_PULLDOWN); 
+    MCU_IO_OUTPUT_PREP(0, 4, 0);
+    MCU_IO_OUTPUT_PREP(0, 7, DOOR_OPEN);
     
     zb_AllowBind( 0xFF );
     
@@ -331,9 +321,7 @@ void zb_SendDataConfirm( uint8 handle, uint8 status )
 {
   if (status == ZB_SUCCESS){
     
-  //(void)handle;
-  //(void)status;
-    //HalLedSet( HAL_LED_1, HAL_LED_MODE_OFF );
+  
   }
 }
 
@@ -350,12 +338,18 @@ void zb_SendDataConfirm( uint8 handle, uint8 status )
  */
 void zb_BindConfirm( uint16 commandId, uint8 status )
 {
+  zb_AllowBind( 0xFF );
   
-  MCU_IO_OUTPUT_PREP(0, 4, 0);
   if (status == ZB_SUCCESS){
-    MCU_IO_OUTPUT_PREP(0, 4, 1);
-    HalLedSet ( HAL_LED_2, HAL_LED_MODE_ON);
+    if(commandId == LOCK_STATUS_CMD_ID){
+      MCU_IO_OUTPUT_PREP(0, 4, 1);
+      HalLedSet ( HAL_LED_2, HAL_LED_MODE_ON);
+    }
+    else if(commandId == LIGHT_STATUS_CMD_ID){
+      HalLedSet ( HAL_LED_3, HAL_LED_MODE_ON);
+    }
   }
+  
 }
 
 /******************************************************************************
@@ -369,8 +363,7 @@ void zb_BindConfirm( uint16 commandId, uint8 status )
  */
 void zb_AllowBindConfirm( uint16 source )
 {
-  zb_AllowBind( 0x00 );
-  zb_BindDevice( TRUE, LOCK_STATUS_CMD_ID, (uint8 *)NULL) ;  
+  
 }
 
 /******************************************************************************
@@ -408,30 +401,32 @@ void zb_FindDeviceConfirm( uint8 searchType, uint8 *searchKey, uint8 *result )
  */
 void zb_ReceiveDataIndication( uint16 source, uint16 command, uint16 len, uint8 *pData  )
 {
-  (void)command;
-  (void)len;
-  
-  if( doorState == DOOR_OPEN){
-     //MCU_IO_OUTPUT_PREP(0, 4, 1);
-     MCU_IO_OUTPUT_PREP(0, 7, 0);
-     doorState = DOOR_CLOSE;
-  } else {
-     //MCU_IO_OUTPUT_PREP(0, 4, 0);
-     MCU_IO_OUTPUT_PREP(0, 7, 1);
-     doorState = DOOR_OPEN;
+  if(command == LOCK_CONTROL_CMD_ID){
+    if(*pData == IDENTIFIER_COMMAND ){
+      zb_AllowBind( 0x00 );
+      zb_BindDevice( TRUE, LOCK_STATUS_CMD_ID, (uint8 *)NULL) ;
+    }
+    else{
+      if( doorState == DOOR_OPEN){
+         //MCU_IO_OUTPUT_PREP(0, 4, 1);
+         MCU_IO_OUTPUT_PREP(0, 7, 0);
+         doorState = DOOR_CLOSE;
+      } else {
+         //MCU_IO_OUTPUT_PREP(0, 4, 0);
+         MCU_IO_OUTPUT_PREP(0, 7, 1);
+         doorState = DOOR_OPEN;
+      }
+    }
   }
- 
-  //gtwData.parent = BUILD_UINT16(pData[SENSOR_PARENT_OFFSET+ 1], pData[SENSOR_PARENT_OFFSET]);
-  /*gtwData.source = source;
-  gtwData.temp = *pData;
-  gtwData.voltage = *(pData+1);
-
-  // Flash LED 2 once to indicate data reception
-  HalLedSet ( HAL_LED_2, HAL_LED_MODE_FLASH );
-
-  // Send gateway report
-  sendGtwReport(&gtwData);*/
   
+  else if(command == LIGHT_CONTROL_CMD_ID){
+    if(*pData == IDENTIFIER_COMMAND ){
+      zb_AllowBind( 0x00 );
+      zb_BindDevice( TRUE, LIGHT_STATUS_CMD_ID, (uint8 *)NULL) ;
+    }
+    else{
+    }
+  }
 }
 
 /******************************************************************************

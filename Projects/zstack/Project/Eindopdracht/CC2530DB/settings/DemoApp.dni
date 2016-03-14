@@ -12,7 +12,7 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
-Checksum=-228509445
+Checksum=292317275
 [CodeCoverage]
 Enabled=_ 0
 [CallStack]
@@ -60,23 +60,6 @@ Enabled=0
 ShowSource=1
 [Simulator]
 Freq=50000000
-[Breakpoints]
-Bp0=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.504.1" 0 0 0 0 "" 0 ""
-Bp1=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.504.1" 0 0 0 0 "" 0 ""
-Bp2=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.504.1" 0 0 0 0 "" 0 ""
-Bp3=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoCoordinator.c}.393.1" 0 0 0 0 "" 0 ""
-Bp4=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoCoordinator.c}.393.1" 0 0 0 0 "" 0 ""
-Bp5=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoCoordinator.c}.414.3" 0 0 0 0 "" 0 ""
-Bp6=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.504.1" 0 0 0 0 "" 0 ""
-Bp7=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoCoordinator.c}.354.3" 0 0 0 0 "" 0 ""
-Bp8=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoCoordinator.c}.354.3" 0 0 0 0 "" 0 ""
-Bp9=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.434.1" 0 0 0 0 "" 0 ""
-Bp10=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.434.1" 0 0 0 0 "" 0 ""
-Bp11=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.434.9" 0 0 0 0 "" 0 ""
-Count=12
-[ChipconEmu]
-Stop timers on halt=0
-Leave target running=1
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -84,6 +67,24 @@ Category=_ 0
 [TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
+[Breakpoints]
+Bp0=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.503.1" 0 0 0 0 "" 0 ""
+Bp1=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.503.1" 0 0 0 0 "" 0 ""
+Bp2=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.503.1" 0 0 0 0 "" 0 ""
+Bp3=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoCoordinator.c}.450.1" 0 0 0 0 "" 0 ""
+Bp4=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoCoordinator.c}.450.1" 0 0 0 0 "" 0 ""
+Bp5=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoCoordinator.c}.450.3" 0 0 0 0 "" 0 ""
+Bp6=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.503.1" 0 0 0 0 "" 0 ""
+Bp7=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoCoordinator.c}.343.1" 0 0 0 0 "" 0 ""
+Bp8=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoCoordinator.c}.343.3" 0 0 0 0 "" 0 ""
+Bp9=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.433.1" 0 0 0 0 "" 0 ""
+Bp10=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.433.1" 0 0 0 0 "" 0 ""
+Bp11=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.433.9" 0 0 0 0 "" 0 ""
+Bp12=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoCoordinator.c}.386.1" 0 0 0 0 "" 0 ""
+Count=13
+[ChipconEmu]
+Stop timers on halt=0
+Leave target running=1
 [Aliases]
 Count=0
 SuppressDialog=0
