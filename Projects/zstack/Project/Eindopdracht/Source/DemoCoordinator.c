@@ -96,12 +96,12 @@
 #define ZB_RECEIVE_DATA_INDICATION          0x8746
 
 // Application States
-#define APP_INIT                            0
-#define APP_START                           2
+#define APPSTATE_INIT                       0
+#define APPSTATE_STARTED                    1
 
 // Application osal event identifiers
-#define MY_START_EVT                        0x0001
-#define LOCK_CHECK_EVT                       0x0002
+#define RETRY_START_EVT                        0x0001
+#define CHECK_LOCK_STATUS_EVT                  0x0002
 
 /******************************************************************************
  * TYPEDEFS
@@ -118,11 +118,11 @@ typedef struct
  * LOCAL VARIABLES
  */
 
-static uint8 appState =             APP_INIT;
-static uint8 myStartRetryDelay =    10;          // milliseconds
-static gtwData_t gtwData;
-static uint8 doorState         =        DOOR_OPEN;
-static uint8 buttonState       =        0;
+static uint8 appState = APPSTATE_INIT;
+static uint8 retryStartDelay =    10;
+static uint8 checkLockStateDelay= 255;
+
+static uint8 lastKnownLockState = 0xFF; //init waarde
 /******************************************************************************
  * LOCAL FUNCTIONS
  */
@@ -130,7 +130,6 @@ static uint8 buttonState       =        0;
 static uint8 calcFCS(uint8 *pBuf, uint8 len);
 static void sysPingReqRcvd(void);
 static void sysPingRsp(void);
-static void sendGtwReport(gtwData_t *gtwData);
 
 /******************************************************************************
  * GLOBAL VARIABLES
@@ -164,7 +163,7 @@ const SimpleDescriptionFormat_t zb_SimpleDesc =
   NUM_IN_CMD_COLLECTOR,       //  Number of Input Commands
   (cId_t *) zb_InCmdList,     //  Input Command List
   NUM_OUT_CMD_COLLECTOR,      //  Number of Output Commands
-  (cId_t *) zb_OutCmdList             //  Output Command List
+  (cId_t *) zb_OutCmdList     //  Output Command List
 };
 
 /******************************************************************************
@@ -187,31 +186,25 @@ void zb_HandleOsalEvent( uint16 event )
   {
   }
 
-  if( event & ZB_ENTRY_EVENT )
+  if( event & ZB_ENTRY_EVENT || event & RETRY_START_EVT  )
   {
-    // Initialise UART
-    initUart(uartRxCB);
-    osal_start_timerEx( sapi_TaskID, LOCK_CHECK_EVT , 100 );
+    zb_StartRequest();
+  }
 
+  
+  if (event & CHECK_LOCK_STATUS_EVT ){
     
-    // Start the device
-    zb_StartRequest();
-  }
-
-  if ( event & MY_START_EVT )
-  {
-    zb_StartRequest();
-  }
-  if (event & LOCK_CHECK_EVT ){
-        int buttonStateNew = (MCU_IO_GET(0,2) == 0);
-        if (buttonState != buttonStateNew){
-          uint8 pData[LOCK_CMD_LENGTH];
-          pData[LOCK_CMD_OFFSET] = buttonStateNew;
-          uint8 txOptions;
-          zb_SendDataRequest( 0xFFFE, LOCK_STATUS_CMD_ID, LOCK_CMD_LENGTH , pData, 0, txOptions, 0 );
-          buttonState = buttonStateNew;
-        }
-        osal_start_timerEx( sapi_TaskID, LOCK_CHECK_EVT , 100 );
+    uint8 lockState = (MCU_IO_GET(0,2) == 0);
+    
+    if (lockState != lastKnownLockState){
+      uint8 pData[LOCK_CMD_LENGTH];
+      pData[LOCK_CMD_OFFSET] = lockState;
+      uint8 txOptions;
+      zb_SendDataRequest( 0xFFFE, LOCK_STATUS_CMD_ID, LOCK_CMD_LENGTH , pData, 0, txOptions, 0 );
+      lastKnownLockState = lockState;
+    }
+    
+    osal_start_timerEx( sapi_TaskID, CHECK_LOCK_STATUS_EVT , checkLockStateDelay );
   }
 }
 
@@ -278,19 +271,19 @@ void zb_HandleKeys( uint8 shift, uint8 keys )
  */
 void zb_StartConfirm( uint8 status )
 {
-  
-  
   // If the device sucessfully started, change state to running
   if ( status == ZB_SUCCESS )
   {
-    // Change application state
-    appState = APP_START;
-    
-    MCU_IO_DIR_OUTPUT_PREP(0, 4);
-    MCU_IO_DIR_OUTPUT_PREP(0, 7);
+    //init lock sensor
     MCU_IO_DIR_INPUT_PREP(0, 2);
-    MCU_IO_INPUT_PREP(0,2,MCU_IO_PULLDOWN); 
+    MCU_IO_INPUT_PREP(0,2,MCU_IO_PULLDOWN);
+    
+    //init lamp
+    MCU_IO_DIR_OUTPUT_PREP(0, 4);
     MCU_IO_OUTPUT_PREP(0, 4, 0);
+    
+    //init lock
+    MCU_IO_DIR_OUTPUT_PREP(0, 7);
     MCU_IO_OUTPUT_PREP(0, 7, DOOR_OPEN);
     
     zb_AllowBind( 0xFF );
@@ -298,11 +291,14 @@ void zb_StartConfirm( uint8 status )
     HalLedSet( HAL_LED_1, HAL_LED_MODE_ON );
     HalLedSet( HAL_LED_2, HAL_LED_MODE_OFF );
     HalLedSet( HAL_LED_3, HAL_LED_MODE_OFF );
+    
+    // Change application state
+    appState = APPSTATE_STARTED;
   }
   else
   {
     // Try again later with a delay
-    osal_start_timerEx( sapi_TaskID, MY_START_EVT, myStartRetryDelay );
+    osal_start_timerEx( sapi_TaskID, RETRY_START_EVT, retryStartDelay );
   }
 }
 
@@ -320,8 +316,6 @@ void zb_StartConfirm( uint8 status )
 void zb_SendDataConfirm( uint8 handle, uint8 status )
 {
   if (status == ZB_SUCCESS){
-    
-  
   }
 }
 
@@ -342,8 +336,8 @@ void zb_BindConfirm( uint16 commandId, uint8 status )
   
   if (status == ZB_SUCCESS){
     if(commandId == LOCK_STATUS_CMD_ID){
-      MCU_IO_OUTPUT_PREP(0, 4, 1);
       HalLedSet ( HAL_LED_2, HAL_LED_MODE_ON);
+      osal_start_timerEx( sapi_TaskID, CHECK_LOCK_STATUS_EVT , checkLockStateDelay );
     }
     else if(commandId == LIGHT_STATUS_CMD_ID){
       HalLedSet ( HAL_LED_3, HAL_LED_MODE_ON);
@@ -401,30 +395,29 @@ void zb_FindDeviceConfirm( uint8 searchType, uint8 *searchKey, uint8 *result )
  */
 void zb_ReceiveDataIndication( uint16 source, uint16 command, uint16 len, uint8 *pData  )
 {
-  if(command == LOCK_CONTROL_CMD_ID){
-    if(*pData == IDENTIFIER_COMMAND ){
+  if(*pData == IDENTIFIER_COMMAND ){
       zb_AllowBind( 0x00 );
-      zb_BindDevice( TRUE, LOCK_STATUS_CMD_ID, (uint8 *)NULL) ;
-    }
-    else{
-      if( doorState == DOOR_OPEN){
-         //MCU_IO_OUTPUT_PREP(0, 4, 1);
-         MCU_IO_OUTPUT_PREP(0, 7, 0);
-         doorState = DOOR_CLOSE;
-      } else {
-         //MCU_IO_OUTPUT_PREP(0, 4, 0);
-         MCU_IO_OUTPUT_PREP(0, 7, 1);
-         doorState = DOOR_OPEN;
+      if(command == LOCK_CONTROL_CMD_ID){
+        zb_BindDevice( TRUE, LOCK_STATUS_CMD_ID, (uint8 *)NULL) ;
+      }
+      else if(command == LIGHT_CONTROL_CMD_ID){
+        zb_BindDevice( TRUE, LIGHT_STATUS_CMD_ID, (uint8 *)NULL) ;
+      }
+      else{
+        zb_AllowBind( 0xFF );
       }
     }
-  }
   
-  else if(command == LIGHT_CONTROL_CMD_ID){
-    if(*pData == IDENTIFIER_COMMAND ){
-      zb_AllowBind( 0x00 );
-      zb_BindDevice( TRUE, LIGHT_STATUS_CMD_ID, (uint8 *)NULL) ;
+  else{
+    if(command == LOCK_CONTROL_CMD_ID){
+      if(*pData == 0 ){
+         MCU_IO_OUTPUT_PREP(0, 7, 0);
+      } else {
+         MCU_IO_OUTPUT_PREP(0, 7, 1);
+      }
     }
-    else{
+    
+    else if(command == LIGHT_CONTROL_CMD_ID){
     }
   }
 }
@@ -512,53 +505,6 @@ static void sysPingRsp(void)
   HalUARTWrite(HAL_UART_PORT_0,pBuf, SYS_PING_RSP_LENGTH);
 }
 
-/******************************************************************************
- * @fn          sendGtwReport
- *
- * @brief       Build and send gateway report
- *
- * @param       none
- *
- * @return      none
- */
-static void sendGtwReport(gtwData_t *gtwData)
-{
-  uint8 pFrame[ZB_RECV_LENGTH];
-
-  // Start of Frame Delimiter
-  pFrame[FRAME_SOF_OFFSET] = CPT_SOP; // Start of Frame Delimiter
-
-  // Length
-  pFrame[FRAME_LENGTH_OFFSET] = 10;
-
-  // Command type
-  pFrame[FRAME_CMD0_OFFSET] = LO_UINT16(ZB_RECEIVE_DATA_INDICATION);
-  pFrame[FRAME_CMD1_OFFSET] = HI_UINT16(ZB_RECEIVE_DATA_INDICATION);
-
-  // Source address
-  pFrame[FRAME_DATA_OFFSET + ZB_RECV_SRC_OFFSET] = LO_UINT16(gtwData->source);
-  pFrame[FRAME_DATA_OFFSET + ZB_RECV_SRC_OFFSET+ 1] = HI_UINT16(gtwData->source);
-
-  // Command ID
- // pFrame[FRAME_DATA_OFFSET + ZB_RECV_CMD_OFFSET] = LO_UINT16(SENSOR_REPORT_CMD_ID);
- // pFrame[FRAME_DATA_OFFSET + ZB_RECV_CMD_OFFSET+ 1] = HI_UINT16(SENSOR_REPORT_CMD_ID);
-
-  // Length
-  pFrame[FRAME_DATA_OFFSET + ZB_RECV_LEN_OFFSET] = LO_UINT16(4);
-  pFrame[FRAME_DATA_OFFSET + ZB_RECV_LEN_OFFSET+ 1] = HI_UINT16(4);
-
-  // Data
-  pFrame[FRAME_DATA_OFFSET + ZB_RECV_DATA_OFFSET] = gtwData->temp;
-  pFrame[FRAME_DATA_OFFSET + ZB_RECV_DATA_OFFSET+ 1] = gtwData->voltage;
-  pFrame[FRAME_DATA_OFFSET + ZB_RECV_DATA_OFFSET+ 2] = LO_UINT16(gtwData->parent);
-  pFrame[FRAME_DATA_OFFSET + ZB_RECV_DATA_OFFSET+ 3] = HI_UINT16(gtwData->parent);
-
-  // Frame Check Sequence
-  pFrame[ZB_RECV_LENGTH - 1] = calcFCS(&pFrame[FRAME_LENGTH_OFFSET], (ZB_RECV_LENGTH - 2) );
-
-  // Write report to UART
-  HalUARTWrite(HAL_UART_PORT_0,pFrame, ZB_RECV_LENGTH);
-}
 
 /******************************************************************************
  * @fn          calcFCS
