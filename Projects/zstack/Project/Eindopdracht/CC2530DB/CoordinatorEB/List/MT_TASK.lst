@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V9.20.1.2476 for 8051                13/Mar/2016  22:06:53
+# IAR C/C++ Compiler V9.20.1.2476 for 8051                15/Mar/2016  12:06:11
 # Copyright 2004-2015 IAR Systems AB.
 # Standalone license - IAR Embedded Workbench for 8051
 #
@@ -143,6 +143,11 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\mt\MT_TASK.c
      45          #include "MT.h"
      46          #include "MT_DEBUG.h"
      47          #include "MT_UART.h"
+
+  #define RFD_RCVC_ALWAYS_ON 1
+          ^
+"C:\Users\Bart\Documents\GitHub\WTSN\Components\hal\target\CC2530EB\hal_board_cfg.h",83  Warning[Pe047]: 
+          incompatible redefinition of macro "RFD_RCVC_ALWAYS_ON"
      48          #include "MT_UTIL.h"
      49          #include "MT_SYS.h"
      50          
@@ -711,4 +716,4 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\mt\MT_TASK.c
    1 byte  of XDATA memory
 
 Errors: none
-Warnings: none
+Warnings: 1

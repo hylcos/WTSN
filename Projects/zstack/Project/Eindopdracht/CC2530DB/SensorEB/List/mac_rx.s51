@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V9.20.1.2476 for 8051               14/Mar/2016  22:13:00
+// IAR C/C++ Compiler V9.20.1.2476 for 8051               15/Mar/2016  12:05:04
 // Copyright 2004-2015 IAR Systems AB.
 // Standalone license - IAR Embedded Workbench for 8051
 //
@@ -7528,4 +7528,4 @@ macRxPromiscuousMode:
 //    19 bytes of XDATA memory
 //
 //Errors: none
-//Warnings: none
+//Warnings: 1

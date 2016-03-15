@@ -90,7 +90,7 @@
  */
 static uint8  appState = APPSTATE_INIT;
 
-static uint8 retryStartDelay =  10;           // milliseconds
+static uint8 retryStartDelay =  10;
 
 static uint16 parentShortAddr;
 
@@ -222,14 +222,9 @@ void zb_HandleKeys( uint8 shift, uint8 keys )
  */
 void zb_StartConfirm( uint8 status )
 {
-   MCU_IO_DIR_OUTPUT_PREP(1, 2);
-   MCU_IO_OUTPUT_PREP(1,2,0);
-   
   // If the device sucessfully started, change state to running
   if ( status == ZB_SUCCESS )
   {
-    
-
     // Store parent short address
     zb_GetDeviceInfo(ZB_INFO_PARENT_SHORT_ADDR, &parentShortAddr);
 
@@ -241,6 +236,8 @@ void zb_StartConfirm( uint8 status )
     // Change application state
     appState = APPSTATE_STARTED;
     
+    MCU_IO_DIR_OUTPUT_PREP(1, 2);
+    MCU_IO_OUTPUT_PREP(1,2,0);
    
     zb_AllowBind( 0xFF );
     
@@ -347,8 +344,10 @@ void zb_FindDeviceConfirm( uint8 searchType, uint8 *searchKey, uint8 *result )
  */
 void zb_ReceiveDataIndication( uint16 source, uint16 command, uint16 len, uint8 *pData  )
 {
-  uint8 lockState = *pData;
-  MCU_IO_OUTPUT_PREP(1,2,lockState);
+  if(command == LOCK_STATUS_CMD_ID){
+    uint8 lockState = (*pData != 0);
+    MCU_IO_OUTPUT_PREP(1,2,lockState);
+  }
 }
 
 /******************************************************************************

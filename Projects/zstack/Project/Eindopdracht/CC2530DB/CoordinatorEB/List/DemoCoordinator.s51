@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V9.20.1.2476 for 8051               15/Mar/2016  11:24:04
+// IAR C/C++ Compiler V9.20.1.2476 for 8051               15/Mar/2016  12:06:06
 // Copyright 2004-2015 IAR Systems AB.
 // Standalone license - IAR Embedded Workbench for 8051
 //
@@ -1705,27 +1705,47 @@ zb_ReceiveDataIndication:
         MOV     A,#0x1
         XRL     A,R6
         ORL     A,R7
-        JNZ     ??zb_ReceiveDataIndication_4
+        JNZ     ??zb_ReceiveDataIndication_5
 //  413       if(*pData == 0 ){
         MOV     A,R0
         ANL     0xf3,#0x7f
-        JNZ     ??zb_ReceiveDataIndication_5
+        JNZ     ??zb_ReceiveDataIndication_6
 //  414          MCU_IO_OUTPUT_PREP(0, 7, 0);
         CLR     0x80.7
-        SJMP    ??zb_ReceiveDataIndication_6
+        SJMP    ??zb_ReceiveDataIndication_7
 //  415       } else {
 //  416          MCU_IO_OUTPUT_PREP(0, 7, 1);
-??zb_ReceiveDataIndication_5:
-        SETB    0x80.7
 ??zb_ReceiveDataIndication_6:
+        SETB    0x80.7
+??zb_ReceiveDataIndication_7:
         ORL     0xfd,#0x80
+        SJMP    ??zb_ReceiveDataIndication_4
 //  417       }
 //  418     }
 //  419     
 //  420     else if(command == LIGHT_CONTROL_CMD_ID){
-//  421     }
-//  422   }
-//  423 }
+??zb_ReceiveDataIndication_5:
+        MOV     A,#0x2
+        XRL     A,R6
+        ORL     A,R7
+        JNZ     ??zb_ReceiveDataIndication_4
+//  421       if(*pData == 0 ){
+        MOV     A,R0
+        ANL     0xf3,#0xef
+        JNZ     ??zb_ReceiveDataIndication_8
+//  422          MCU_IO_OUTPUT_PREP(0, 4, 0);
+        CLR     0x80.4
+        SJMP    ??zb_ReceiveDataIndication_9
+//  423       } else {
+//  424          MCU_IO_OUTPUT_PREP(0, 4, 1);
+??zb_ReceiveDataIndication_8:
+        SETB    0x80.4
+??zb_ReceiveDataIndication_9:
+        ORL     0xfd,#0x10
+//  425       }
+//  426     }
+//  427   }
+//  428 }
 ??zb_ReceiveDataIndication_4:
         MOV     R7,#0x1
         LJMP    ?BANKED_LEAVE_XDATA
@@ -1744,25 +1764,25 @@ zb_ReceiveDataIndication:
         REQUIRE P0SEL
         REQUIRE _A_P0
         REQUIRE P0DIR
-//  424 
-//  425 /******************************************************************************
-//  426  * @fn          uartRxCB
-//  427  *
-//  428  * @brief       Callback function for UART
-//  429  *
-//  430  * @param       port - UART port
-//  431  *              event - UART event that caused callback
+//  429 
+//  430 /******************************************************************************
+//  431  * @fn          uartRxCB
 //  432  *
-//  433  * @return      none
-//  434  */
+//  433  * @brief       Callback function for UART
+//  434  *
+//  435  * @param       port - UART port
+//  436  *              event - UART event that caused callback
+//  437  *
+//  438  * @return      none
+//  439  */
 
         RSEG BANKED_CODE:CODE:NOROOT(0)
-//  435 void uartRxCB( uint8 port, uint8 event )
+//  440 void uartRxCB( uint8 port, uint8 event )
 uartRxCB:
           CFI Block cfiBlock16 Using cfiCommon0
           CFI Function uartRxCB
         CODE
-//  436 {
+//  441 {
         FUNCALL uartRxCB, HalUARTRead
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -1808,22 +1828,22 @@ uartRxCB:
           CFI CFA_XSP16 add(XSP16, 145)
         MOV     A,R2
         MOV     R6,A
-//  437   (void)port;
-//  438 
-//  439   uint8 pBuf[RX_BUF_LEN];
-//  440   uint16 cmd;
-//  441   uint16 len;
-//  442 
-//  443   if ( event != HAL_UART_TX_EMPTY )
+//  442   (void)port;
+//  443 
+//  444   uint8 pBuf[RX_BUF_LEN];
+//  445   uint16 cmd;
+//  446   uint16 len;
+//  447 
+//  448   if ( event != HAL_UART_TX_EMPTY )
         MOV     A,#0x10
         XRL     A,R6
         JNZ     $+5
         LJMP    ??uartRxCB_0 & 0xFFFF
-//  444   {
-//  445     // Read from UART
-//  446     len = HalUARTRead( HAL_UART_PORT_0, pBuf, RX_BUF_LEN );
-//  447 
-//  448     if ( len > 0 )
+//  449   {
+//  450     // Read from UART
+//  451     len = HalUARTRead( HAL_UART_PORT_0, pBuf, RX_BUF_LEN );
+//  452 
+//  453     if ( len > 0 )
         ; Setup parameters for call to function HalUARTRead
         MOV     R4,#-0x80
         MOV     R5,#0x0
@@ -1835,10 +1855,10 @@ uartRxCB:
         MOV     A,R2
         ORL     A,?V1
         JZ      ??uartRxCB_0
-//  449     {
-//  450       cmd = BUILD_UINT16(pBuf[SYS_PING_CMD_OFFSET + 1], pBuf[SYS_PING_CMD_OFFSET]);
-//  451 
-//  452       if( (pBuf[FRAME_SOF_OFFSET] == CPT_SOP) && (cmd == SYS_PING_REQUEST) )
+//  454     {
+//  455       cmd = BUILD_UINT16(pBuf[SYS_PING_CMD_OFFSET + 1], pBuf[SYS_PING_CMD_OFFSET]);
+//  456 
+//  457       if( (pBuf[FRAME_SOF_OFFSET] == CPT_SOP) && (cmd == SYS_PING_REQUEST) )
         MOV     A,#0x7
         LCALL   ?XSTACK_DISP0_8
         MOVX    A,@DPTR
@@ -1858,8 +1878,8 @@ uartRxCB:
         XRL     A,R0
         ORL     A,R1
         JNZ     ??uartRxCB_0
-//  453       {
-//  454         sysPingReqRcvd();
+//  458       {
+//  459         sysPingReqRcvd();
         MOV     DPL,?XSP + 0
         MOV     DPH,?XSP + 1
         MOV     A,#-0x2
@@ -1905,10 +1925,10 @@ uartRxCB:
         MOV     R3,?XSP + 1
         MOV     R1,#0x0
         LCALL   `??HalUARTWrite::?relay`; Banked call to: HalUARTWrite
-//  455       }
-//  456     }
-//  457   }
-//  458 }
+//  460       }
+//  461     }
+//  462   }
+//  463 }
 ??uartRxCB_0:
         MOV     A,#-0x79
         LCALL   ?DEALLOC_XSTACK8
@@ -2008,80 +2028,80 @@ uartRxCB:
         DC24    uartRxCB
 
         END
-//  459 
-//  460 /******************************************************************************
-//  461  * @fn          sysPingReqRcvd
-//  462  *
-//  463  * @brief       Ping request received
-//  464  *
-//  465  * @param       none
-//  466  *
-//  467  * @return      none
-//  468  */
-//  469 static void sysPingReqRcvd(void)
-//  470 {
-//  471    sysPingRsp();
-//  472 }
-//  473 
-//  474 /******************************************************************************
-//  475  * @fn          sysPingRsp
-//  476  *
-//  477  * @brief       Build and send Ping response
-//  478  *
-//  479  * @param       none
-//  480  *
-//  481  * @return      none
-//  482  */
-//  483 static void sysPingRsp(void)
-//  484 {
-//  485   uint8 pBuf[SYS_PING_RSP_LENGTH];
-//  486 
-//  487   // Start of Frame Delimiter
-//  488   pBuf[FRAME_SOF_OFFSET] = CPT_SOP;
-//  489 
-//  490   // Length
-//  491   pBuf[FRAME_LENGTH_OFFSET] = 2;
-//  492 
-//  493   // Command type
-//  494   pBuf[FRAME_CMD0_OFFSET] = LO_UINT16(SYS_PING_RESPONSE);
-//  495   pBuf[FRAME_CMD1_OFFSET] = HI_UINT16(SYS_PING_RESPONSE);
-//  496 
-//  497   // Stack profile
-//  498   pBuf[FRAME_DATA_OFFSET] = LO_UINT16(STACK_PROFILE);
-//  499   pBuf[FRAME_DATA_OFFSET + 1] = HI_UINT16(STACK_PROFILE);
-//  500 
-//  501   // Frame Check Sequence
-//  502   pBuf[SYS_PING_RSP_LENGTH - 1] = calcFCS(&pBuf[FRAME_LENGTH_OFFSET], (SYS_PING_RSP_LENGTH - 2));
-//  503 
-//  504   // Write frame to UART
-//  505   HalUARTWrite(HAL_UART_PORT_0,pBuf, SYS_PING_RSP_LENGTH);
-//  506 }
-//  507 
+//  464 
+//  465 /******************************************************************************
+//  466  * @fn          sysPingReqRcvd
+//  467  *
+//  468  * @brief       Ping request received
+//  469  *
+//  470  * @param       none
+//  471  *
+//  472  * @return      none
+//  473  */
+//  474 static void sysPingReqRcvd(void)
+//  475 {
+//  476    sysPingRsp();
+//  477 }
+//  478 
+//  479 /******************************************************************************
+//  480  * @fn          sysPingRsp
+//  481  *
+//  482  * @brief       Build and send Ping response
+//  483  *
+//  484  * @param       none
+//  485  *
+//  486  * @return      none
+//  487  */
+//  488 static void sysPingRsp(void)
+//  489 {
+//  490   uint8 pBuf[SYS_PING_RSP_LENGTH];
+//  491 
+//  492   // Start of Frame Delimiter
+//  493   pBuf[FRAME_SOF_OFFSET] = CPT_SOP;
+//  494 
+//  495   // Length
+//  496   pBuf[FRAME_LENGTH_OFFSET] = 2;
+//  497 
+//  498   // Command type
+//  499   pBuf[FRAME_CMD0_OFFSET] = LO_UINT16(SYS_PING_RESPONSE);
+//  500   pBuf[FRAME_CMD1_OFFSET] = HI_UINT16(SYS_PING_RESPONSE);
+//  501 
+//  502   // Stack profile
+//  503   pBuf[FRAME_DATA_OFFSET] = LO_UINT16(STACK_PROFILE);
+//  504   pBuf[FRAME_DATA_OFFSET + 1] = HI_UINT16(STACK_PROFILE);
+//  505 
+//  506   // Frame Check Sequence
+//  507   pBuf[SYS_PING_RSP_LENGTH - 1] = calcFCS(&pBuf[FRAME_LENGTH_OFFSET], (SYS_PING_RSP_LENGTH - 2));
 //  508 
-//  509 /******************************************************************************
-//  510  * @fn          calcFCS
-//  511  *
-//  512  * @brief       This function calculates the FCS checksum for the serial message
-//  513  *
-//  514  * @param       pBuf - Pointer to the end of a buffer to calculate the FCS.
-//  515  *              len - Length of the pBuf.
+//  509   // Write frame to UART
+//  510   HalUARTWrite(HAL_UART_PORT_0,pBuf, SYS_PING_RSP_LENGTH);
+//  511 }
+//  512 
+//  513 
+//  514 /******************************************************************************
+//  515  * @fn          calcFCS
 //  516  *
-//  517  * @return      The calculated FCS.
-//  518  ******************************************************************************
-//  519  */
-//  520 static uint8 calcFCS(uint8 *pBuf, uint8 len)
-//  521 {
-//  522   uint8 rtrn = 0;
-//  523 
-//  524   while ( len-- )
-//  525   {
-//  526     rtrn ^= *pBuf++;
-//  527   }
+//  517  * @brief       This function calculates the FCS checksum for the serial message
+//  518  *
+//  519  * @param       pBuf - Pointer to the end of a buffer to calculate the FCS.
+//  520  *              len - Length of the pBuf.
+//  521  *
+//  522  * @return      The calculated FCS.
+//  523  ******************************************************************************
+//  524  */
+//  525 static uint8 calcFCS(uint8 *pBuf, uint8 len)
+//  526 {
+//  527   uint8 rtrn = 0;
 //  528 
-//  529   return rtrn;
-//  530 }
+//  529   while ( len-- )
+//  530   {
+//  531     rtrn ^= *pBuf++;
+//  532   }
+//  533 
+//  534   return rtrn;
+//  535 }
 // 
-// 631 bytes in segment BANKED_CODE
+// 654 bytes in segment BANKED_CODE
 //  54 bytes in segment BANK_RELAYS
 //   5 bytes in segment SFR_AN
 //   3 bytes in segment XDATA_I
@@ -2089,10 +2109,10 @@ uartRxCB:
 //  20 bytes in segment XDATA_ROM_C
 //   1 byte  in segment XDATA_Z
 // 
-// 688 bytes of CODE  memory
+// 711 bytes of CODE  memory
 //  20 bytes of CONST memory
 //   0 bytes of DATA  memory (+ 5 bytes shared)
 //   4 bytes of XDATA memory
 //
 //Errors: none
-//Warnings: 2
+//Warnings: 3

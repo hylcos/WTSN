@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V9.20.1.2476 for 8051                14/Mar/2016  22:13:01
+# IAR C/C++ Compiler V9.20.1.2476 for 8051                15/Mar/2016  12:05:05
 # Copyright 2004-2015 IAR Systems AB.
 # Standalone license - IAR Embedded Workbench for 8051
 #
@@ -141,6 +141,11 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\mt\MT_APP.c
      44          #include "MT.h"        /* This is here because all the SPI_CMD_XXX are defined in this header */
      45          #include "MT_APP.h"
      46          #include "MT_AF.h"     /* This is here because this MT_APP makes some routine call to AF */
+
+  #define RFD_RCVC_ALWAYS_ON 1
+          ^
+"C:\Users\Bart\Documents\GitHub\WTSN\Components\hal\target\CC2530EB\hal_board_cfg.h",83  Warning[Pe047]: 
+          incompatible redefinition of macro "RFD_RCVC_ALWAYS_ON"
      47          #include "MT_RPC.h"
      48          
      49          #if defined( APP_TP )
@@ -613,4 +618,4 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\mt\MT_APP.c
 
 
 Errors: none
-Warnings: none
+Warnings: 1

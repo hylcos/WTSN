@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V9.20.1.2476 for 8051               14/Mar/2016  21:05:17
+// IAR C/C++ Compiler V9.20.1.2476 for 8051               15/Mar/2016  12:06:15
 // Copyright 2004-2015 IAR Systems AB.
 // Standalone license - IAR Embedded Workbench for 8051
 //
@@ -1635,4 +1635,4 @@ zmain_ext_addr:
 //   0 bytes of DATA  memory (+ 7 bytes shared)
 //
 //Errors: none
-//Warnings: none
+//Warnings: 1

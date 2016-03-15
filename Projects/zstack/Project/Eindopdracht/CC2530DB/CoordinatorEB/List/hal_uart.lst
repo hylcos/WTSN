@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V9.20.1.2476 for 8051                13/Mar/2016  22:06:48
+# IAR C/C++ Compiler V9.20.1.2476 for 8051                15/Mar/2016  12:06:08
 # Copyright 2004-2015 IAR Systems AB.
 # Standalone license - IAR Embedded Workbench for 8051
 #
@@ -220,6 +220,11 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\hal\target\CC2530EB\hal_uart.c
    \   unsigned char volatile __sfr P2DIR
    \                     P2DIR:
    \   000000                DS 1
+
+  #define RFD_RCVC_ALWAYS_ON 1
+          ^
+"C:\Users\Bart\Documents\GitHub\WTSN\Components\hal\target\CC2530EB\hal_board_cfg.h",83  Warning[Pe047]: 
+          incompatible redefinition of macro "RFD_RCVC_ALWAYS_ON"
      45          #include "hal_defs.h"
      46          #include "hal_types.h"
      47          #include "hal_uart.h"
@@ -1695,4 +1700,4 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\hal\target\CC2530EB\hal_uart.c
  1 038 bytes of XDATA memory
 
 Errors: none
-Warnings: none
+Warnings: 1

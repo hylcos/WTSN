@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V9.20.1.2476 for 8051               13/Mar/2016  22:06:46
+// IAR C/C++ Compiler V9.20.1.2476 for 8051               15/Mar/2016  12:06:07
 // Copyright 2004-2015 IAR Systems AB.
 // Standalone license - IAR Embedded Workbench for 8051
 //
@@ -723,4 +723,4 @@ HalFlashErase:
 //   0 bytes of DATA memory (+ 4 bytes shared)
 //
 //Errors: none
-//Warnings: none
+//Warnings: 1

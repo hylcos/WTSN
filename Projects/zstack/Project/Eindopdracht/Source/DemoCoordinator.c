@@ -418,6 +418,11 @@ void zb_ReceiveDataIndication( uint16 source, uint16 command, uint16 len, uint8 
     }
     
     else if(command == LIGHT_CONTROL_CMD_ID){
+      if(*pData == 0 ){
+         MCU_IO_OUTPUT_PREP(0, 4, 0);
+      } else {
+         MCU_IO_OUTPUT_PREP(0, 4, 1);
+      }
     }
   }
 }

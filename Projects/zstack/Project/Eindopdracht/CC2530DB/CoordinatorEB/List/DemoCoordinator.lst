@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V9.20.1.2476 for 8051                15/Mar/2016  11:24:04
+# IAR C/C++ Compiler V9.20.1.2476 for 8051                15/Mar/2016  12:06:06
 # Copyright 2004-2015 IAR Systems AB.
 # Standalone license - IAR Embedded Workbench for 8051
 #
@@ -173,6 +173,11 @@ C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\Source\
    \   unsigned char volatile __sfr P0DIR
    \                     P0DIR:
    \   000000                DS 1
+
+  #define RFD_RCVC_ALWAYS_ON 1
+          ^
+"C:\Users\Bart\Documents\GitHub\WTSN\Components\hal\target\CC2530EB\hal_board_cfg.h",83  Warning[Pe047]: 
+          incompatible redefinition of macro "RFD_RCVC_ALWAYS_ON"
      53          #include "hal_led.h"
      54          #include "hal_lcd.h"
      55          #include "hal_uart.h"
@@ -888,7 +893,7 @@ Warning[Pe549]: variable "txOptions" is used before its value is set
    \   00003D   7B00         MOV     R3,#0x0
    \   00003F   7901         MOV     R1,#0x1
    \   000041   12....       LCALL   `??zb_BindDevice::?relay`; Banked call to: zb_BindDevice
-   \   000044   801C         SJMP    ??zb_ReceiveDataIndication_4
+   \   000044   8033         SJMP    ??zb_ReceiveDataIndication_4
     405                }
     406                else{
     407                  zb_AllowBind( 0xFF );
@@ -896,7 +901,7 @@ Warning[Pe549]: variable "txOptions" is used before its value is set
    \   000046                ; Setup parameters for call to function zb_AllowBind
    \   000046   79FF         MOV     R1,#-0x1
    \   000048   12....       LCALL   `??zb_AllowBind::?relay`; Banked call to: zb_AllowBind
-   \   00004B   8015         SJMP    ??zb_ReceiveDataIndication_4
+   \   00004B   802C         SJMP    ??zb_ReceiveDataIndication_4
     408                }
     409              }
     410            
@@ -906,49 +911,69 @@ Warning[Pe549]: variable "txOptions" is used before its value is set
    \   00004D   7401         MOV     A,#0x1
    \   00004F   6E           XRL     A,R6
    \   000050   4F           ORL     A,R7
-   \   000051   700F         JNZ     ??zb_ReceiveDataIndication_4
+   \   000051   7011         JNZ     ??zb_ReceiveDataIndication_5
     413                if(*pData == 0 ){
    \   000053   E8           MOV     A,R0
    \   000054   53F37F       ANL     0xf3,#0x7f
-   \   000057   7004         JNZ     ??zb_ReceiveDataIndication_5
+   \   000057   7004         JNZ     ??zb_ReceiveDataIndication_6
     414                   MCU_IO_OUTPUT_PREP(0, 7, 0);
    \   000059   C287         CLR     0x80.7
-   \   00005B   8002         SJMP    ??zb_ReceiveDataIndication_6
+   \   00005B   8002         SJMP    ??zb_ReceiveDataIndication_7
     415                } else {
     416                   MCU_IO_OUTPUT_PREP(0, 7, 1);
-   \                     ??zb_ReceiveDataIndication_5:
-   \   00005D   D287         SETB    0x80.7
    \                     ??zb_ReceiveDataIndication_6:
+   \   00005D   D287         SETB    0x80.7
+   \                     ??zb_ReceiveDataIndication_7:
    \   00005F   43FD80       ORL     0xfd,#0x80
+   \   000062   8015         SJMP    ??zb_ReceiveDataIndication_4
     417                }
     418              }
     419              
     420              else if(command == LIGHT_CONTROL_CMD_ID){
-    421              }
-    422            }
-    423          }
+   \                     ??zb_ReceiveDataIndication_5:
+   \   000064   7402         MOV     A,#0x2
+   \   000066   6E           XRL     A,R6
+   \   000067   4F           ORL     A,R7
+   \   000068   700F         JNZ     ??zb_ReceiveDataIndication_4
+    421                if(*pData == 0 ){
+   \   00006A   E8           MOV     A,R0
+   \   00006B   53F3EF       ANL     0xf3,#0xef
+   \   00006E   7004         JNZ     ??zb_ReceiveDataIndication_8
+    422                   MCU_IO_OUTPUT_PREP(0, 4, 0);
+   \   000070   C284         CLR     0x80.4
+   \   000072   8002         SJMP    ??zb_ReceiveDataIndication_9
+    423                } else {
+    424                   MCU_IO_OUTPUT_PREP(0, 4, 1);
+   \                     ??zb_ReceiveDataIndication_8:
+   \   000074   D284         SETB    0x80.4
+   \                     ??zb_ReceiveDataIndication_9:
+   \   000076   43FD10       ORL     0xfd,#0x10
+    425                }
+    426              }
+    427            }
+    428          }
    \                     ??zb_ReceiveDataIndication_4:
-   \   000062   7F01         MOV     R7,#0x1
-   \   000064   02....       LJMP    ?BANKED_LEAVE_XDATA
-   \   000067                REQUIRE P0SEL
-   \   000067                REQUIRE _A_P0
-   \   000067                REQUIRE P0DIR
-    424          
-    425          /******************************************************************************
-    426           * @fn          uartRxCB
-    427           *
-    428           * @brief       Callback function for UART
-    429           *
-    430           * @param       port - UART port
-    431           *              event - UART event that caused callback
+   \   000079   7F01         MOV     R7,#0x1
+   \   00007B   02....       LJMP    ?BANKED_LEAVE_XDATA
+   \   00007E                REQUIRE P0SEL
+   \   00007E                REQUIRE _A_P0
+   \   00007E                REQUIRE P0DIR
+    429          
+    430          /******************************************************************************
+    431           * @fn          uartRxCB
     432           *
-    433           * @return      none
-    434           */
+    433           * @brief       Callback function for UART
+    434           *
+    435           * @param       port - UART port
+    436           *              event - UART event that caused callback
+    437           *
+    438           * @return      none
+    439           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-    435          void uartRxCB( uint8 port, uint8 event )
+    440          void uartRxCB( uint8 port, uint8 event )
    \                     uartRxCB:
-    436          {
+    441          {
    \   000000                REQUIRE ?V0
    \   000000                REQUIRE ?V1
    \   000000   74F6         MOV     A,#-0xa
@@ -959,22 +984,22 @@ Warning[Pe549]: variable "txOptions" is used before its value is set
    \   000007   12....       LCALL   ?ALLOC_XSTACK8
    \   00000A   EA           MOV     A,R2
    \   00000B   FE           MOV     R6,A
-    437            (void)port;
-    438          
-    439            uint8 pBuf[RX_BUF_LEN];
-    440            uint16 cmd;
-    441            uint16 len;
-    442          
-    443            if ( event != HAL_UART_TX_EMPTY )
+    442            (void)port;
+    443          
+    444            uint8 pBuf[RX_BUF_LEN];
+    445            uint16 cmd;
+    446            uint16 len;
+    447          
+    448            if ( event != HAL_UART_TX_EMPTY )
    \   00000C   7410         MOV     A,#0x10
    \   00000E   6E           XRL     A,R6
    \   00000F   7003         JNZ     $+5
    \   000011   02....       LJMP    ??uartRxCB_0 & 0xFFFF
-    444            {
-    445              // Read from UART
-    446              len = HalUARTRead( HAL_UART_PORT_0, pBuf, RX_BUF_LEN );
-    447          
-    448              if ( len > 0 )
+    449            {
+    450              // Read from UART
+    451              len = HalUARTRead( HAL_UART_PORT_0, pBuf, RX_BUF_LEN );
+    452          
+    453              if ( len > 0 )
    \   000014                ; Setup parameters for call to function HalUARTRead
    \   000014   7C80         MOV     R4,#-0x80
    \   000016   7D00         MOV     R5,#0x0
@@ -986,10 +1011,10 @@ Warning[Pe549]: variable "txOptions" is used before its value is set
    \   000024   EA           MOV     A,R2
    \   000025   45..         ORL     A,?V1
    \   000027   6071         JZ      ??uartRxCB_0
-    449              {
-    450                cmd = BUILD_UINT16(pBuf[SYS_PING_CMD_OFFSET + 1], pBuf[SYS_PING_CMD_OFFSET]);
-    451          
-    452                if( (pBuf[FRAME_SOF_OFFSET] == CPT_SOP) && (cmd == SYS_PING_REQUEST) )
+    454              {
+    455                cmd = BUILD_UINT16(pBuf[SYS_PING_CMD_OFFSET + 1], pBuf[SYS_PING_CMD_OFFSET]);
+    456          
+    457                if( (pBuf[FRAME_SOF_OFFSET] == CPT_SOP) && (cmd == SYS_PING_REQUEST) )
    \   000029   7407         MOV     A,#0x7
    \   00002B   12....       LCALL   ?XSTACK_DISP0_8
    \   00002E   E0           MOVX    A,@DPTR
@@ -1009,8 +1034,8 @@ Warning[Pe549]: variable "txOptions" is used before its value is set
    \   000045   68           XRL     A,R0
    \   000046   49           ORL     A,R1
    \   000047   7051         JNZ     ??uartRxCB_0
-    453                {
-    454                  sysPingReqRcvd();
+    458                {
+    459                  sysPingReqRcvd();
    \   000049   85..82       MOV     DPL,?XSP + 0
    \   00004C   85..83       MOV     DPH,?XSP + 1
    \   00004F   74FE         MOV     A,#-0x2
@@ -1056,10 +1081,10 @@ Warning[Pe549]: variable "txOptions" is used before its value is set
    \   000093   AB..         MOV     R3,?XSP + 1
    \   000095   7900         MOV     R1,#0x0
    \   000097   12....       LCALL   `??HalUARTWrite::?relay`; Banked call to: HalUARTWrite
-    455                }
-    456              }
-    457            }
-    458          }
+    460                }
+    461              }
+    462            }
+    463          }
    \                     ??uartRxCB_0:
    \   00009A   7487         MOV     A,#-0x79
    \   00009C   12....       LCALL   ?DEALLOC_XSTACK8
@@ -1122,78 +1147,78 @@ Warning[Pe549]: variable "txOptions" is used before its value is set
    \                     `??uartRxCB::?relay`:
    \   000000   12....       LCALL   ?BDISPATCH
    \   000003   ......       DC24    uartRxCB
-    459          
-    460          /******************************************************************************
-    461           * @fn          sysPingReqRcvd
-    462           *
-    463           * @brief       Ping request received
-    464           *
-    465           * @param       none
-    466           *
-    467           * @return      none
-    468           */
-    469          static void sysPingReqRcvd(void)
-    470          {
-    471             sysPingRsp();
-    472          }
-    473          
-    474          /******************************************************************************
-    475           * @fn          sysPingRsp
-    476           *
-    477           * @brief       Build and send Ping response
-    478           *
-    479           * @param       none
-    480           *
-    481           * @return      none
-    482           */
-    483          static void sysPingRsp(void)
-    484          {
-    485            uint8 pBuf[SYS_PING_RSP_LENGTH];
-    486          
-    487            // Start of Frame Delimiter
-    488            pBuf[FRAME_SOF_OFFSET] = CPT_SOP;
-    489          
-    490            // Length
-    491            pBuf[FRAME_LENGTH_OFFSET] = 2;
-    492          
-    493            // Command type
-    494            pBuf[FRAME_CMD0_OFFSET] = LO_UINT16(SYS_PING_RESPONSE);
-    495            pBuf[FRAME_CMD1_OFFSET] = HI_UINT16(SYS_PING_RESPONSE);
-    496          
-    497            // Stack profile
-    498            pBuf[FRAME_DATA_OFFSET] = LO_UINT16(STACK_PROFILE);
-    499            pBuf[FRAME_DATA_OFFSET + 1] = HI_UINT16(STACK_PROFILE);
-    500          
-    501            // Frame Check Sequence
-    502            pBuf[SYS_PING_RSP_LENGTH - 1] = calcFCS(&pBuf[FRAME_LENGTH_OFFSET], (SYS_PING_RSP_LENGTH - 2));
-    503          
-    504            // Write frame to UART
-    505            HalUARTWrite(HAL_UART_PORT_0,pBuf, SYS_PING_RSP_LENGTH);
-    506          }
-    507          
+    464          
+    465          /******************************************************************************
+    466           * @fn          sysPingReqRcvd
+    467           *
+    468           * @brief       Ping request received
+    469           *
+    470           * @param       none
+    471           *
+    472           * @return      none
+    473           */
+    474          static void sysPingReqRcvd(void)
+    475          {
+    476             sysPingRsp();
+    477          }
+    478          
+    479          /******************************************************************************
+    480           * @fn          sysPingRsp
+    481           *
+    482           * @brief       Build and send Ping response
+    483           *
+    484           * @param       none
+    485           *
+    486           * @return      none
+    487           */
+    488          static void sysPingRsp(void)
+    489          {
+    490            uint8 pBuf[SYS_PING_RSP_LENGTH];
+    491          
+    492            // Start of Frame Delimiter
+    493            pBuf[FRAME_SOF_OFFSET] = CPT_SOP;
+    494          
+    495            // Length
+    496            pBuf[FRAME_LENGTH_OFFSET] = 2;
+    497          
+    498            // Command type
+    499            pBuf[FRAME_CMD0_OFFSET] = LO_UINT16(SYS_PING_RESPONSE);
+    500            pBuf[FRAME_CMD1_OFFSET] = HI_UINT16(SYS_PING_RESPONSE);
+    501          
+    502            // Stack profile
+    503            pBuf[FRAME_DATA_OFFSET] = LO_UINT16(STACK_PROFILE);
+    504            pBuf[FRAME_DATA_OFFSET + 1] = HI_UINT16(STACK_PROFILE);
+    505          
+    506            // Frame Check Sequence
+    507            pBuf[SYS_PING_RSP_LENGTH - 1] = calcFCS(&pBuf[FRAME_LENGTH_OFFSET], (SYS_PING_RSP_LENGTH - 2));
     508          
-    509          /******************************************************************************
-    510           * @fn          calcFCS
-    511           *
-    512           * @brief       This function calculates the FCS checksum for the serial message
-    513           *
-    514           * @param       pBuf - Pointer to the end of a buffer to calculate the FCS.
-    515           *              len - Length of the pBuf.
+    509            // Write frame to UART
+    510            HalUARTWrite(HAL_UART_PORT_0,pBuf, SYS_PING_RSP_LENGTH);
+    511          }
+    512          
+    513          
+    514          /******************************************************************************
+    515           * @fn          calcFCS
     516           *
-    517           * @return      The calculated FCS.
-    518           ******************************************************************************
-    519           */
-    520          static uint8 calcFCS(uint8 *pBuf, uint8 len)
-    521          {
-    522            uint8 rtrn = 0;
-    523          
-    524            while ( len-- )
-    525            {
-    526              rtrn ^= *pBuf++;
-    527            }
+    517           * @brief       This function calculates the FCS checksum for the serial message
+    518           *
+    519           * @param       pBuf - Pointer to the end of a buffer to calculate the FCS.
+    520           *              len - Length of the pBuf.
+    521           *
+    522           * @return      The calculated FCS.
+    523           ******************************************************************************
+    524           */
+    525          static uint8 calcFCS(uint8 *pBuf, uint8 len)
+    526          {
+    527            uint8 rtrn = 0;
     528          
-    529            return rtrn;
-    530          }
+    529            while ( len-- )
+    530            {
+    531              rtrn ^= *pBuf++;
+    532            }
+    533          
+    534            return rtrn;
+    535          }
 
    Maximum stack usage in bytes:
 
@@ -1256,7 +1281,7 @@ Warning[Pe549]: variable "txOptions" is used before its value is set
        6  zb_HandleOsalEvent::?relay
        4  zb_InCmdList
        4  zb_OutCmdList
-     103  zb_ReceiveDataIndication
+     126  zb_ReceiveDataIndication
        6  zb_ReceiveDataIndication::?relay
        3  zb_SendDataConfirm
        6  zb_SendDataConfirm::?relay
@@ -1265,7 +1290,7 @@ Warning[Pe549]: variable "txOptions" is used before its value is set
        6  zb_StartConfirm::?relay
 
  
- 631 bytes in segment BANKED_CODE
+ 654 bytes in segment BANKED_CODE
   54 bytes in segment BANK_RELAYS
    5 bytes in segment SFR_AN
    3 bytes in segment XDATA_I
@@ -1273,10 +1298,10 @@ Warning[Pe549]: variable "txOptions" is used before its value is set
   20 bytes in segment XDATA_ROM_C
    1 byte  in segment XDATA_Z
  
- 688 bytes of CODE  memory
+ 711 bytes of CODE  memory
   20 bytes of CONST memory
    0 bytes of DATA  memory (+ 5 bytes shared)
    4 bytes of XDATA memory
 
 Errors: none
-Warnings: 2
+Warnings: 3

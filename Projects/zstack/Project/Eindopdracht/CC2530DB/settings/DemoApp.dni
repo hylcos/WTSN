@@ -12,7 +12,7 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
-Checksum=125332207
+Checksum=1185391470
 [CodeCoverage]
 Enabled=_ 0
 [CallStack]
@@ -61,17 +61,18 @@ ShowSource=1
 [Simulator]
 Freq=50000000
 [Breakpoints]
-Bp0=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.371.1" 0 0 0 0 "" 0 ""
-Bp1=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.371.1" 0 0 0 0 "" 0 ""
-Bp2=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.371.1" 0 0 0 0 "" 0 ""
-Bp3=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoCoordinator.c}.443.1" 0 0 0 0 "" 0 ""
-Bp4=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoCoordinator.c}.443.1" 0 0 0 0 "" 0 ""
-Bp5=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoCoordinator.c}.443.3" 0 0 0 0 "" 0 ""
-Bp6=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.371.3" 0 0 0 0 "" 0 ""
+Bp0=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.370.1" 0 0 0 0 "" 0 ""
+Bp1=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.370.1" 0 0 0 0 "" 0 ""
+Bp2=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.370.1" 0 0 0 0 "" 0 ""
+Bp3=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoCoordinator.c}.448.1" 0 0 0 0 "" 0 ""
+Bp4=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoCoordinator.c}.448.1" 0 0 0 0 "" 0 ""
+Bp5=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoCoordinator.c}.448.3" 0 0 0 0 "" 0 ""
+Bp6=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoRouter.c}.370.3" 0 0 0 0 "" 0 ""
 Bp7=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoCoordinator.c}.337.3" 0 0 0 0 "" 0 ""
 Bp8=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoCoordinator.c}.337.3" 0 0 0 0 "" 0 ""
 Bp9=_ "STD_CODE" "{$PROJ_DIR$\..\Source\DemoCoordinator.c}.380.1" 0 0 0 0 "" 0 ""
-Count=10
+Bp10=_ "STD_CODE" "{$PROJ_DIR$\..\..\..\ZMain\TI2530DB\ZMain.c}.82.3" 1 0 0 0 "" 0 ""
+Count=11
 [ChipconEmu]
 Stop timers on halt=0
 Leave target running=1

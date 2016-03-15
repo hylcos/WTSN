@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V9.20.1.2476 for 8051                14/Mar/2016  22:12:57
+# IAR C/C++ Compiler V9.20.1.2476 for 8051                15/Mar/2016  12:05:02
 # Copyright 2004-2015 IAR Systems AB.
 # Standalone license - IAR Embedded Workbench for 8051
 #
@@ -147,6 +147,11 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\hal\target\CC2530EB\hal_led.c
      45          #include "hal_types.h"
      46          #include "hal_drivers.h"
      47          #include "hal_led.h"
+
+  #define RFD_RCVC_ALWAYS_ON 1
+          ^
+"C:\Users\Bart\Documents\GitHub\WTSN\Components\hal\target\CC2530EB\hal_board_cfg.h",83  Warning[Pe047]: 
+          incompatible redefinition of macro "RFD_RCVC_ALWAYS_ON"
      48          #include "osal.h"
      49          #include "hal_board.h"
      50          
@@ -1467,4 +1472,4 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\hal\target\CC2530EB\hal_led.c
     40 bytes of XDATA memory
 
 Errors: none
-Warnings: none
+Warnings: 1

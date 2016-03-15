@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V9.20.1.2476 for 8051                14/Mar/2016  22:12:59
+# IAR C/C++ Compiler V9.20.1.2476 for 8051                15/Mar/2016  12:05:03
 # Copyright 2004-2015 IAR Systems AB.
 # Standalone license - IAR Embedded Workbench for 8051
 #
@@ -145,6 +145,11 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\mac\high_level\mac_pib.c
    \                     _A_IEN0:
    \   000000                DS 1
      45          #include "hal_board.h"
+
+  #define RFD_RCVC_ALWAYS_ON 1
+          ^
+"C:\Users\Bart\Documents\GitHub\WTSN\Components\hal\target\CC2530EB\hal_board_cfg.h",83  Warning[Pe047]: 
+          incompatible redefinition of macro "RFD_RCVC_ALWAYS_ON"
      46          #include "mac_api.h"
      47          #include "mac_spec.h"
      48          #include "mac_low_level.h"
@@ -1447,4 +1452,4 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\mac\high_level\mac_pib.c
    126 bytes of XDATA memory
 
 Errors: none
-Warnings: none
+Warnings: 1
