@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V9.20.1.2476 for 8051               14/Mar/2016  22:13:11
+// IAR C/C++ Compiler V9.20.1.2476 for 8051               16/Mar/2016  12:50:25
 // Copyright 2004-2015 IAR Systems AB.
 // Standalone license - IAR Embedded Workbench for 8051
 //
@@ -31,7 +31,7 @@
 //        -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01, 0x03, 0x05, 0x07,
 //        0x09, 0x0B, 0x0D, 0x0F, 0x00, 0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C,
 //        0x0D}" -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
-//        "-DCONST=const __code" -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=FALSE
+//        "-DCONST=const __code" -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=TRUE
 //        -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100)
 //        -DREJOIN_POLL_RATE=440
 //        C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDProfile.c
@@ -562,14 +562,16 @@ ZDApp_InMsgCB       SYMBOL "ZDApp_InMsgCB"
 `??ZDApp_InMsgCB::?relay` SYMBOL "?relay", ZDApp_InMsgCB
 `?<Name ZDO_ProcessActiveEPR 8>` SYMBOL "ZDO_ProcessActiveEPReq"
 `??ZDO_ProcessActiveEPReq::?relay` SYMBOL "?relay", `?<Name ZDO_ProcessActiveEPR 8>`
-`?<Name ZDO_ProcessMatchDesc 10>` SYMBOL "ZDO_ProcessMatchDescReq"
-`??ZDO_ProcessMatchDescReq::?relay` SYMBOL "?relay", `?<Name ZDO_ProcessMatchDesc 10>`
-`?<Name ZDO_ProcessNodeDescR 12>` SYMBOL "ZDO_ProcessNodeDescReq"
-`??ZDO_ProcessNodeDescReq::?relay` SYMBOL "?relay", `?<Name ZDO_ProcessNodeDescR 12>`
-`?<Name ZDO_ProcessPowerDesc 14>` SYMBOL "ZDO_ProcessPowerDescReq"
-`??ZDO_ProcessPowerDescReq::?relay` SYMBOL "?relay", `?<Name ZDO_ProcessPowerDesc 14>`
-`?<Name ZDO_ProcessSimpleDes 16>` SYMBOL "ZDO_ProcessSimpleDescReq"
-`??ZDO_ProcessSimpleDescReq::?relay` SYMBOL "?relay", `?<Name ZDO_ProcessSimpleDes 16>`
+`?<Name ZDO_ProcessDeviceAnn 10>` SYMBOL "ZDO_ProcessDeviceAnnce"
+`??ZDO_ProcessDeviceAnnce::?relay` SYMBOL "?relay", `?<Name ZDO_ProcessDeviceAnn 10>`
+`?<Name ZDO_ProcessMatchDesc 12>` SYMBOL "ZDO_ProcessMatchDescReq"
+`??ZDO_ProcessMatchDescReq::?relay` SYMBOL "?relay", `?<Name ZDO_ProcessMatchDesc 12>`
+`?<Name ZDO_ProcessNodeDescR 14>` SYMBOL "ZDO_ProcessNodeDescReq"
+`??ZDO_ProcessNodeDescReq::?relay` SYMBOL "?relay", `?<Name ZDO_ProcessNodeDescR 14>`
+`?<Name ZDO_ProcessPowerDesc 16>` SYMBOL "ZDO_ProcessPowerDescReq"
+`??ZDO_ProcessPowerDescReq::?relay` SYMBOL "?relay", `?<Name ZDO_ProcessPowerDesc 16>`
+`?<Name ZDO_ProcessSimpleDes 18>` SYMBOL "ZDO_ProcessSimpleDescReq"
+`??ZDO_ProcessSimpleDescReq::?relay` SYMBOL "?relay", `?<Name ZDO_ProcessSimpleDes 18>`
 osal_buffer_uint32  SYMBOL "osal_buffer_uint32"
 `??osal_buffer_uint32::?relay` SYMBOL "?relay", osal_buffer_uint32
 osal_mem_alloc      SYMBOL "osal_mem_alloc"
@@ -667,6 +669,8 @@ zdpProcessAddrReq   SYMBOL "zdpProcessAddrReq"
         FUNCTION `??ZDApp_InMsgCB::?relay`,00H
         EXTERN `??ZDO_ProcessActiveEPReq::?relay`
         FUNCTION `??ZDO_ProcessActiveEPReq::?relay`,00H
+        EXTERN `??ZDO_ProcessDeviceAnnce::?relay`
+        FUNCTION `??ZDO_ProcessDeviceAnnce::?relay`,00H
         EXTERN `??ZDO_ProcessMatchDescReq::?relay`
         FUNCTION `??ZDO_ProcessMatchDescReq::?relay`,00H
         EXTERN `??ZDO_ProcessNodeDescReq::?relay`
@@ -1005,6 +1009,10 @@ zdoMsgCBs:
 //  175 CONST zdpMsgProcItem_t zdpMsgProcs[] =
 zdpMsgProcs:
         DATA16
+        DW 0
+        DW `??zdpProcessAddrReq::?relay`
+        DW 19
+        DW `??ZDO_ProcessDeviceAnnce::?relay`
         DW 1
         DW `??zdpProcessAddrReq::?relay`
         DW 2
@@ -26891,12 +26899,12 @@ ZDP_IncomingData:
 // 
 // 7 729 bytes in segment BANKED_CODE
 //   210 bytes in segment BANK_RELAYS
-//    29 bytes in segment CODE_C
+//    37 bytes in segment CODE_C
 //     2 bytes in segment XDATA_I
 //     2 bytes in segment XDATA_ID
 //    84 bytes in segment XDATA_Z
 // 
-// 7 970 bytes of CODE  memory
+// 7 978 bytes of CODE  memory
 //    86 bytes of XDATA memory
 //
 //Errors: none

@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V9.20.1.2476 for 8051                14/Mar/2016  22:13:11
+# IAR C/C++ Compiler V9.20.1.2476 for 8051                16/Mar/2016  12:50:26
 # Copyright 2004-2015 IAR Systems AB.
 # Standalone license - IAR Embedded Workbench for 8051
 #
@@ -31,7 +31,7 @@
 #        -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01, 0x03, 0x05, 0x07,
 #        0x09, 0x0B, 0x0D, 0x0F, 0x00, 0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C,
 #        0x0D}" -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
-#        "-DCONST=const __code" -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=FALSE
+#        "-DCONST=const __code" -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=TRUE
 #        -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100)
 #        -DREJOIN_POLL_RATE=440
 #        C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDProfile.c
@@ -303,20 +303,24 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDProfile.c
    \                                 In  segment CODE_C, align 1
     175          CONST zdpMsgProcItem_t zdpMsgProcs[] =
    \                     zdpMsgProcs:
-   \   000000   0100         DW 1
+   \   000000   0000         DW 0
    \   000002   ....         DW `??zdpProcessAddrReq::?relay`
-   \   000004   0200         DW 2
-   \   000006   ....         DW `??ZDO_ProcessNodeDescReq::?relay`
-   \   000008   0300         DW 3
-   \   00000A   ....         DW `??ZDO_ProcessPowerDescReq::?relay`
-   \   00000C   0400         DW 4
-   \   00000E   ....         DW `??ZDO_ProcessSimpleDescReq::?relay`
-   \   000010   0500         DW 5
-   \   000012   ....         DW `??ZDO_ProcessActiveEPReq::?relay`
-   \   000014   0600         DW 6
-   \   000016   ....         DW `??ZDO_ProcessMatchDescReq::?relay`
-   \   000018   FFFF         DW 65535
-   \   00001A   0000         DW 0H
+   \   000004   1300         DW 19
+   \   000006   ....         DW `??ZDO_ProcessDeviceAnnce::?relay`
+   \   000008   0100         DW 1
+   \   00000A   ....         DW `??zdpProcessAddrReq::?relay`
+   \   00000C   0200         DW 2
+   \   00000E   ....         DW `??ZDO_ProcessNodeDescReq::?relay`
+   \   000010   0300         DW 3
+   \   000012   ....         DW `??ZDO_ProcessPowerDescReq::?relay`
+   \   000014   0400         DW 4
+   \   000016   ....         DW `??ZDO_ProcessSimpleDescReq::?relay`
+   \   000018   0500         DW 5
+   \   00001A   ....         DW `??ZDO_ProcessActiveEPReq::?relay`
+   \   00001C   0600         DW 6
+   \   00001E   ....         DW `??ZDO_ProcessMatchDescReq::?relay`
+   \   000020   FFFF         DW 65535
+   \   000022   0000         DW 0H
     176          {
     177          #if ( RFD_RCVC_ALWAYS_ON==TRUE ) || ( ZG_BUILD_RTR_TYPE )
     178            // These aren't processed by sleeping end devices.
@@ -8272,19 +8276,19 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDProfile.c
       93  fillAndSend
        6  fillAndSend::?relay
        2  zdoMsgCBs
-      28  zdpMsgProcs
+      36  zdpMsgProcs
      299  zdpProcessAddrReq
        6  zdpProcessAddrReq::?relay
 
  
  7 729 bytes in segment BANKED_CODE
    210 bytes in segment BANK_RELAYS
-    29 bytes in segment CODE_C
+    37 bytes in segment CODE_C
      2 bytes in segment XDATA_I
      2 bytes in segment XDATA_ID
     84 bytes in segment XDATA_Z
  
- 7 970 bytes of CODE  memory
+ 7 978 bytes of CODE  memory
     86 bytes of XDATA memory
 
 Errors: none

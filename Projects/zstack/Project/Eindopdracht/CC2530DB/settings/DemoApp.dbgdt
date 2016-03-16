@@ -19,7 +19,7 @@
           
           
           
-        <Column0>363</Column0><Column1>0</Column1><Column2>27</Column2><Column3>0</Column3></ColumnWidths>
+        <Column0>220</Column0><Column1>0</Column1><Column2>27</Column2><Column3>0</Column3></ColumnWidths>
       </Workspace>
       <Disassembly>
         <col-names>
@@ -63,7 +63,7 @@
             <Factory>Workspace</Factory>
             <Session>
               
-            <NodeDict><ExpandedNode>DemoApp</ExpandedNode><ExpandedNode>DemoApp/App</ExpandedNode><ExpandedNode>DemoApp/HAL</ExpandedNode><ExpandedNode>DemoApp/HAL/Common</ExpandedNode><ExpandedNode>DemoApp/HAL/Include</ExpandedNode><ExpandedNode>DemoApp/HAL/Target</ExpandedNode><ExpandedNode>DemoApp/HAL/Target/CC2530EB</ExpandedNode><ExpandedNode>DemoApp/HAL/Target/CC2530EB/Config</ExpandedNode><ExpandedNode>DemoApp/HAL/Target/CC2530EB/Includes</ExpandedNode><ExpandedNode>DemoApp/Output</ExpandedNode><ExpandedNode>DemoApp/ZDO</ExpandedNode><ExpandedNode>DemoApp/ZMac</ExpandedNode><ExpandedNode>DemoApp/ZMain</ExpandedNode></NodeDict></Session>
+            <NodeDict><ExpandedNode>DemoApp</ExpandedNode><ExpandedNode>DemoApp/App</ExpandedNode><ExpandedNode>DemoApp/HAL</ExpandedNode><ExpandedNode>DemoApp/HAL/Common</ExpandedNode><ExpandedNode>DemoApp/HAL/Include</ExpandedNode><ExpandedNode>DemoApp/HAL/Target</ExpandedNode><ExpandedNode>DemoApp/HAL/Target/CC2530EB</ExpandedNode><ExpandedNode>DemoApp/HAL/Target/CC2530EB/Config</ExpandedNode><ExpandedNode>DemoApp/HAL/Target/CC2530EB/Includes</ExpandedNode><ExpandedNode>DemoApp/Output</ExpandedNode><ExpandedNode>DemoApp/Tools</ExpandedNode><ExpandedNode>DemoApp/ZDO</ExpandedNode><ExpandedNode>DemoApp/ZMac</ExpandedNode><ExpandedNode>DemoApp/ZMain</ExpandedNode></NodeDict></Session>
           </Tab>
         </Tabs>
         
@@ -90,7 +90,7 @@
       
       
       
-    <Top><Row0><Sizes><Toolbar-00D39890><key>iaridepm.enu1</key></Toolbar-00D39890></Sizes></Row0><Row1><Sizes><Toolbar-1A8583E0><key>debuggergui.enu1</key></Toolbar-1A8583E0></Sizes></Row1></Top><Left><Row0><Sizes><Wnd4><Rect><Top>-2</Top><Left>-2</Left><Bottom>656</Bottom><Right>427</Right><x>-2</x><y>-2</y><xscreen>281</xscreen><yscreen>291</yscreen><sizeHorzCX>146354</sizeHorzCX><sizeHorzCY>291876</sizeHorzCY><sizeVertCX>223438</sizeVertCX><sizeVertCY>659980</sizeVertCY></Rect></Wnd4></Sizes></Row0></Left><Right><Row0><Sizes><Wnd5><Rect><Top>-2</Top><Left>-2</Left><Bottom>656</Bottom><Right>279</Right><x>-2</x><y>-2</y><xscreen>281</xscreen><yscreen>291</yscreen><sizeHorzCX>146354</sizeHorzCX><sizeHorzCY>291876</sizeHorzCY><sizeVertCX>146354</sizeVertCX><sizeVertCY>659980</sizeVertCY></Rect></Wnd5></Sizes></Row0></Right><Bottom><Row0><Sizes><Wnd3><Rect><Top>-2</Top><Left>-2</Left><Bottom>272</Bottom><Right>1922</Right><x>-2</x><y>-2</y><xscreen>1924</xscreen><yscreen>274</yscreen><sizeHorzCX>1002083</sizeHorzCX><sizeHorzCY>274824</sizeHorzCY><sizeVertCX>146354</sizeVertCX><sizeVertCY>291876</sizeVertCY></Rect></Wnd3></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+    <Top><Row0><Sizes><Toolbar-04739890><key>iaridepm.enu1</key></Toolbar-04739890></Sizes></Row0><Row1><Sizes><Toolbar-1EC8D0A0><key>debuggergui.enu1</key></Toolbar-1EC8D0A0></Sizes></Row1><Row2><Sizes/></Row2></Top><Left><Row0><Sizes><Wnd4><Rect><Top>-2</Top><Left>-2</Left><Bottom>481</Bottom><Right>284</Right><x>-2</x><y>-2</y><xscreen>187</xscreen><yscreen>186</yscreen><sizeHorzCX>146094</sizeHorzCX><sizeHorzCY>291994</sizeHorzCY><sizeVertCX>223438</sizeVertCX><sizeVertCY>758242</sizeVertCY></Rect></Wnd4></Sizes></Row0></Left><Right><Row0><Sizes><Wnd5><Rect><Top>-2</Top><Left>-2</Left><Bottom>481</Bottom><Right>185</Right><x>-2</x><y>-2</y><xscreen>187</xscreen><yscreen>186</yscreen><sizeHorzCX>146094</sizeHorzCX><sizeHorzCY>291994</sizeHorzCY><sizeVertCX>146094</sizeVertCX><sizeVertCY>758242</sizeVertCY></Rect></Wnd5></Sizes></Row0></Right><Bottom><Row0><Sizes><Wnd3><Rect><Top>-2</Top><Left>-2</Left><Bottom>87</Bottom><Right>1282</Right><x>-2</x><y>-2</y><xscreen>1284</xscreen><yscreen>89</yscreen><sizeHorzCX>1003125</sizeHorzCX><sizeHorzCY>139717</sizeHorzCY><sizeVertCX>146094</sizeVertCX><sizeVertCY>291994</sizeVertCY></Rect></Wnd3></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
   </Desktop>
 </Project>
 

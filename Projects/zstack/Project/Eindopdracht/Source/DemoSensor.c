@@ -192,10 +192,12 @@ void zb_HandleKeys( uint8 shift, uint8 keys )
   else
   {
     if ( keys & HAL_KEY_SW_1 )
-    {   
+    { 
+      sendLightCommand(0);
     }
     if ( keys & HAL_KEY_SW_2 )
     {
+      sendLightCommand(1);
     }
     if ( keys & HAL_KEY_SW_3 )
     {
@@ -307,7 +309,6 @@ void zb_AllowBindConfirm( uint16 source )
   zb_AllowBind( 0x00 );
   HalLedSet( HAL_LED_3, HAL_LED_MODE_ON );
   appState = APPSTATE_BOUND;
-  sendLightCommand(1);
 }
 
 /******************************************************************************

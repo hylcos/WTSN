@@ -124,7 +124,11 @@ static uint8 appState = APPSTATE_INIT;
 static uint8 retryStartDelay =    10;
 static uint8 checkLockStateDelay = 255;
 static uint8 checkLdrStateDelay = 255;
+
 static uint8 lastKnownLockState = 0xFF; //init waarde
+static uint8 lastKnownLightState = 0xFF;
+static uint8 lightState = 0;
+
 /******************************************************************************
  * LOCAL FUNCTIONS
  */
@@ -208,24 +212,44 @@ void zb_HandleOsalEvent( uint16 event )
     
     osal_start_timerEx( sapi_TaskID, CHECK_LOCK_STATUS_EVT , checkLockStateDelay );
   }
-    if (event & CHECK_LDR_STATUS_EVT ){
+
+
+  if (event & CHECK_LDR_STATUS_EVT ){
+    uint8 newLightState = 0;
     
-    uint16 LDRState = HalAdcRead(HAL_ADC_CHANNEL_0,HAL_ADC_RESOLUTION_8);
-     uint8 pData[LOCK_CMD_LENGTH];
-     pData[LOCK_CMD_OFFSET] = lockState;
-     uint8 txOptions;
-     zb_SendDataRequest( 0xFFFE, LOCK_STATUS_CMD_ID, LOCK_CMD_LENGTH , pData, 0, txOptions, 0 );
-    if (LDRState > 0){
-       //uint8 pData[LOCK_CMD_LENGTH];
-      //uint8 pData[LOCK_CMD_LENGTH];
-     // pData[LOCK_CMD_OFFSET] = lockState;
-      //uint8 txOptions;
-      
-      //lastKnownLockState = lockState;
-      LDRState = 10;
+    if(lightState){
+       uint16 LDRValue = HalAdcRead(HAL_ADC_CHANNEL_0, HAL_ADC_RESOLUTION_8);
+       if(LDRValue > 100){
+         newLightState = 1;
+       }
     }
-     //uint8 pData[LOCK_CMD_LENGTH];
+    
+    if(newLightState != lastKnownLightState){
+      MCU_IO_OUTPUT(0, 4, newLightState);
+      
+      uint8 pData[LIGHT_CMD_LENGTH];
+      pData[LIGHT_CMD_OFFSET] = newLightState;
+      uint8 txOptions;
+      zb_SendDataRequest( 0xFFFE, LIGHT_STATUS_CMD_ID, LIGHT_CMD_LENGTH , pData, 0, txOptions, 0 );
+      lastKnownLightState = newLightState;
+    }
+    
     osal_start_timerEx( sapi_TaskID, CHECK_LDR_STATUS_EVT , checkLdrStateDelay );
+      
+       /*uint8 pData[LOCK_CMD_LENGTH];
+       pData[LOCK_CMD_OFFSET] = lockState;
+       uint8 txOptions;
+       zb_SendDataRequest( 0xFFFE, LOCK_STATUS_CMD_ID, LOCK_CMD_LENGTH , pData, 0, txOptions, 0 );
+      if (LDRState > 0){
+         //uint8 pData[LOCK_CMD_LENGTH];
+        //uint8 pData[LOCK_CMD_LENGTH];
+       // pData[LOCK_CMD_OFFSET] = lockState;
+        //uint8 txOptions;
+        
+        //lastKnownLockState = lockState;
+        LDRState = 10;
+      }
+       //uint8 pData[LOCK_CMD_LENGTH];*/
   }
 }
 
@@ -295,17 +319,21 @@ void zb_StartConfirm( uint8 status )
   // If the device sucessfully started, change state to running
   if ( status == ZB_SUCCESS )
   {
+    HalAdcInit();
     //init lock sensor
-    MCU_IO_DIR_INPUT_PREP(0, 2);
-    MCU_IO_INPUT_PREP(0,2,MCU_IO_PULLDOWN);
+    MCU_IO_DIR_INPUT(0, 2);
+    MCU_IO_INPUT(0,2,MCU_IO_PULLDOWN);
     
     //init lamp
-    MCU_IO_DIR_OUTPUT_PREP(0, 4);
-    MCU_IO_OUTPUT_PREP(0, 4, 0);
+    MCU_IO_DIR_OUTPUT(0, 4);
+    MCU_IO_OUTPUT(0, 4, 0);
     
     //init lock
-    MCU_IO_DIR_OUTPUT_PREP(0, 7);
-    MCU_IO_OUTPUT_PREP(0, 7, DOOR_OPEN);
+    MCU_IO_DIR_OUTPUT(0, 7);
+    MCU_IO_OUTPUT(0, 7, DOOR_OPEN);
+    
+    MCU_IO_DIR_INPUT(0, 0);
+    
     
     zb_AllowBind( 0xFF );
     
@@ -433,17 +461,20 @@ void zb_ReceiveDataIndication( uint16 source, uint16 command, uint16 len, uint8 
   else{
     if(command == LOCK_CONTROL_CMD_ID){
       if(*pData == 0 ){
-         MCU_IO_OUTPUT_PREP(0, 7, 0);
+         MCU_IO_OUTPUT(0, 7, 0);
       } else {
-         MCU_IO_OUTPUT_PREP(0, 7, 1);
+         MCU_IO_OUTPUT(0, 7, 1);
       }
     }
     
     else if(command == LIGHT_CONTROL_CMD_ID){
       if(*pData == 0 ){
-         MCU_IO_OUTPUT_PREP(0, 4, 0);
+          lightState = 0;
       } else {
-         MCU_IO_OUTPUT_PREP(0, 4, 1);
+        if(!lightState){
+          lightState = 1;
+          osal_start_timerEx( sapi_TaskID, CHECK_LDR_STATUS_EVT , checkLdrStateDelay );
+        }
       }
     }
   }
