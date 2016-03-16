@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V9.20.1.2476 for 8051               13/Mar/2016  22:08:03
+// IAR C/C++ Compiler V9.20.1.2476 for 8051               16/Mar/2016  14:39:17
 // Copyright 2004-2015 IAR Systems AB.
 // Standalone license - IAR Embedded Workbench for 8051
 //
@@ -20,8 +20,8 @@
 //        -DMAC_CFG_TX_DATA_MAX=5 -DMAC_CFG_TX_MAX=8 -DMAC_CFG_RX_MAX=5
 //        -DRTR_NWK) -f
 //        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg
-//        (-DZIGBEEPRO -DSECURE=0 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
-//        -DDEFAULT_CHANLIST=0x04000000 -DZDAPP_CONFIG_PAN_ID=0x0EEE
+//        (-DZIGBEEPRO -DSECURE=1 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
+//        -DDEFAULT_CHANLIST=0x00008000 -DZDAPP_CONFIG_PAN_ID=0x0EEE
 //        -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MASK=0x007F
 //        -DBEACON_REQUEST_DELAY=100 -DBEACON_REQ_DELAY_MASK=0x00FF
 //        -DLINK_STATUS_JITTER_MASK=0x007F -DROUTE_EXPIRY_TIME=30
@@ -29,10 +29,10 @@
 //        -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3
 //        -DNWK_MAX_DATA_RETRIES=2 -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9
 //        -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40 -DNWK_MAX_BINDING_ENTRIES=4
-//        -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01, 0x03, 0x05, 0x07,
-//        0x09, 0x0B, 0x0D, 0x0F, 0x00, 0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C,
-//        0x0D}" -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
-//        "-DCONST=const __code" -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=FALSE
+//        -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x42, 0x61, 0x72, 0x74,
+//        0x20, 0x65, 0x61, 0x20, 0x48, 0x79, 0x6C, 0x63, 0x6F, 0x20, 0x20,
+//        0x20}" -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
+//        "-DCONST=const __code" -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=TRUE
 //        -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100)
 //        -DREJOIN_POLL_RATE=440
 //        C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
@@ -131,6 +131,7 @@
         EXTERN ?PUSH_XSTACK_I_TWO
         EXTERN ?XSP
         EXTERN ?XSTACK_DISP0_8
+        EXTERN ?XSTACK_DISP101_8
         EXTERN __INIT_XDATA_I
         EXTERN __INIT_XDATA_Z
 
@@ -139,6 +140,7 @@
         PUBLIC `??zgInitItems::?relay`
         FUNCTION `??zgInitItems::?relay`,0203H
         FUNCTION `??zgItemInit::?relay`,0203H
+        FUNCTION `??zgPreconfigKeyInit::?relay`,0203H
         PUBLIC `??zgReadStartupOptions::?relay`
         FUNCTION `??zgReadStartupOptions::?relay`,0203H
         PUBLIC `??zgSetItem::?relay`
@@ -197,6 +199,11 @@
         PUBLIC zgPassiveAckTimeout
         PUBLIC zgPollRate
         PUBLIC zgPreConfigKeys
+        FUNCTION zgPreconfigKeyInit,0a1203H
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        LOCFRAME XSTACK, 31, STACK
         PUBLIC zgQueuedPollRate
         PUBLIC zgReadStartupOptions
         FUNCTION zgReadStartupOptions,0a1203H
@@ -315,10 +322,14 @@
           CFI ?RET_LOW Frame(CFA_SP, 1)
           CFI EndCommon cfiCommon0
         
+ZDSecMgrInitNVKeyTables SYMBOL "ZDSecMgrInitNVKeyTables"
+`??ZDSecMgrInitNVKeyTables::?relay` SYMBOL "?relay", ZDSecMgrInitNVKeyTables
 ZMacGetReq          SYMBOL "ZMacGetReq"
 `??ZMacGetReq::?relay` SYMBOL "?relay", ZMacGetReq
 osal_memcpy         SYMBOL "osal_memcpy"
 `??osal_memcpy::?relay` SYMBOL "?relay", osal_memcpy
+osal_memset         SYMBOL "osal_memset"
+`??osal_memset::?relay` SYMBOL "?relay", osal_memset
 osal_nv_item_init   SYMBOL "osal_nv_item_init"
 `??osal_nv_item_init::?relay` SYMBOL "?relay", osal_nv_item_init
 osal_nv_read        SYMBOL "osal_nv_read"
@@ -336,16 +347,27 @@ zgSetItem           SYMBOL "zgSetItem"
 zgWriteStartupOptions SYMBOL "zgWriteStartupOptions"
 `??zgWriteStartupOptions::?relay` SYMBOL "?relay", zgWriteStartupOptions
 
+        EXTERN `??ZDSecMgrInitNVKeyTables::?relay`
+        FUNCTION `??ZDSecMgrInitNVKeyTables::?relay`,00H
         EXTERN `??ZMacGetReq::?relay`
         FUNCTION `??ZMacGetReq::?relay`,00H
         EXTERN `??osal_memcpy::?relay`
         FUNCTION `??osal_memcpy::?relay`,00H
+        EXTERN `??osal_memset::?relay`
+        FUNCTION `??osal_memset::?relay`,00H
         EXTERN `??osal_nv_item_init::?relay`
         FUNCTION `??osal_nv_item_init::?relay`,00H
         EXTERN `??osal_nv_read::?relay`
         FUNCTION `??osal_nv_read::?relay`,00H
         EXTERN `??osal_nv_write::?relay`
         FUNCTION `??osal_nv_write::?relay`,00H
+        EXTERN ZDSecMgrInitNVKeyTables
+        FUNCTION ZDSecMgrInitNVKeyTables,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
         EXTERN ZMacGetReq
         FUNCTION ZMacGetReq,0202H
         ARGFRAME ISTACK, 0, STACK
@@ -353,18 +375,26 @@ zgWriteStartupOptions SYMBOL "zgWriteStartupOptions"
         ARGFRAME XSTACK, 9, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN defaultKey
         EXTERN osal_memcpy
         FUNCTION osal_memcpy,0202H
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 19, STACK
+        ARGFRAME XSTACK, 30, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN osal_memset
+        FUNCTION osal_memset,0202H
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 27, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         EXTERN osal_nv_item_init
         FUNCTION osal_nv_item_init,0202H
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 16, STACK
+        ARGFRAME XSTACK, 29, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         EXTERN osal_nv_read
@@ -378,7 +408,7 @@ zgWriteStartupOptions SYMBOL "zgWriteStartupOptions"
         FUNCTION osal_nv_write,0202H
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
-        ARGFRAME XSTACK, 18, STACK
+        ARGFRAME XSTACK, 31, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
 
@@ -551,12 +581,13 @@ zgIndirectMsgTimeout:
 //   96 
 //   97 // Security mode
 
-        RSEG XDATA_Z:XDATA:NOROOT(0)
-        DATA8
+        RSEG XDATA_I:XDATA:NOROOT(0)
 //   98 uint8 zgSecurityMode = ZG_SECURITY_MODE;
 zgSecurityMode:
+        DATA8
         DS 1
-        REQUIRE __INIT_XDATA_Z
+        REQUIRE `?<Initializer for zgSecurityMode>`
+        REQUIRE __INIT_XDATA_I
 //   99 
 //  100 // Secure permit join
 
@@ -1579,6 +1610,28 @@ zgInit:
         ARGFRAME XSTACK, 9, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zgInit, zgPreconfigKeyInit
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zgInit, ZDSecMgrInitNVKeyTables
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
         FUNCALL zgInit, zgWriteStartupOptions
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -1668,9 +1721,18 @@ zgInit:
 //  543   {
 //  544     // Initialize the Pre-Configured Key to the default key
 //  545     zgPreconfigKeyInit( setDefault );
+        ; Setup parameters for call to function zgPreconfigKeyInit
+        MOV     A,R6
+        MOV     R1,A
+        LCALL   `??zgPreconfigKeyInit::?relay`; Banked call to: zgPreconfigKeyInit
+        MOV     A,R1
 //  546 
 //  547     // Initialize NV items for all Keys: NWK, APS, TCLK and Master
 //  548     ZDSecMgrInitNVKeyTables( setDefault );
+        ; Setup parameters for call to function ZDSecMgrInitNVKeyTables
+        MOV     A,R6
+        MOV     R1,A
+        LCALL   `??ZDSecMgrInitNVKeyTables::?relay`; Banked call to: ZDSecMgrInitNVKeyTables
 //  549   }
 //  550 #endif // NONWK
 //  551 
@@ -2540,6 +2602,213 @@ zgSetItem:
           CFI CFA_SP SP+-3
           CFI CFA_XSP16 XSP16+0
           CFI EndBlock cfiBlock5
+//  703 
+//  704 #ifndef NONWK
+//  705 /*********************************************************************
+//  706  * @fn       zgPreconfigKeyInit()
+//  707  *
+//  708  * @brief
+//  709  *
+//  710  *   Initialize ZCD_NV_PRECFGKEY NV item. If the item doesn't exist in NV memory,
+//  711  *   write the system default (value passed in) into NV memory. But if
+//  712  *   it exists do not overwrite it.
+//  713  *
+//  714  *   Also, if setDefault is TRUE and the item exists, we will write
+//  715  *   the default value to NV space.
+//  716  *
+//  717  * @param   setDefault - TRUE to set default
+//  718  *
+//  719  * @return  ZSUCCESS if successful, NV_ITEM_UNINIT if item did not
+//  720  *          exist in NV, NV_OPER_FAILED if failure.
+//  721  */
+
+        RSEG BANKED_CODE:CODE:NOROOT(0)
+//  722 static uint8 zgPreconfigKeyInit( uint8 setDefault )
+zgPreconfigKeyInit:
+          CFI Block cfiBlock6 Using cfiCommon0
+          CFI Function zgPreconfigKeyInit
+        CODE
+//  723 {
+        FUNCALL zgPreconfigKeyInit, osal_memcpy
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 30, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 30, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zgPreconfigKeyInit, osal_nv_item_init
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 29, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 29, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zgPreconfigKeyInit, osal_nv_write
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 31, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 31, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL zgPreconfigKeyInit, osal_memset
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 27, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 27, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        REQUIRE ?V0
+        REQUIRE ?V1
+        REQUIRE ?V2
+        MOV     A,#-0xb
+        LCALL   ?BANKED_ENTER_XDATA
+          CFI DPH0 load(1, XDATA, add(CFA_XSP16, literal(-1)))
+          CFI DPL0 load(1, XDATA, add(CFA_XSP16, literal(-2)))
+          CFI ?BRET_EXT load(1, XDATA, add(CFA_XSP16, literal(-3)))
+          CFI ?RET_HIGH load(1, XDATA, add(CFA_XSP16, literal(-4)))
+          CFI ?RET_LOW load(1, XDATA, add(CFA_XSP16, literal(-5)))
+          CFI R7 load(1, XDATA, add(CFA_XSP16, literal(-6)))
+          CFI V2 load(1, XDATA, add(CFA_XSP16, literal(-7)))
+          CFI V1 load(1, XDATA, add(CFA_XSP16, literal(-8)))
+          CFI V0 load(1, XDATA, add(CFA_XSP16, literal(-9)))
+          CFI VB load(1, XDATA, add(CFA_XSP16, literal(-10)))
+          CFI R6 load(1, XDATA, add(CFA_XSP16, literal(-11)))
+          CFI CFA_SP SP+0
+          CFI CFA_XSP16 add(XSP16, 11)
+        ; Saved register size: 11
+        ; Auto size: 16
+        MOV     A,#-0x10
+        LCALL   ?ALLOC_XSTACK8
+          CFI CFA_XSP16 add(XSP16, 27)
+        MOV     A,R1
+        MOV     R7,A
+//  724   uint8 zgPreConfigKey[SEC_KEY_LEN];
+//  725   uint8 status;
+//  726 
+//  727   // Initialize the Pre-Configured Key to the default key
+//  728   osal_memcpy( zgPreConfigKey, defaultKey, SEC_KEY_LEN );
+        ; Setup parameters for call to function osal_memcpy
+        MOV     ?V0,#defaultKey & 0xff
+        MOV     ?V1,#(defaultKey >> 8) & 0xff
+        MOV     ?V2,#-0x80
+        MOV     R0,#?V0
+        LCALL   ?PUSH_XSTACK_I_THREE
+          CFI CFA_XSP16 add(XSP16, 30)
+        MOV     R4,#0x10
+        MOV     R5,#0x0
+        MOV     A,#0x3
+        LCALL   ?XSTACK_DISP101_8
+        LCALL   `??osal_memcpy::?relay`; Banked call to: osal_memcpy
+        MOV     A,#0x3
+        LCALL   ?DEALLOC_XSTACK8
+          CFI CFA_XSP16 add(XSP16, 27)
+//  729 
+//  730   // If the item doesn't exist in NV memory, create and initialize it
+//  731   status = osal_nv_item_init( ZCD_NV_PRECFGKEY, SEC_KEY_LEN, zgPreConfigKey );
+        ; Setup parameters for call to function osal_nv_item_init
+        MOV     R0,?XSP + 0
+        MOV     R1,?XSP + 1
+        MOV     ?V0,R0
+        MOV     ?V1,R1
+        MOV     R0,#?V0
+        LCALL   ?PUSH_XSTACK_I_TWO
+          CFI CFA_XSP16 add(XSP16, 29)
+        MOV     R4,#0x10
+        MOV     R5,#0x0
+        MOV     R2,#0x62
+        MOV     R3,#0x0
+        LCALL   `??osal_nv_item_init::?relay`; Banked call to: osal_nv_item_init
+        MOV     A,#0x2
+        LCALL   ?DEALLOC_XSTACK8
+          CFI CFA_XSP16 add(XSP16, 27)
+        MOV     A,R1
+        MOV     R6,A
+//  732   if ( status == ZSUCCESS )
+        MOV     A,R6
+        JNZ     ??zgPreconfigKeyInit_0
+//  733   {
+//  734     if ( setDefault )
+        MOV     A,R7
+        JZ      ??zgPreconfigKeyInit_0
+//  735     {
+//  736       // Write the default value back to NV
+//  737       status =  osal_nv_write( ZCD_NV_PRECFGKEY, 0, SEC_KEY_LEN, zgPreConfigKey );
+        ; Setup parameters for call to function osal_nv_write
+        MOV     R0,?XSP + 0
+        MOV     R1,?XSP + 1
+        MOV     ?V0,R0
+        MOV     ?V1,R1
+        MOV     R0,#?V0
+        LCALL   ?PUSH_XSTACK_I_TWO
+          CFI CFA_XSP16 add(XSP16, 29)
+        MOV     ?V0,#0x10
+        MOV     ?V1,#0x0
+        MOV     R0,#?V0
+        LCALL   ?PUSH_XSTACK_I_TWO
+          CFI CFA_XSP16 add(XSP16, 31)
+        MOV     R4,#0x0
+        MOV     R5,#0x0
+        MOV     R2,#0x62
+        MOV     R3,#0x0
+        LCALL   `??osal_nv_write::?relay`; Banked call to: osal_nv_write
+        MOV     A,#0x4
+        LCALL   ?DEALLOC_XSTACK8
+          CFI CFA_XSP16 add(XSP16, 27)
+        MOV     A,R1
+        MOV     R6,A
+//  738     }
+//  739   }
+//  740 
+//  741   // clear local copy of default key
+//  742   osal_memset(zgPreConfigKey, 0x00, SEC_KEY_LEN);
+??zgPreconfigKeyInit_0:
+        ; Setup parameters for call to function osal_memset
+        MOV     R4,#0x10
+        MOV     R5,#0x0
+        MOV     R1,#0x0
+        MOV     R2,?XSP + 0
+        MOV     R3,?XSP + 1
+        LCALL   `??osal_memset::?relay`; Banked call to: osal_memset
+//  743 
+//  744   return (status);
+        MOV     A,R6
+        MOV     R1,A
+        MOV     A,#0x10
+        LCALL   ?DEALLOC_XSTACK8
+          CFI CFA_XSP16 add(XSP16, 11)
+        MOV     R7,#0x3
+        LJMP    ?BANKED_LEAVE_XDATA
+          CFI R6 SameValue
+          CFI VB SameValue
+          CFI V0 SameValue
+          CFI V1 SameValue
+          CFI V2 SameValue
+          CFI R7 SameValue
+          CFI ?RET_LOW Frame(CFA_SP, 1)
+          CFI ?RET_HIGH Frame(CFA_SP, 2)
+          CFI ?BRET_EXT Frame(CFA_SP, 3)
+          CFI DPL0 SameValue
+          CFI DPH0 SameValue
+          CFI CFA_SP SP+-3
+          CFI CFA_XSP16 XSP16+0
+//  745 }
+          CFI EndBlock cfiBlock6
 
         RSEG XDATA_ID:CODE:NOROOT(0)
 `?<Initializer for zgPollRate>`:
@@ -2574,7 +2843,7 @@ zgSetItem:
         RSEG XDATA_ID:CODE:NOROOT(0)
 `?<Initializer for zgDefaultChannelList>`:
         DATA32
-        DD 67108864
+        DD 32768
 
         RSEG XDATA_ID:CODE:NOROOT(0)
 `?<Initializer for zgDefaultStartingScanDuratio`:
@@ -2590,6 +2859,11 @@ zgSetItem:
 `?<Initializer for zgIndirectMsgTimeout>`:
         DATA8
         DB 7
+
+        RSEG XDATA_ID:CODE:NOROOT(0)
+`?<Initializer for zgSecurityMode>`:
+        DATA8
+        DB 1
 
         RSEG XDATA_ID:CODE:NOROOT(0)
 `?<Initializer for zgSecurePermitJoin>`:
@@ -2768,63 +3042,27 @@ zgSetItem:
         DATA24
         DC24    zgSetItem
 
+        RSEG BANK_RELAYS:CODE:REORDER:NOROOT(0)
+`??zgPreconfigKeyInit::?relay`:
+        CODE
+        LCALL   ?BDISPATCH
+        DATA24
+        DC24    zgPreconfigKeyInit
+
         END
-//  703 
-//  704 #ifndef NONWK
-//  705 /*********************************************************************
-//  706  * @fn       zgPreconfigKeyInit()
-//  707  *
-//  708  * @brief
-//  709  *
-//  710  *   Initialize ZCD_NV_PRECFGKEY NV item. If the item doesn't exist in NV memory,
-//  711  *   write the system default (value passed in) into NV memory. But if
-//  712  *   it exists do not overwrite it.
-//  713  *
-//  714  *   Also, if setDefault is TRUE and the item exists, we will write
-//  715  *   the default value to NV space.
-//  716  *
-//  717  * @param   setDefault - TRUE to set default
-//  718  *
-//  719  * @return  ZSUCCESS if successful, NV_ITEM_UNINIT if item did not
-//  720  *          exist in NV, NV_OPER_FAILED if failure.
-//  721  */
-//  722 static uint8 zgPreconfigKeyInit( uint8 setDefault )
-//  723 {
-//  724   uint8 zgPreConfigKey[SEC_KEY_LEN];
-//  725   uint8 status;
-//  726 
-//  727   // Initialize the Pre-Configured Key to the default key
-//  728   osal_memcpy( zgPreConfigKey, defaultKey, SEC_KEY_LEN );
-//  729 
-//  730   // If the item doesn't exist in NV memory, create and initialize it
-//  731   status = osal_nv_item_init( ZCD_NV_PRECFGKEY, SEC_KEY_LEN, zgPreConfigKey );
-//  732   if ( status == ZSUCCESS )
-//  733   {
-//  734     if ( setDefault )
-//  735     {
-//  736       // Write the default value back to NV
-//  737       status =  osal_nv_write( ZCD_NV_PRECFGKEY, 0, SEC_KEY_LEN, zgPreConfigKey );
-//  738     }
-//  739   }
-//  740 
-//  741   // clear local copy of default key
-//  742   osal_memset(zgPreConfigKey, 0x00, SEC_KEY_LEN);
-//  743 
-//  744   return (status);
-//  745 }
 //  746 #endif
 //  747 
 //  748 /*********************************************************************
 //  749 *********************************************************************/
 // 
-// 926 bytes in segment BANKED_CODE
-//  36 bytes in segment BANK_RELAYS
-// 306 bytes in segment CODE_C
-//  50 bytes in segment XDATA_I
-//  50 bytes in segment XDATA_ID
-//  34 bytes in segment XDATA_Z
+// 1 084 bytes in segment BANKED_CODE
+//    42 bytes in segment BANK_RELAYS
+//   306 bytes in segment CODE_C
+//    51 bytes in segment XDATA_I
+//    51 bytes in segment XDATA_ID
+//    33 bytes in segment XDATA_Z
 // 
-// 1 318 bytes of CODE  memory
+// 1 483 bytes of CODE  memory
 //    84 bytes of XDATA memory
 //
 //Errors: none

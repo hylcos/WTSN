@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V9.20.1.2476 for 8051                16/Mar/2016  12:50:28
+# IAR C/C++ Compiler V9.20.1.2476 for 8051                16/Mar/2016  14:37:21
 # Copyright 2004-2015 IAR Systems AB.
 # Standalone license - IAR Embedded Workbench for 8051
 #
@@ -19,8 +19,8 @@
 #        (-DCPU32MHZ -DROOT=__near_func -DMAC_CFG_TX_DATA_MAX=3
 #        -DMAC_CFG_TX_MAX=6 -DMAC_CFG_RX_MAX=3) -f
 #        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg
-#        (-DZIGBEEPRO -DSECURE=0 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
-#        -DDEFAULT_CHANLIST=0x04000000 -DZDAPP_CONFIG_PAN_ID=0x0EEE
+#        (-DZIGBEEPRO -DSECURE=1 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
+#        -DDEFAULT_CHANLIST=0x00008000 -DZDAPP_CONFIG_PAN_ID=0x0EEE
 #        -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MASK=0x007F
 #        -DBEACON_REQUEST_DELAY=100 -DBEACON_REQ_DELAY_MASK=0x00FF
 #        -DLINK_STATUS_JITTER_MASK=0x007F -DROUTE_EXPIRY_TIME=30
@@ -28,9 +28,9 @@
 #        -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3
 #        -DNWK_MAX_DATA_RETRIES=2 -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9
 #        -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40 -DNWK_MAX_BINDING_ENTRIES=4
-#        -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01, 0x03, 0x05, 0x07,
-#        0x09, 0x0B, 0x0D, 0x0F, 0x00, 0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C,
-#        0x0D}" -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
+#        -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x42, 0x61, 0x72, 0x74,
+#        0x20, 0x65, 0x61, 0x20, 0x48, 0x79, 0x6C, 0x63, 0x6F, 0x20, 0x20,
+#        0x20}" -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
 #        "-DCONST=const __code" -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=TRUE
 #        -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100)
 #        -DREJOIN_POLL_RATE=440
@@ -3719,13 +3719,16 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000002   C083         PUSH    DPH
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-   \   000004                ; Setup parameters for call to function APSME_SecurityNM
+   \   000004                ; Setup parameters for call to function SSP_Init
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
-   \   000004                ; Setup parameters for call to function APSME_SecurityNM
-   \   000004   12....       LCALL   `??APSME_SecurityNM::?relay`; Banked call to: APSME_SecurityNM
-   \   000007                REQUIRE ??Subroutine54_0
-   \   000007                ; // Fall through to label ??Subroutine54_0
+   \   000004                ; Setup parameters for call to function SSP_Init
+   \   000004   12....       LCALL   `??SSP_Init::?relay` ; Banked call to: SSP_Init
+   \   000007                ; Setup parameters for call to function APSME_SecurityRM_ED
+   \   000007                ; Setup parameters for call to function APSME_SecurityRM_ED
+   \   000007   12....       LCALL   `??APSME_SecurityRM_ED::?relay`; Banked call to: APSME_SecurityRM_ED
+   \   00000A                REQUIRE ??Subroutine54_0
+   \   00000A                ; // Fall through to label ??Subroutine54_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    1384          void ZDSecMgrInit(uint8 state)
@@ -8842,7 +8845,8 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
         0     22   -> AddrMgrEntryLookupExt
         0     22   -> AddrMgrExtAddrSet
       2      0   ZDSecMgrConfig
-        2      0   -> APSME_SecurityNM
+        2      0   -> APSME_SecurityRM_ED
+        2      0   -> SSP_Init
       0     53   ZDSecMgrDeviceJoin
         0     38   -> AddrMgrEntryUpdate
         0     38   -> AddrMgrExtAddrSet
@@ -8894,7 +8898,8 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
         0     22   -> AddrMgrEntryUpdate
         0     22   -> AddrMgrExtAddrSet
       2      0   ZDSecMgrInit
-        2      0   -> APSME_SecurityNM
+        2      0   -> APSME_SecurityRM_ED
+        2      0   -> SSP_Init
       0     16   ZDSecMgrInitNV
         0     14   -> osal_nv_item_init
         0     16   -> osal_nv_write
@@ -9012,7 +9017,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
        3  ??Subroutine69_0
        5  ??Subroutine70_0
        2  ?Subroutine0
-       7  ?Subroutine1
+      10  ?Subroutine1
        4  ?Subroutine10
        5  ?Subroutine11
        4  ?Subroutine12
@@ -9188,14 +9193,14 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
        4  __Constant_1
 
  
- 7 308 bytes in segment BANKED_CODE
+ 7 311 bytes in segment BANKED_CODE
    360 bytes in segment BANK_RELAYS
      1 byte  in segment XDATA_I
      1 byte  in segment XDATA_ID
     12 bytes in segment XDATA_ROM_C
     81 bytes in segment XDATA_Z
  
- 7 669 bytes of CODE  memory
+ 7 672 bytes of CODE  memory
      8 bytes of CONST memory (+ 4 bytes shared)
     82 bytes of XDATA memory
 

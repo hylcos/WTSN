@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V9.20.1.2476 for 8051                13/Mar/2016  22:08:03
+# IAR C/C++ Compiler V9.20.1.2476 for 8051                16/Mar/2016  14:39:17
 # Copyright 2004-2015 IAR Systems AB.
 # Standalone license - IAR Embedded Workbench for 8051
 #
@@ -20,8 +20,8 @@
 #        -DMAC_CFG_TX_DATA_MAX=5 -DMAC_CFG_TX_MAX=8 -DMAC_CFG_RX_MAX=5
 #        -DRTR_NWK) -f
 #        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg
-#        (-DZIGBEEPRO -DSECURE=0 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
-#        -DDEFAULT_CHANLIST=0x04000000 -DZDAPP_CONFIG_PAN_ID=0x0EEE
+#        (-DZIGBEEPRO -DSECURE=1 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
+#        -DDEFAULT_CHANLIST=0x00008000 -DZDAPP_CONFIG_PAN_ID=0x0EEE
 #        -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MASK=0x007F
 #        -DBEACON_REQUEST_DELAY=100 -DBEACON_REQ_DELAY_MASK=0x00FF
 #        -DLINK_STATUS_JITTER_MASK=0x007F -DROUTE_EXPIRY_TIME=30
@@ -29,10 +29,10 @@
 #        -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3
 #        -DNWK_MAX_DATA_RETRIES=2 -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9
 #        -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40 -DNWK_MAX_BINDING_ENTRIES=4
-#        -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01, 0x03, 0x05, 0x07,
-#        0x09, 0x0B, 0x0D, 0x0F, 0x00, 0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C,
-#        0x0D}" -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
-#        "-DCONST=const __code" -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=FALSE
+#        -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x42, 0x61, 0x72, 0x74,
+#        0x20, 0x65, 0x61, 0x20, 0x48, 0x79, 0x6C, 0x63, 0x6F, 0x20, 0x20,
+#        0x20}" -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
+#        "-DCONST=const __code" -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=TRUE
 #        -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100)
 #        -DREJOIN_POLL_RATE=440
 #        C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c -D
@@ -255,11 +255,12 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
      96          
      97          // Security mode
 
-   \                                 In  segment XDATA_Z, align 1, keep-with-next
+   \                                 In  segment XDATA_I, align 1, keep-with-next
      98          uint8 zgSecurityMode = ZG_SECURITY_MODE;
    \                     zgSecurityMode:
    \   000000                DS 1
-   \   000001                REQUIRE __INIT_XDATA_Z
+   \   000001                REQUIRE `?<Initializer for zgSecurityMode>`
+   \   000001                REQUIRE __INIT_XDATA_I
      99          
     100          // Secure permit join
 
@@ -1195,30 +1196,39 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
     543            {
     544              // Initialize the Pre-Configured Key to the default key
     545              zgPreconfigKeyInit( setDefault );
+   \   000022                ; Setup parameters for call to function zgPreconfigKeyInit
+   \   000022   EE           MOV     A,R6
+   \   000023   F9           MOV     R1,A
+   \   000024   12....       LCALL   `??zgPreconfigKeyInit::?relay`; Banked call to: zgPreconfigKeyInit
+   \   000027   E9           MOV     A,R1
     546          
     547              // Initialize NV items for all Keys: NWK, APS, TCLK and Master
     548              ZDSecMgrInitNVKeyTables( setDefault );
+   \   000028                ; Setup parameters for call to function ZDSecMgrInitNVKeyTables
+   \   000028   EE           MOV     A,R6
+   \   000029   F9           MOV     R1,A
+   \   00002A   12....       LCALL   `??ZDSecMgrInitNVKeyTables::?relay`; Banked call to: ZDSecMgrInitNVKeyTables
     549            }
     550          #endif // NONWK
     551          
     552            // Clear the Config State default
     553            if ( setDefault )
-   \   000022   EE           MOV     A,R6
-   \   000023   6008         JZ      ??zgInit_1
+   \   00002D   EE           MOV     A,R6
+   \   00002E   6008         JZ      ??zgInit_1
     554            {
     555              zgWriteStartupOptions( ZG_STARTUP_CLEAR, ZCD_STARTOPT_DEFAULT_CONFIG_STATE );
-   \   000025                ; Setup parameters for call to function zgWriteStartupOptions
-   \   000025   7A01         MOV     R2,#0x1
-   \   000027   7900         MOV     R1,#0x0
-   \   000029   12....       LCALL   `??zgWriteStartupOptions::?relay`; Banked call to: zgWriteStartupOptions
-   \   00002C   E9           MOV     A,R1
+   \   000030                ; Setup parameters for call to function zgWriteStartupOptions
+   \   000030   7A01         MOV     R2,#0x1
+   \   000032   7900         MOV     R1,#0x0
+   \   000034   12....       LCALL   `??zgWriteStartupOptions::?relay`; Banked call to: zgWriteStartupOptions
+   \   000037   E9           MOV     A,R1
     556            }
     557          
     558            return ( ZSUCCESS );
    \                     ??zgInit_1:
-   \   00002D   7900         MOV     R1,#0x0
-   \   00002F   7F01         MOV     R7,#0x1
-   \   000031   02....       LJMP    ?BANKED_LEAVE_XDATA
+   \   000038   7900         MOV     R1,#0x0
+   \   00003A   7F01         MOV     R7,#0x1
+   \   00003C   02....       LJMP    ?BANKED_LEAVE_XDATA
     559          }
     560          
     561          /*********************************************************************
@@ -1844,6 +1854,130 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
    \                     ??zgSetItem_1:
    \   0000FE   7F08         MOV     R7,#0x8
    \   000100   02....       LJMP    ?BANKED_LEAVE_XDATA
+    703          
+    704          #ifndef NONWK
+    705          /*********************************************************************
+    706           * @fn       zgPreconfigKeyInit()
+    707           *
+    708           * @brief
+    709           *
+    710           *   Initialize ZCD_NV_PRECFGKEY NV item. If the item doesn't exist in NV memory,
+    711           *   write the system default (value passed in) into NV memory. But if
+    712           *   it exists do not overwrite it.
+    713           *
+    714           *   Also, if setDefault is TRUE and the item exists, we will write
+    715           *   the default value to NV space.
+    716           *
+    717           * @param   setDefault - TRUE to set default
+    718           *
+    719           * @return  ZSUCCESS if successful, NV_ITEM_UNINIT if item did not
+    720           *          exist in NV, NV_OPER_FAILED if failure.
+    721           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+    722          static uint8 zgPreconfigKeyInit( uint8 setDefault )
+   \                     zgPreconfigKeyInit:
+    723          {
+   \   000000                REQUIRE ?V0
+   \   000000                REQUIRE ?V1
+   \   000000                REQUIRE ?V2
+   \   000000   74F5         MOV     A,#-0xb
+   \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
+   \   000005                ; Saved register size: 11
+   \   000005                ; Auto size: 16
+   \   000005   74F0         MOV     A,#-0x10
+   \   000007   12....       LCALL   ?ALLOC_XSTACK8
+   \   00000A   E9           MOV     A,R1
+   \   00000B   FF           MOV     R7,A
+    724            uint8 zgPreConfigKey[SEC_KEY_LEN];
+    725            uint8 status;
+    726          
+    727            // Initialize the Pre-Configured Key to the default key
+    728            osal_memcpy( zgPreConfigKey, defaultKey, SEC_KEY_LEN );
+   \   00000C                ; Setup parameters for call to function osal_memcpy
+   \   00000C   75....       MOV     ?V0,#defaultKey & 0xff
+   \   00000F   75....       MOV     ?V1,#(defaultKey >> 8) & 0xff
+   \   000012   75..80       MOV     ?V2,#-0x80
+   \   000015   78..         MOV     R0,#?V0
+   \   000017   12....       LCALL   ?PUSH_XSTACK_I_THREE
+   \   00001A   7C10         MOV     R4,#0x10
+   \   00001C   7D00         MOV     R5,#0x0
+   \   00001E   7403         MOV     A,#0x3
+   \   000020   12....       LCALL   ?XSTACK_DISP101_8
+   \   000023   12....       LCALL   `??osal_memcpy::?relay`; Banked call to: osal_memcpy
+   \   000026   7403         MOV     A,#0x3
+   \   000028   12....       LCALL   ?DEALLOC_XSTACK8
+    729          
+    730            // If the item doesn't exist in NV memory, create and initialize it
+    731            status = osal_nv_item_init( ZCD_NV_PRECFGKEY, SEC_KEY_LEN, zgPreConfigKey );
+   \   00002B                ; Setup parameters for call to function osal_nv_item_init
+   \   00002B   A8..         MOV     R0,?XSP + 0
+   \   00002D   A9..         MOV     R1,?XSP + 1
+   \   00002F   88..         MOV     ?V0,R0
+   \   000031   89..         MOV     ?V1,R1
+   \   000033   78..         MOV     R0,#?V0
+   \   000035   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000038   7C10         MOV     R4,#0x10
+   \   00003A   7D00         MOV     R5,#0x0
+   \   00003C   7A62         MOV     R2,#0x62
+   \   00003E   7B00         MOV     R3,#0x0
+   \   000040   12....       LCALL   `??osal_nv_item_init::?relay`; Banked call to: osal_nv_item_init
+   \   000043   7402         MOV     A,#0x2
+   \   000045   12....       LCALL   ?DEALLOC_XSTACK8
+   \   000048   E9           MOV     A,R1
+   \   000049   FE           MOV     R6,A
+    732            if ( status == ZSUCCESS )
+   \   00004A   EE           MOV     A,R6
+   \   00004B   702D         JNZ     ??zgPreconfigKeyInit_0
+    733            {
+    734              if ( setDefault )
+   \   00004D   EF           MOV     A,R7
+   \   00004E   602A         JZ      ??zgPreconfigKeyInit_0
+    735              {
+    736                // Write the default value back to NV
+    737                status =  osal_nv_write( ZCD_NV_PRECFGKEY, 0, SEC_KEY_LEN, zgPreConfigKey );
+   \   000050                ; Setup parameters for call to function osal_nv_write
+   \   000050   A8..         MOV     R0,?XSP + 0
+   \   000052   A9..         MOV     R1,?XSP + 1
+   \   000054   88..         MOV     ?V0,R0
+   \   000056   89..         MOV     ?V1,R1
+   \   000058   78..         MOV     R0,#?V0
+   \   00005A   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   00005D   75..10       MOV     ?V0,#0x10
+   \   000060   75..00       MOV     ?V1,#0x0
+   \   000063   78..         MOV     R0,#?V0
+   \   000065   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   000068   7C00         MOV     R4,#0x0
+   \   00006A   7D00         MOV     R5,#0x0
+   \   00006C   7A62         MOV     R2,#0x62
+   \   00006E   7B00         MOV     R3,#0x0
+   \   000070   12....       LCALL   `??osal_nv_write::?relay`; Banked call to: osal_nv_write
+   \   000073   7404         MOV     A,#0x4
+   \   000075   12....       LCALL   ?DEALLOC_XSTACK8
+   \   000078   E9           MOV     A,R1
+   \   000079   FE           MOV     R6,A
+    738              }
+    739            }
+    740          
+    741            // clear local copy of default key
+    742            osal_memset(zgPreConfigKey, 0x00, SEC_KEY_LEN);
+   \                     ??zgPreconfigKeyInit_0:
+   \   00007A                ; Setup parameters for call to function osal_memset
+   \   00007A   7C10         MOV     R4,#0x10
+   \   00007C   7D00         MOV     R5,#0x0
+   \   00007E   7900         MOV     R1,#0x0
+   \   000080   AA..         MOV     R2,?XSP + 0
+   \   000082   AB..         MOV     R3,?XSP + 1
+   \   000084   12....       LCALL   `??osal_memset::?relay`; Banked call to: osal_memset
+    743          
+    744            return (status);
+   \   000087   EE           MOV     A,R6
+   \   000088   F9           MOV     R1,A
+   \   000089   7410         MOV     A,#0x10
+   \   00008B   12....       LCALL   ?DEALLOC_XSTACK8
+   \   00008E   7F03         MOV     R7,#0x3
+   \   000090   02....       LJMP    ?BANKED_LEAVE_XDATA
+    745          }
 
    \                                 In  segment XDATA_ID, align 1, keep-with-next
    \                     `?<Initializer for zgPollRate>`:
@@ -1871,7 +2005,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
 
    \                                 In  segment XDATA_ID, align 1, keep-with-next
    \                     `?<Initializer for zgDefaultChannelList>`:
-   \   000000   00000004     DD 67108864
+   \   000000   00800000     DD 32768
 
    \                                 In  segment XDATA_ID, align 1, keep-with-next
    \                     `?<Initializer for zgDefaultStartingScanDuratio`:
@@ -1884,6 +2018,10 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
    \                                 In  segment XDATA_ID, align 1, keep-with-next
    \                     `?<Initializer for zgIndirectMsgTimeout>`:
    \   000000   07           DB 7
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for zgSecurityMode>`:
+   \   000000   01           DB 1
 
    \                                 In  segment XDATA_ID, align 1, keep-with-next
    \                     `?<Initializer for zgSecurePermitJoin>`:
@@ -2022,49 +2160,11 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
    \                     `??zgSetItem::?relay`:
    \   000000   12....       LCALL   ?BDISPATCH
    \   000003   ......       DC24    zgSetItem
-    703          
-    704          #ifndef NONWK
-    705          /*********************************************************************
-    706           * @fn       zgPreconfigKeyInit()
-    707           *
-    708           * @brief
-    709           *
-    710           *   Initialize ZCD_NV_PRECFGKEY NV item. If the item doesn't exist in NV memory,
-    711           *   write the system default (value passed in) into NV memory. But if
-    712           *   it exists do not overwrite it.
-    713           *
-    714           *   Also, if setDefault is TRUE and the item exists, we will write
-    715           *   the default value to NV space.
-    716           *
-    717           * @param   setDefault - TRUE to set default
-    718           *
-    719           * @return  ZSUCCESS if successful, NV_ITEM_UNINIT if item did not
-    720           *          exist in NV, NV_OPER_FAILED if failure.
-    721           */
-    722          static uint8 zgPreconfigKeyInit( uint8 setDefault )
-    723          {
-    724            uint8 zgPreConfigKey[SEC_KEY_LEN];
-    725            uint8 status;
-    726          
-    727            // Initialize the Pre-Configured Key to the default key
-    728            osal_memcpy( zgPreConfigKey, defaultKey, SEC_KEY_LEN );
-    729          
-    730            // If the item doesn't exist in NV memory, create and initialize it
-    731            status = osal_nv_item_init( ZCD_NV_PRECFGKEY, SEC_KEY_LEN, zgPreConfigKey );
-    732            if ( status == ZSUCCESS )
-    733            {
-    734              if ( setDefault )
-    735              {
-    736                // Write the default value back to NV
-    737                status =  osal_nv_write( ZCD_NV_PRECFGKEY, 0, SEC_KEY_LEN, zgPreConfigKey );
-    738              }
-    739            }
-    740          
-    741            // clear local copy of default key
-    742            osal_memset(zgPreConfigKey, 0x00, SEC_KEY_LEN);
-    743          
-    744            return (status);
-    745          }
+
+   \                                 In  segment BANK_RELAYS, align 1
+   \                     `??zgPreconfigKeyInit::?relay`:
+   \   000000   12....       LCALL   ?BDISPATCH
+   \   000003   ......       DC24    zgPreconfigKeyInit
     746          #endif
     747          
     748          /*********************************************************************
@@ -2075,8 +2175,10 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
    XSTACK Function
    ------ --------
       9   zgInit
+        9   -> ZDSecMgrInitNVKeyTables
         9   -> ZMacGetReq
         9   -> zgInitItems
+        9   -> zgPreconfigKeyInit
         9   -> zgReadStartupOptions
         9   -> zgWriteStartupOptions
      20   zgInitItems
@@ -2085,6 +2187,11 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
        16   -> osal_nv_item_init
        18   -> osal_nv_read
        18   -> osal_nv_write
+     40   zgPreconfigKeyInit
+       30   -> osal_memcpy
+       27   -> osal_memset
+       29   -> osal_nv_item_init
+       31   -> osal_nv_write
      24   zgReadStartupOptions
        13   -> osal_nv_item_init
        15   -> osal_nv_read
@@ -2134,6 +2241,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
        1  ?<Initializer for zgRouteExpiryTime>
        1  ?<Initializer for zgSapiEndpoint>
        1  ?<Initializer for zgSecurePermitJoin>
+       1  ?<Initializer for zgSecurityMode>
        1  ?<Initializer for zgStackProfile>
        1  ?<Initializer for zgStartDelay>
        1  zgApsAckWaitMultiplier
@@ -2161,7 +2269,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
        1  zgDeviceLogicalType
        8  zgExtendedPANID
        1  zgIndirectMsgTimeout
-      52  zgInit
+      63  zgInit
        6  zgInit::?relay
      226  zgInitItems
        6  zgInitItems::?relay
@@ -2180,6 +2288,8 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
        1  zgPassiveAckTimeout
        2  zgPollRate
        1  zgPreConfigKeys
+     147  zgPreconfigKeyInit
+       6  zgPreconfigKeyInit::?relay
        2  zgQueuedPollRate
      110  zgReadStartupOptions
        6  zgReadStartupOptions::?relay
@@ -2201,14 +2311,14 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
        1  zgZdoDirectCB
 
  
- 926 bytes in segment BANKED_CODE
-  36 bytes in segment BANK_RELAYS
- 306 bytes in segment CODE_C
-  50 bytes in segment XDATA_I
-  50 bytes in segment XDATA_ID
-  34 bytes in segment XDATA_Z
+ 1 084 bytes in segment BANKED_CODE
+    42 bytes in segment BANK_RELAYS
+   306 bytes in segment CODE_C
+    51 bytes in segment XDATA_I
+    51 bytes in segment XDATA_ID
+    33 bytes in segment XDATA_Z
  
- 1 318 bytes of CODE  memory
+ 1 483 bytes of CODE  memory
     84 bytes of XDATA memory
 
 Errors: none

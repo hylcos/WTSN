@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V9.20.1.2476 for 8051               16/Mar/2016  12:51:39
+// IAR C/C++ Compiler V9.20.1.2476 for 8051               16/Mar/2016  14:36:07
 // Copyright 2004-2015 IAR Systems AB.
 // Standalone license - IAR Embedded Workbench for 8051
 //
@@ -20,8 +20,8 @@
 //        -DMAC_CFG_TX_DATA_MAX=5 -DMAC_CFG_TX_MAX=8 -DMAC_CFG_RX_MAX=5
 //        -DZDO_COORDINATOR -DRTR_NWK) -f
 //        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg
-//        (-DZIGBEEPRO -DSECURE=0 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
-//        -DDEFAULT_CHANLIST=0x04000000 -DZDAPP_CONFIG_PAN_ID=0x0EEE
+//        (-DZIGBEEPRO -DSECURE=1 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
+//        -DDEFAULT_CHANLIST=0x00008000 -DZDAPP_CONFIG_PAN_ID=0x0EEE
 //        -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MASK=0x007F
 //        -DBEACON_REQUEST_DELAY=100 -DBEACON_REQ_DELAY_MASK=0x00FF
 //        -DLINK_STATUS_JITTER_MASK=0x007F -DROUTE_EXPIRY_TIME=30
@@ -29,9 +29,9 @@
 //        -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3
 //        -DNWK_MAX_DATA_RETRIES=2 -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9
 //        -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40 -DNWK_MAX_BINDING_ENTRIES=4
-//        -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01, 0x03, 0x05, 0x07,
-//        0x09, 0x0B, 0x0D, 0x0F, 0x00, 0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C,
-//        0x0D}" -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
+//        -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x42, 0x61, 0x72, 0x74,
+//        0x20, 0x65, 0x61, 0x20, 0x48, 0x79, 0x6C, 0x63, 0x6F, 0x20, 0x20,
+//        0x20}" -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
 //        "-DCONST=const __code" -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=TRUE
 //        -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100)
 //        -DREJOIN_POLL_RATE=440
@@ -1045,22 +1045,22 @@ gAPS_MAX_ENDDEVICE_BROADCAST_ENTRIES:
         DATA8
 //  283 CONFIG_ITEM uint8 defaultKey[SEC_KEY_LEN] = DEFAULT_KEY;
 defaultKey:
-        DB 1
-        DB 3
-        DB 5
-        DB 7
-        DB 9
-        DB 11
-        DB 13
-        DB 15
-        DB 0
-        DB 2
-        DB 4
-        DB 6
-        DB 8
-        DB 10
-        DB 12
-        DB 13
+        DB 66
+        DB 97
+        DB 114
+        DB 116
+        DB 32
+        DB 101
+        DB 97
+        DB 32
+        DB 72
+        DB 121
+        DB 108
+        DB 99
+        DB 111
+        DB 32
+        DB 32
+        DB 32
 //  284 #else
 //  285 CONST uint8 defaultKey[SEC_KEY_LEN] =
 //  286 {
@@ -1403,27 +1403,27 @@ NIB_init:
         MOVX    @DPTR,A
 //  408   _NIB.SecureAllFrames = USE_NWK_SECURITY;
         MOV     DPTR,#_NIB + 11
+        INC     A
         MOVX    @DPTR,A
 //  409   _NIB.nwkAllFresh = NWK_ALL_FRESH;
         MOV     DPTR,#_NIB + 104
-        INC     A
         MOVX    @DPTR,A
 //  410 
 //  411   if ( ZG_SECURE_ENABLED )
 //  412   {
 //  413     _NIB.SecurityLevel = SECURITY_LEVEL;
+        MOV     DPTR,#_NIB + 12
+        MOV     A,#0x5
+        MOVX    @DPTR,A
 //  414   }
 //  415   else
 //  416   {
 //  417     _NIB.SecurityLevel = 0;
-        MOV     DPTR,#_NIB + 12
-        CLR     A
-        MOVX    @DPTR,A
 //  418   }
 //  419 
 //  420   _NIB.SymLink = TRUE;
         INC     DPTR
-        INC     A
+        MOV     A,#0x1
         MOVX    @DPTR,A
 //  421 
 //  422   _NIB.CapabilityFlags = ZDO_Config_Node_Descriptor.CapabilityFlags;
@@ -1872,14 +1872,14 @@ nwk_adjustDelay:
 //  609 /*********************************************************************
 //  610 *********************************************************************/
 // 
-//   355 bytes in segment BANKED_CODE
+//   357 bytes in segment BANKED_CODE
 //    24 bytes in segment BANK_RELAYS
 //    79 bytes in segment CODE_C
 //     2 bytes in segment XDATA_I
 //     2 bytes in segment XDATA_ID
 // 1 557 bytes in segment XDATA_Z
 // 
-//   460 bytes of CODE  memory
+//   462 bytes of CODE  memory
 // 1 559 bytes of XDATA memory
 //
 //Errors: none

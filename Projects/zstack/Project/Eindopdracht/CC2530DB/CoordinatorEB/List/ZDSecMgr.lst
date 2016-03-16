@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V9.20.1.2476 for 8051                16/Mar/2016  12:51:48
+# IAR C/C++ Compiler V9.20.1.2476 for 8051                16/Mar/2016  14:36:13
 # Copyright 2004-2015 IAR Systems AB.
 # Standalone license - IAR Embedded Workbench for 8051
 #
@@ -20,8 +20,8 @@
 #        -DMAC_CFG_TX_DATA_MAX=5 -DMAC_CFG_TX_MAX=8 -DMAC_CFG_RX_MAX=5
 #        -DZDO_COORDINATOR -DRTR_NWK) -f
 #        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg
-#        (-DZIGBEEPRO -DSECURE=0 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
-#        -DDEFAULT_CHANLIST=0x04000000 -DZDAPP_CONFIG_PAN_ID=0x0EEE
+#        (-DZIGBEEPRO -DSECURE=1 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
+#        -DDEFAULT_CHANLIST=0x00008000 -DZDAPP_CONFIG_PAN_ID=0x0EEE
 #        -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MASK=0x007F
 #        -DBEACON_REQUEST_DELAY=100 -DBEACON_REQ_DELAY_MASK=0x00FF
 #        -DLINK_STATUS_JITTER_MASK=0x007F -DROUTE_EXPIRY_TIME=30
@@ -29,9 +29,9 @@
 #        -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3
 #        -DNWK_MAX_DATA_RETRIES=2 -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9
 #        -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40 -DNWK_MAX_BINDING_ENTRIES=4
-#        -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01, 0x03, 0x05, 0x07,
-#        0x09, 0x0B, 0x0D, 0x0F, 0x00, 0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C,
-#        0x0D}" -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
+#        -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x42, 0x61, 0x72, 0x74,
+#        0x20, 0x65, 0x61, 0x20, 0x48, 0x79, 0x6C, 0x63, 0x6F, 0x20, 0x20,
+#        0x20}" -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
 #        "-DCONST=const __code" -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=TRUE
 #        -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100)
 #        -DREJOIN_POLL_RATE=440
@@ -419,7 +419,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     268            entry.nwkAddr = nwkAddr;
    \   000013   14           DEC     A
    \   000014   12....       LCALL   ?XSTACK_DISP0_8
-   \   000017   12....       LCALL   ?Subroutine18 & 0xFFFF
+   \   000017   12....       LCALL   ?Subroutine17 & 0xFFFF
     269            AddrMgrExtAddrSet( entry.extAddr, extAddr );
    \                     ??CrossCallReturnLabel_4:
    \   00001A   12....       LCALL   ?XSTACK_DISP0_8
@@ -428,7 +428,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000021   12....       LCALL   `??AddrMgrExtAddrSet::?relay`; Banked call to: AddrMgrExtAddrSet
    \   000024   7416         MOV     A,#0x16
    \   000026   12....       LCALL   ?XSTACK_DISP0_8
-   \   000029   12....       LCALL   ?Subroutine29 & 0xFFFF
+   \   000029   12....       LCALL   ?Subroutine28 & 0xFFFF
     270          
     271            if ( AddrMgrEntryUpdate( &entry ) == TRUE )
    \                     ??CrossCallReturnLabel_26:
@@ -441,7 +441,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     274              *ami   = entry.index;
    \   000034   740B         MOV     A,#0xb
    \   000036   12....       LCALL   ?XSTACK_DISP0_8
-   \   000039   12....       LCALL   ?Subroutine15 & 0xFFFF
+   \   000039   12....       LCALL   ?Subroutine14 & 0xFFFF
     275              status = ZSuccess;
     276            }
    \                     ??CrossCallReturnLabel_78:
@@ -453,7 +453,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \                     ??ZDSecMgrAddrStore_0:
    \   00003E   740B         MOV     A,#0xb
    \   000040   12....       LCALL   ?XSTACK_DISP0_8
-   \   000043   12....       LCALL   ?Subroutine21 & 0xFFFF
+   \   000043   12....       LCALL   ?Subroutine20 & 0xFFFF
     281              status = ZNwkUnknownDevice;
     282            }
     283          
@@ -463,24 +463,24 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     285          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine15:
+   \                     ?Subroutine14:
    \   000000   E0           MOVX    A,@DPTR
    \   000001   F8           MOV     R0,A
    \   000002   A3           INC     DPTR
    \   000003   E0           MOVX    A,@DPTR
-   \   000004                REQUIRE ??Subroutine48_0
-   \   000004                ; // Fall through to label ??Subroutine48_0
+   \   000004                REQUIRE ??Subroutine47_0
+   \   000004                ; // Fall through to label ??Subroutine47_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine48_0:
+   \                     ??Subroutine47_0:
    \   000000   F9           MOV     R1,A
    \   000001   8E82         MOV     DPL,R6
    \   000003   8F83         MOV     DPH,R7
-   \   000005                REQUIRE ??Subroutine49_0
-   \   000005                ; // Fall through to label ??Subroutine49_0
+   \   000005                REQUIRE ??Subroutine48_0
+   \   000005                ; // Fall through to label ??Subroutine48_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine49_0:
+   \                     ??Subroutine48_0:
    \   000000   E8           MOV     A,R0
    \   000001   F0           MOVX    @DPTR,A
    \   000002   A3           INC     DPTR
@@ -490,8 +490,8 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000007   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine29:
-   \   000000   12....       LCALL   ?Subroutine46 & 0xFFFF
+   \                     ?Subroutine28:
+   \   000000   12....       LCALL   ?Subroutine45 & 0xFFFF
    \                     ??CrossCallReturnLabel_130:
    \   000003   E8           MOV     A,R0
    \   000004   FE           MOV     R6,A
@@ -504,8 +504,8 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00000B   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine21:
-   \   000000   12....       LCALL   ?Subroutine46 & 0xFFFF
+   \                     ?Subroutine20:
+   \   000000   12....       LCALL   ?Subroutine45 & 0xFFFF
    \                     ??CrossCallReturnLabel_128:
    \   000003   8E82         MOV     DPL,R6
    \   000005   8F83         MOV     DPH,R7
@@ -518,7 +518,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00000E   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine46:
+   \                     ?Subroutine45:
    \   000000   E0           MOVX    A,@DPTR
    \   000001   F8           MOV     R0,A
    \   000002   A3           INC     DPTR
@@ -544,7 +544,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine18:
+   \                     ?Subroutine17:
    \   000000   EA           MOV     A,R2
    \   000001   F0           MOVX    @DPTR,A
    \   000002   A3           INC     DPTR
@@ -591,7 +591,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     305            entry.nwkAddr = nwkAddr;
    \   000013   14           DEC     A
    \   000014   12....       LCALL   ?XSTACK_DISP0_8
-   \   000017   12....       LCALL   ?Subroutine18 & 0xFFFF
+   \   000017   12....       LCALL   ?Subroutine17 & 0xFFFF
     306            AddrMgrExtAddrSet( entry.extAddr, extAddr );
    \                     ??CrossCallReturnLabel_5:
    \   00001A   12....       LCALL   ?XSTACK_DISP0_8
@@ -600,7 +600,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000021   12....       LCALL   `??AddrMgrExtAddrSet::?relay`; Banked call to: AddrMgrExtAddrSet
    \   000024   7416         MOV     A,#0x16
    \   000026   12....       LCALL   ?XSTACK_DISP0_8
-   \   000029   12....       LCALL   ?Subroutine29 & 0xFFFF
+   \   000029   12....       LCALL   ?Subroutine28 & 0xFFFF
     307          
     308            if ( AddrMgrEntryUpdate( &entry ) == TRUE )
    \                     ??CrossCallReturnLabel_27:
@@ -613,7 +613,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     311              *ami   = entry.index;
    \   000034   740B         MOV     A,#0xb
    \   000036   12....       LCALL   ?XSTACK_DISP0_8
-   \   000039   12....       LCALL   ?Subroutine15 & 0xFFFF
+   \   000039   12....       LCALL   ?Subroutine14 & 0xFFFF
     312              status = ZSuccess;
     313            }
    \                     ??CrossCallReturnLabel_79:
@@ -625,7 +625,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \                     ??ZDSecMgrExtAddrStore_0:
    \   00003E   740B         MOV     A,#0xb
    \   000040   12....       LCALL   ?XSTACK_DISP0_8
-   \   000043   12....       LCALL   ?Subroutine21 & 0xFFFF
+   \   000043   12....       LCALL   ?Subroutine20 & 0xFFFF
     318              status = ZNwkUnknownDevice;
     319            }
     320          
@@ -655,7 +655,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000005                ; Auto size: 13
    \   000005   74F3         MOV     A,#-0xd
    \   000007   12....       LCALL   ?ALLOC_XSTACK8
-   \   00000A   12....       LCALL   ?Subroutine12 & 0xFFFF
+   \   00000A   12....       LCALL   ?Subroutine11 & 0xFFFF
     336            ZStatus_t      status;
     337            AddrMgrEntry_t entry;
     338          
@@ -682,7 +682,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     347              *ami   = entry.index;
    \   000023   740B         MOV     A,#0xb
    \   000025   12....       LCALL   ?XSTACK_DISP0_8
-   \   000028   12....       LCALL   ?Subroutine15 & 0xFFFF
+   \   000028   12....       LCALL   ?Subroutine14 & 0xFFFF
     348              status = ZSuccess;
     349            }
    \                     ??CrossCallReturnLabel_80:
@@ -694,7 +694,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \                     ??ZDSecMgrExtAddrLookup_0:
    \   00002D   740B         MOV     A,#0xb
    \   00002F   12....       LCALL   ?XSTACK_DISP0_8
-   \   000032   12....       LCALL   ?Subroutine21 & 0xFFFF
+   \   000032   12....       LCALL   ?Subroutine20 & 0xFFFF
     354              status = ZNwkUnknownDevice;
     355            }
     356          
@@ -704,16 +704,16 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     358          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine12:
+   \                     ?Subroutine11:
    \   000000   EC           MOV     A,R4
    \   000001   FE           MOV     R6,A
    \   000002   ED           MOV     A,R5
    \   000003   FF           MOV     R7,A
-   \   000004                REQUIRE ??Subroutine70_0
-   \   000004                ; // Fall through to label ??Subroutine70_0
+   \   000004                REQUIRE ??Subroutine69_0
+   \   000004                ; // Fall through to label ??Subroutine69_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine70_0:
+   \                     ??Subroutine69_0:
    \   000000   85..82       MOV     DPL,?XSP + 0
    \   000003   85..83       MOV     DPH,?XSP + 1
    \   000006   7402         MOV     A,#0x2
@@ -758,7 +758,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     373          
     374            // get Address Manager Index
     375            status = ZDSecMgrExtAddrLookup( extAddr, &entryAmi );
-   \   00000A   12....       LCALL   ??Subroutine70_0 & 0xFFFF
+   \   00000A   12....       LCALL   ??Subroutine69_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_155:
    \   00000D   12....       LCALL   ?XSTACK_DISP0_8
    \   000010   AA82         MOV     R2,DPL
@@ -790,7 +790,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \                     ??CrossCallReturnLabel_118:
    \   000035   7418         MOV     A,#0x18
    \   000037   12....       LCALL   ?XSTACK_DISP0_8
-   \   00003A   12....       LCALL   ??Subroutine54_0 & 0xFFFF
+   \   00003A   12....       LCALL   ??Subroutine53_0 & 0xFFFF
     384          
     385              if ( AddrMgrEntryRelease( &addrEntry ) != TRUE )
    \                     ??CrossCallReturnLabel_93:
@@ -819,7 +819,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     393          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine54_0:
+   \                     ??Subroutine53_0:
    \   000000   E8           MOV     A,R0
    \   000001   F0           MOVX    @DPTR,A
    \   000002   A3           INC     DPTR
@@ -829,7 +829,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ??Subroutine60_0:
-   \   000000   12....       LCALL   ?Subroutine46 & 0xFFFF
+   \   000000   12....       LCALL   ?Subroutine45 & 0xFFFF
    \                     ??CrossCallReturnLabel_132:
    \   000003   22           RET
 
@@ -857,7 +857,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000004                ; Saved register size: 2
    \   000004                ; Auto size: 0
     406            if (ZDSecMgrEntries == NULL)
-   \   000004   12....       LCALL   ?Subroutine26 & 0xFFFF
+   \   000004   12....       LCALL   ?Subroutine25 & 0xFFFF
    \                     ??CrossCallReturnLabel_163:
    \   000007   703B         JNZ     ??ZDSecMgrEntryInit_0
     407            {
@@ -873,7 +873,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000014   F0           MOVX    @DPTR,A
    \   000015   A3           INC     DPTR
    \   000016   EB           MOV     A,R3
-   \   000017   12....       LCALL   ??Subroutine51_0 & 0xFFFF
+   \   000017   12....       LCALL   ??Subroutine50_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_87:
    \   00001A   6028         JZ      ??ZDSecMgrEntryInit_0
     411              {
@@ -896,7 +896,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000029   F0           MOVX    @DPTR,A
    \   00002A   A3           INC     DPTR
    \   00002B   04           INC     A
-   \   00002C   12....       LCALL   ??Subroutine52_0 & 0xFFFF
+   \   00002C   12....       LCALL   ??Subroutine51_0 & 0xFFFF
     418          
     419                ZDSecMgrEntries[index].keyNvId = SEC_NO_KEY_NV_ID;
     420              }
@@ -935,14 +935,14 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000044   02....       LJMP    ??Subroutine58_0 & 0xFFFF
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine51_0:
+   \                     ??Subroutine50_0:
    \   000000   F0           MOVX    @DPTR,A
-   \   000001   12....       LCALL   ?Subroutine45 & 0xFFFF
+   \   000001   12....       LCALL   ?Subroutine44 & 0xFFFF
    \                     ??CrossCallReturnLabel_166:
    \   000004   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine52_0:
+   \                     ??Subroutine51_0:
    \   000000   F0           MOVX    @DPTR,A
    \   000001                ; Setup parameters for call to function AssocGetWithExt
    \   000001   8882         MOV     DPL,R0
@@ -956,13 +956,13 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000004   02....       LJMP    ?BRET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine45:
+   \                     ?Subroutine44:
    \   000000   90....       MOV     DPTR,#ZDSecMgrEntries
-   \   000003                REQUIRE ??Subroutine69_0
-   \   000003                ; // Fall through to label ??Subroutine69_0
+   \   000003                REQUIRE ??Subroutine68_0
+   \   000003                ; // Fall through to label ??Subroutine68_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine69_0:
+   \                     ??Subroutine68_0:
    \   000000   E0           MOVX    A,@DPTR
    \   000001   F8           MOV     R0,A
    \   000002   A3           INC     DPTR
@@ -973,14 +973,14 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000007   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine26:
+   \                     ?Subroutine25:
    \   000000   90....       MOV     DPTR,#ZDSecMgrEntries
-   \   000003                REQUIRE ??Subroutine71_0
-   \   000003                ; // Fall through to label ??Subroutine71_0
+   \   000003                REQUIRE ??Subroutine70_0
+   \   000003                ; // Fall through to label ??Subroutine70_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine71_0:
-   \   000000   12....       LCALL   ??Subroutine69_0 & 0xFFFF
+   \                     ??Subroutine70_0:
+   \   000000   12....       LCALL   ??Subroutine68_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_167:
    \   000003   22           RET
     432          
@@ -1015,7 +1015,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     447          
     448            // initialize results
     449            *entry = NULL;
-   \   00000E   12....       LCALL   ?Subroutine11 & 0xFFFF
+   \   00000E   12....       LCALL   ?Subroutine10 & 0xFFFF
     450          
     451            // verify data is available
     452            if ( ZDSecMgrEntries != NULL )
@@ -1030,7 +1030,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     455              addrMgrEntry.nwkAddr = nwkAddr;
    \   00001C   14           DEC     A
    \   00001D   12....       LCALL   ?XSTACK_DISP0_8
-   \   000020   12....       LCALL   ?Subroutine14 & 0xFFFF
+   \   000020   12....       LCALL   ?Subroutine13 & 0xFFFF
     456          
     457              if ( AddrMgrEntryLookupNwk( &addrMgrEntry ) == TRUE )
    \                     ??CrossCallReturnLabel_133:
@@ -1040,11 +1040,11 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000029   7031         JNZ     ??ZDSecMgrEntryLookup_0
     458              {
     459                for ( index = 0; index < ZDSECMGR_ENTRY_MAX ; index++ )
-   \   00002B   12....       LCALL   ?Subroutine25 & 0xFFFF
+   \   00002B   12....       LCALL   ?Subroutine24 & 0xFFFF
    \                     ??CrossCallReturnLabel_182:
    \   00002E   740B         MOV     A,#0xb
    \   000030   12....       LCALL   ?XSTACK_DISP0_8
-   \   000033   12....       LCALL   ?Subroutine34 & 0xFFFF
+   \   000033   12....       LCALL   ?Subroutine33 & 0xFFFF
     460                {
     461                  if ( addrMgrEntry.index == ZDSecMgrEntries[index].ami )
    \                     ??CrossCallReturnLabel_36:
@@ -1061,14 +1061,14 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     462                  {
     463                    // return successful results
     464                    *entry = &ZDSecMgrEntries[index];
-   \   000043   12....       LCALL   ?Subroutine47 & 0xFFFF
+   \   000043   12....       LCALL   ?Subroutine46 & 0xFFFF
     465          
     466                    // break from loop
     467                    return ZSuccess;
     468                  }
     469                }
    \                     ??CrossCallReturnLabel_76:
-   \   000046   12....       LCALL   ??Subroutine48_0 & 0xFFFF
+   \   000046   12....       LCALL   ??Subroutine47_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_81:
    \   000049   8013         SJMP    ??ZDSecMgrEntryLookup_3
    \                     ??ZDSecMgrEntryLookup_2:
@@ -1083,7 +1083,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000054   5001         JNC     ??ZDSecMgrEntryLookup_5
    \   000056   0B           INC     R3
    \                     ??ZDSecMgrEntryLookup_5:
-   \   000057   12....       LCALL   ?Subroutine37 & 0xFFFF
+   \   000057   12....       LCALL   ?Subroutine36 & 0xFFFF
     470              }
     471            }
    \                     ??CrossCallReturnLabel_44:
@@ -1097,7 +1097,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     474          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine47:
+   \                     ?Subroutine46:
    \   000000   E8           MOV     A,R0
    \   000001   75F005       MOV     B,#0x5
    \   000004   A4           MUL     AB
@@ -1118,7 +1118,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000018   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine34:
+   \                     ?Subroutine33:
    \   000000   E0           MOVX    A,@DPTR
    \   000001   FC           MOV     R4,A
    \   000002   A3           INC     DPTR
@@ -1127,31 +1127,31 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000005   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine11:
+   \                     ?Subroutine10:
    \   000000   8E82         MOV     DPL,R6
    \   000002   8F83         MOV     DPH,R7
-   \   000004                REQUIRE ??Subroutine50_0
-   \   000004                ; // Fall through to label ??Subroutine50_0
+   \   000004                REQUIRE ??Subroutine49_0
+   \   000004                ; // Fall through to label ??Subroutine49_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine50_0:
+   \                     ??Subroutine49_0:
    \   000000   E4           CLR     A
    \   000001   F0           MOVX    @DPTR,A
    \   000002   A3           INC     DPTR
-   \   000003                REQUIRE ??Subroutine51_0
-   \   000003                ; // Fall through to label ??Subroutine51_0
+   \   000003                REQUIRE ??Subroutine50_0
+   \   000003                ; // Fall through to label ??Subroutine50_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine14:
+   \                     ?Subroutine13:
    \   000000   EA           MOV     A,R2
    \   000001   F0           MOVX    @DPTR,A
    \   000002   A3           INC     DPTR
    \   000003   EB           MOV     A,R3
-   \   000004                REQUIRE ??Subroutine65_0
-   \   000004                ; // Fall through to label ??Subroutine65_0
+   \   000004                REQUIRE ??Subroutine64_0
+   \   000004                ; // Fall through to label ??Subroutine64_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine65_0:
+   \                     ??Subroutine64_0:
    \   000000   F0           MOVX    @DPTR,A
    \   000001                ; Setup parameters for call to function AddrMgrEntryLookupNwk
    \   000001                ; Setup parameters for call to function APSME_RequestKeyReq
@@ -1167,7 +1167,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000005   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine37:
+   \                     ?Subroutine36:
    \   000000   C3           CLR     C
    \   000001   E8           MOV     A,R0
    \   000002   9403         SUBB    A,#0x3
@@ -1176,15 +1176,15 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000007   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine25:
+   \                     ?Subroutine24:
    \   000000   7800         MOV     R0,#0x0
    \   000002   7900         MOV     R1,#0x0
    \   000004   90....       MOV     DPTR,#ZDSecMgrEntries
-   \   000007                REQUIRE ??Subroutine72_0
-   \   000007                ; // Fall through to label ??Subroutine72_0
+   \   000007                REQUIRE ??Subroutine71_0
+   \   000007                ; // Fall through to label ??Subroutine71_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine72_0:
+   \                     ??Subroutine71_0:
    \   000000   E0           MOVX    A,@DPTR
    \   000001   FA           MOV     R2,A
    \   000002   A3           INC     DPTR
@@ -1222,7 +1222,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     491            *entry = NULL;
    \   000009   8C82         MOV     DPL,R4
    \   00000B   8D83         MOV     DPH,R5
-   \   00000D   12....       LCALL   ??Subroutine50_0 & 0xFFFF
+   \   00000D   12....       LCALL   ??Subroutine49_0 & 0xFFFF
     492          
     493            // verify data is available
     494            if ( ZDSecMgrEntries != NULL )
@@ -1230,7 +1230,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000010   602D         JZ      ??ZDSecMgrEntryLookupAMI_0
     495            {
     496              for ( index = 0; index < ZDSECMGR_ENTRY_MAX ; index++ )
-   \   000012   12....       LCALL   ?Subroutine25 & 0xFFFF
+   \   000012   12....       LCALL   ?Subroutine24 & 0xFFFF
     497              {
     498                if ( ZDSecMgrEntries[index].ami == ami )
    \                     ??CrossCallReturnLabel_183:
@@ -1247,7 +1247,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     499                {
     500                  // return successful results
     501                  *entry = &ZDSecMgrEntries[index];
-   \   000022   12....       LCALL   ?Subroutine27 & 0xFFFF
+   \   000022   12....       LCALL   ?Subroutine26 & 0xFFFF
     502          
     503                  // break from loop
     504                  return ZSuccess;
@@ -1256,7 +1256,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \                     ??CrossCallReturnLabel_20:
    \   000025   8C82         MOV     DPL,R4
    \   000027   8D83         MOV     DPH,R5
-   \   000029   12....       LCALL   ??Subroutine49_0 & 0xFFFF
+   \   000029   12....       LCALL   ??Subroutine48_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_82:
    \   00002C   8013         SJMP    ??ZDSecMgrEntryLookupAMI_3
    \                     ??ZDSecMgrEntryLookupAMI_2:
@@ -1271,7 +1271,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000037   5001         JNC     ??ZDSecMgrEntryLookupAMI_5
    \   000039   0B           INC     R3
    \                     ??ZDSecMgrEntryLookupAMI_5:
-   \   00003A   12....       LCALL   ?Subroutine37 & 0xFFFF
+   \   00003A   12....       LCALL   ?Subroutine36 & 0xFFFF
     507            }
    \                     ??CrossCallReturnLabel_45:
    \   00003D   40D6         JC      ??CrossCallReturnLabel_183
@@ -1284,8 +1284,8 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     510          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine27:
-   \   000000   12....       LCALL   ?Subroutine47 & 0xFFFF
+   \                     ?Subroutine26:
+   \   000000   12....       LCALL   ?Subroutine46 & 0xFFFF
    \                     ??CrossCallReturnLabel_77:
    \   000003   F9           MOV     R1,A
    \   000004   22           RET
@@ -1333,7 +1333,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     530          
     531            // lookup address index
     532            if ( ZDSecMgrExtAddrLookup( extAddr, &ami ) == ZSuccess )
-   \   000019   12....       LCALL   ??Subroutine70_0 & 0xFFFF
+   \   000019   12....       LCALL   ??Subroutine69_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_156:
    \   00001C   12....       LCALL   ?XSTACK_DISP0_8
    \   00001F   AA82         MOV     R2,DPL
@@ -1348,15 +1348,15 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000030   703D         JNZ     ??ZDSecMgrEntryLookupExt_0
    \   000032   740B         MOV     A,#0xb
    \   000034   12....       LCALL   ?XSTACK_DISP0_8
-   \   000037   12....       LCALL   ?Subroutine34 & 0xFFFF
+   \   000037   12....       LCALL   ?Subroutine33 & 0xFFFF
     533            {
     534              status = ZDSecMgrEntryLookupAMI( ami, entry );
    \                     ??CrossCallReturnLabel_37:
-   \   00003A   12....       LCALL   ?Subroutine11 & 0xFFFF
+   \   00003A   12....       LCALL   ?Subroutine10 & 0xFFFF
     535            }
    \                     ??CrossCallReturnLabel_88:
    \   00003D   6030         JZ      ??ZDSecMgrEntryLookupExt_0
-   \   00003F   12....       LCALL   ?Subroutine25 & 0xFFFF
+   \   00003F   12....       LCALL   ?Subroutine24 & 0xFFFF
    \                     ??CrossCallReturnLabel_184:
    \   000042   8A82         MOV     DPL,R2
    \   000044   8B83         MOV     DPH,R3
@@ -1379,16 +1379,16 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000058   5001         JNC     ??ZDSecMgrEntryLookupExt_4
    \   00005A   0B           INC     R3
    \                     ??ZDSecMgrEntryLookupExt_4:
-   \   00005B   12....       LCALL   ?Subroutine37 & 0xFFFF
+   \   00005B   12....       LCALL   ?Subroutine36 & 0xFFFF
    \                     ??CrossCallReturnLabel_46:
    \   00005E   500F         JNC     ??ZDSecMgrEntryLookupExt_0
    \   000060   80E0         SJMP    ??CrossCallReturnLabel_184
    \                     ??ZDSecMgrEntryLookupExt_2:
-   \   000062   12....       LCALL   ?Subroutine27 & 0xFFFF
+   \   000062   12....       LCALL   ?Subroutine26 & 0xFFFF
    \                     ??CrossCallReturnLabel_21:
    \   000065   8E82         MOV     DPL,R6
    \   000067   8F83         MOV     DPH,R7
-   \   000069   12....       LCALL   ??Subroutine54_0 & 0xFFFF
+   \   000069   12....       LCALL   ??Subroutine53_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_94:
    \   00006C   75..00       MOV     ?V0,#0x0
     536          
@@ -1401,17 +1401,17 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \                     ?Subroutine2:
    \   000000   A9..         MOV     R1,?V0
    \   000002   740D         MOV     A,#0xd
-   \   000004                REQUIRE ??Subroutine55_0
-   \   000004                ; // Fall through to label ??Subroutine55_0
+   \   000004                REQUIRE ??Subroutine54_0
+   \   000004                ; // Fall through to label ??Subroutine54_0
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ??Subroutine54_0:
+   \   000000   12....       LCALL   ?DEALLOC_XSTACK8
+   \   000003                REQUIRE ??Subroutine55_0
+   \   000003                ; // Fall through to label ??Subroutine55_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ??Subroutine55_0:
-   \   000000   12....       LCALL   ?DEALLOC_XSTACK8
-   \   000003                REQUIRE ??Subroutine56_0
-   \   000003                ; // Fall through to label ??Subroutine56_0
-
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine56_0:
    \   000000   7F02         MOV     R7,#0x2
    \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
     539          
@@ -1437,7 +1437,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000005                ; Auto size: 13
    \   000005   74F3         MOV     A,#-0xd
    \   000007   12....       LCALL   ?ALLOC_XSTACK8
-   \   00000A   12....       LCALL   ?Subroutine12 & 0xFFFF
+   \   00000A   12....       LCALL   ?Subroutine11 & 0xFFFF
     552            uint16 ami;
     553            uint16 index;
     554          
@@ -1457,7 +1457,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000021   7049         JNZ     ??ZDSecMgrEntryLookupExtGetIndex_0
    \   000023   740B         MOV     A,#0xb
    \   000025   12....       LCALL   ?XSTACK_DISP0_8
-   \   000028   12....       LCALL   ?Subroutine24 & 0xFFFF
+   \   000028   12....       LCALL   ?Subroutine23 & 0xFFFF
     557            {
     558              // verify data is available
     559              if ( ZDSecMgrEntries != NULL )
@@ -1465,7 +1465,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00002B   603F         JZ      ??ZDSecMgrEntryLookupExtGetIndex_0
     560              {
     561                for ( index = 0; index < ZDSECMGR_ENTRY_MAX ; index++ )
-   \   00002D   12....       LCALL   ?Subroutine25 & 0xFFFF
+   \   00002D   12....       LCALL   ?Subroutine24 & 0xFFFF
     562                {
     563                  if ( ZDSecMgrEntries[index].ami == ami )
    \                     ??CrossCallReturnLabel_185:
@@ -1482,7 +1482,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     564                  {
     565                    // return successful results
     566                    *entry = &ZDSecMgrEntries[index];
-   \   00003D   12....       LCALL   ?Subroutine38 & 0xFFFF
+   \   00003D   12....       LCALL   ?Subroutine37 & 0xFFFF
    \                     ??CrossCallReturnLabel_57:
    \   000040   8E82         MOV     DPL,R6
    \   000042   8F83         MOV     DPH,R7
@@ -1500,7 +1500,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000051   E0           MOVX    A,@DPTR
    \   000052   F583         MOV     DPH,A
    \   000054   8A82         MOV     DPL,R2
-   \   000056   12....       LCALL   ??Subroutine49_0 & 0xFFFF
+   \   000056   12....       LCALL   ??Subroutine48_0 & 0xFFFF
     568          
     569                    // break from loop
     570                    return ZSuccess;
@@ -1520,7 +1520,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000064   5001         JNC     ??ZDSecMgrEntryLookupExtGetIndex_5
    \   000066   0B           INC     R3
    \                     ??ZDSecMgrEntryLookupExtGetIndex_5:
-   \   000067   12....       LCALL   ?Subroutine37 & 0xFFFF
+   \   000067   12....       LCALL   ?Subroutine36 & 0xFFFF
     573              }
     574            }
    \                     ??CrossCallReturnLabel_47:
@@ -1534,7 +1534,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     577          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine38:
+   \                     ?Subroutine37:
    \   000000   E8           MOV     A,R0
    \   000001   FA           MOV     R2,A
    \   000002   E9           MOV     A,R1
@@ -1560,13 +1560,13 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00001D   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine24:
+   \                     ?Subroutine23:
    \   000000   E0           MOVX    A,@DPTR
    \   000001   FC           MOV     R4,A
    \   000002   A3           INC     DPTR
    \   000003   E0           MOVX    A,@DPTR
    \   000004   FD           MOV     R5,A
-   \   000005   12....       LCALL   ?Subroutine45 & 0xFFFF
+   \   000005   12....       LCALL   ?Subroutine44 & 0xFFFF
    \                     ??CrossCallReturnLabel_165:
    \   000008   22           RET
     578          
@@ -1594,7 +1594,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     592          
     593            // verify data is available
     594            if ( ZDSecMgrEntries != NULL )
-   \   000005   12....       LCALL   ?Subroutine26 & 0xFFFF
+   \   000005   12....       LCALL   ?Subroutine25 & 0xFFFF
    \                     ??CrossCallReturnLabel_164:
    \   000008   6035         JZ      ??ZDSecMgrEntryLookupAMIGetIndex_0
     595            {
@@ -1720,7 +1720,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     638              // Clear the APS Link key in NV
     639              osal_nv_write( entry->keyNvId, 0,
     640                                  sizeof(APSME_LinkKeyData_t), pApsLinkKey);
-   \   000022   12....       LCALL   ?Subroutine39 & 0xFFFF
+   \   000022   12....       LCALL   ?Subroutine38 & 0xFFFF
    \                     ??CrossCallReturnLabel_59:
    \   000025   88..         MOV     ?V0,R0
    \   000027   89..         MOV     ?V1,R1
@@ -1735,7 +1735,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00003B   7D00         MOV     R5,#0x0
    \   00003D   85..82       MOV     DPL,?V0
    \   000040   8983         MOV     DPH,R1
-   \   000042   12....       LCALL   ??Subroutine72_0 & 0xFFFF
+   \   000042   12....       LCALL   ??Subroutine71_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_168:
    \   000045   12....       LCALL   `??osal_nv_write::?relay`; Banked call to: osal_nv_write
    \   000048   7404         MOV     A,#0x4
@@ -1766,7 +1766,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000064   F0           MOVX    @DPTR,A
    \   000065   A3           INC     DPTR
    \   000066   04           INC     A
-   \   000067   12....       LCALL   ?Subroutine42 & 0xFFFF
+   \   000067   12....       LCALL   ?Subroutine41 & 0xFFFF
     650          
     651            // set to default value
     652            entry->authenticateOption = ZDSecMgr_Not_Authenticated;
@@ -1788,7 +1788,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000070   02....       LJMP    ??Subroutine59_0 & 0xFFFF
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine39:
+   \                     ?Subroutine38:
    \   000000   EE           MOV     A,R6
    \   000001   2402         ADD     A,#0x2
    \   000003   F8           MOV     R0,A
@@ -1798,7 +1798,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000007   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine42:
+   \                     ?Subroutine41:
    \   000000   F0           MOVX    @DPTR,A
    \   000001                ; Setup parameters for call to function osal_memcpy
    \   000001   8E82         MOV     DPL,R6
@@ -1834,7 +1834,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     676            *entry = NULL;
    \   000005   8A82         MOV     DPL,R2
    \   000007   8B83         MOV     DPH,R3
-   \   000009   12....       LCALL   ??Subroutine50_0 & 0xFFFF
+   \   000009   12....       LCALL   ??Subroutine49_0 & 0xFFFF
     677          
     678            // verify data is available
     679            if ( ZDSecMgrEntries != NULL )
@@ -1846,7 +1846,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00000E   7800         MOV     R0,#0x0
    \   000010   7900         MOV     R1,#0x0
    \   000012   90....       MOV     DPTR,#ZDSecMgrEntries
-   \   000015   12....       LCALL   ?Subroutine34 & 0xFFFF
+   \   000015   12....       LCALL   ?Subroutine33 & 0xFFFF
     683              {
     684                if ( ZDSecMgrEntries[index].ami == INVALID_NODE_ADDR )
    \                     ??CrossCallReturnLabel_38:
@@ -1891,7 +1891,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     688          
     689                  // Set the authentication option to default
     690                  ZDSecMgrEntries[index].authenticateOption = ZDSecMgr_Not_Authenticated;
-   \   000048   12....       LCALL   ?Subroutine28 & 0xFFFF
+   \   000048   12....       LCALL   ?Subroutine27 & 0xFFFF
    \                     ??CrossCallReturnLabel_24:
    \   00004B   E4           CLR     A
    \   00004C   F0           MOVX    @DPTR,A
@@ -1914,7 +1914,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000059   5001         JNC     ??ZDSecMgrEntryNew_5
    \   00005B   0D           INC     R5
    \                     ??ZDSecMgrEntryNew_5:
-   \   00005C   12....       LCALL   ?Subroutine37 & 0xFFFF
+   \   00005C   12....       LCALL   ?Subroutine36 & 0xFFFF
     696            }
    \                     ??CrossCallReturnLabel_48:
    \   00005F   40B7         JC      ??CrossCallReturnLabel_38
@@ -1927,15 +1927,15 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     699          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine28:
-   \   000000   12....       LCALL   ?Subroutine44 & 0xFFFF
+   \                     ?Subroutine27:
+   \   000000   12....       LCALL   ?Subroutine43 & 0xFFFF
    \                     ??CrossCallReturnLabel_74:
    \   000003   A3           INC     DPTR
    \   000004   A3           INC     DPTR
    \   000005   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine44:
+   \                     ?Subroutine43:
    \   000000   90....       MOV     DPTR,#ZDSecMgrEntries
    \   000003   E0           MOVX    A,@DPTR
    \   000004   28           ADD     A,R0
@@ -2003,9 +2003,9 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000004                ; Setup parameters for call to function SSP_GetTrueRand
    \   000004   7404         MOV     A,#0x4
    \   000006   12....       LCALL   ?XSTACK_DISP0_8
-   \   000009   12....       LCALL   ?Subroutine30 & 0xFFFF
+   \   000009   12....       LCALL   ?Subroutine29 & 0xFFFF
    \                     ??CrossCallReturnLabel_28:
-   \   00000C   12....       LCALL   ??Subroutine72_0 & 0xFFFF
+   \   00000C   12....       LCALL   ??Subroutine71_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_169:
    \   00000F   7910         MOV     R1,#0x10
    \   000011   12....       LCALL   `??SSP_GetTrueRand::?relay`; Banked call to: SSP_GetTrueRand
@@ -2016,23 +2016,23 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000018   C0E0         PUSH    A
    \   00001A   7406         MOV     A,#0x6
    \   00001C   12....       LCALL   ?XSTACK_DISP0_8
-   \   00001F   12....       LCALL   ?Subroutine30 & 0xFFFF
+   \   00001F   12....       LCALL   ?Subroutine29 & 0xFFFF
    \                     ??CrossCallReturnLabel_29:
    \   000022   D0E0         POP     A
-   \   000024                REQUIRE ?Subroutine8
-   \   000024                ; // Fall through to label ?Subroutine8
+   \   000024                REQUIRE ?Subroutine7
+   \   000024                ; // Fall through to label ?Subroutine7
     741          
     742            return ZSuccess;
     743          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine8:
+   \                     ?Subroutine7:
    \   000000   F0           MOVX    @DPTR,A
    \   000001   7900         MOV     R1,#0x0
    \   000003   02....       LJMP    ??Subroutine58_0 & 0xFFFF
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine30:
+   \                     ?Subroutine29:
    \   000000   E0           MOVX    A,@DPTR
    \   000001   F8           MOV     R0,A
    \   000002   A3           INC     DPTR
@@ -2105,7 +2105,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000038   12....       LCALL   ?XSTACK_DISP102_8
    \   00003B   8882         MOV     DPL,R0
    \   00003D   8983         MOV     DPH,R1
-   \   00003F   12....       LCALL   ??Subroutine72_0 & 0xFFFF
+   \   00003F   12....       LCALL   ??Subroutine71_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_170:
    \   000042   12....       LCALL   `??APSME_LookupExtAddr::?relay`; Banked call to: APSME_LookupExtAddr
    \   000045   E9           MOV     A,R1
@@ -2119,7 +2119,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00004F   12....       LCALL   ?XSTACK_DISP100_8
    \   000052   7406         MOV     A,#0x6
    \   000054   12....       LCALL   ?XSTACK_DISP0_8
-   \   000057   12....       LCALL   ??Subroutine54_0 & 0xFFFF
+   \   000057   12....       LCALL   ??Subroutine53_0 & 0xFFFF
     768          
     769              // get an APP key - option APP (MASTER or LINK) key
     770              if ( ZDSecMgrAppKeyGet( ind->srcAddr,
@@ -2165,10 +2165,10 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     783                req.dstAddr   = ind->srcAddr;
    \   00008B   85..82       MOV     DPL,?V0
    \   00008E   85..83       MOV     DPH,?V1
-   \   000091   12....       LCALL   ?Subroutine32 & 0xFFFF
+   \   000091   12....       LCALL   ?Subroutine31 & 0xFFFF
    \                     ??CrossCallReturnLabel_33:
    \   000094   12....       LCALL   ?XSTACK_DISP0_8
-   \   000097   12....       LCALL   ??Subroutine54_0 & 0xFFFF
+   \   000097   12....       LCALL   ??Subroutine53_0 & 0xFFFF
     784                req.extAddr   = ind->partExtAddr;
    \                     ??CrossCallReturnLabel_96:
    \   00009A   7408         MOV     A,#0x8
@@ -2193,17 +2193,17 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     789                req.dstAddr   = partNwkAddr;
    \   0000B3   85..82       MOV     DPL,?XSP + 0
    \   0000B6   85..83       MOV     DPH,?XSP + 1
-   \   0000B9   12....       LCALL   ?Subroutine32 & 0xFFFF
+   \   0000B9   12....       LCALL   ?Subroutine31 & 0xFFFF
    \                     ??CrossCallReturnLabel_34:
    \   0000BC   12....       LCALL   ?XSTACK_DISP0_8
-   \   0000BF   12....       LCALL   ??Subroutine54_0 & 0xFFFF
+   \   0000BF   12....       LCALL   ??Subroutine53_0 & 0xFFFF
     790                req.extAddr   = initExtAddr;
    \                     ??CrossCallReturnLabel_97:
    \   0000C2   740F         MOV     A,#0xf
    \   0000C4   12....       LCALL   ?XSTACK_DISP100_8
    \   0000C7   7408         MOV     A,#0x8
    \   0000C9   12....       LCALL   ?XSTACK_DISP0_8
-   \   0000CC   12....       LCALL   ??Subroutine54_0 & 0xFFFF
+   \   0000CC   12....       LCALL   ??Subroutine53_0 & 0xFFFF
     791                req.initiator = FALSE;
    \                     ??CrossCallReturnLabel_98:
    \   0000CF   740A         MOV     A,#0xa
@@ -2232,11 +2232,11 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     800          }
    \                     ??ZDSecMgrAppKeyReq_0:
    \   0000EC   7427         MOV     A,#0x27
-   \   0000EE   02....       LJMP    ??Subroutine55_0 & 0xFFFF
+   \   0000EE   02....       LJMP    ??Subroutine54_0 & 0xFFFF
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine32:
-   \   000000   12....       LCALL   ?Subroutine46 & 0xFFFF
+   \                     ?Subroutine31:
+   \   000000   12....       LCALL   ?Subroutine45 & 0xFFFF
    \                     ??CrossCallReturnLabel_131:
    \   000003   7402         MOV     A,#0x2
    \   000005   22           RET
@@ -2273,7 +2273,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     816            nwkKeyDesc tmpKey;
     817          
     818            req.dstAddr   = device->nwkAddr;
-   \   00000E   12....       LCALL   ?Subroutine20 & 0xFFFF
+   \   00000E   12....       LCALL   ?Subroutine19 & 0xFFFF
     819            req.extAddr   = device->extAddr;
    \                     ??CrossCallReturnLabel_8:
    \   000011   F8           MOV     R0,A
@@ -2282,7 +2282,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000014   F9           MOV     R1,A
    \   000015   7406         MOV     A,#0x6
    \   000017   12....       LCALL   ?XSTACK_DISP0_8
-   \   00001A   12....       LCALL   ??Subroutine54_0 & 0xFFFF
+   \   00001A   12....       LCALL   ??Subroutine53_0 & 0xFFFF
     820          
     821            req.keyType   = KEY_TYPE_NWK;
    \                     ??CrossCallReturnLabel_99:
@@ -2387,7 +2387,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000082   FE           MOV     R6,A
    \   000083   E9           MOV     A,R1
    \   000084   FF           MOV     R7,A
-   \   000085   12....       LCALL   ?Subroutine33 & 0xFFFF
+   \   000085   12....       LCALL   ?Subroutine32 & 0xFFFF
    \                     ??CrossCallReturnLabel_124:
    \   000088   EA           MOV     A,R2
    \   000089   68           XRL     A,R0
@@ -2398,7 +2398,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00008E   6003         JZ      ??CrossCallReturnLabel_108
     865              {
     866                req.dstAddr = device->parentAddr;
-   \   000090   12....       LCALL   ??Subroutine53_0 & 0xFFFF
+   \   000090   12....       LCALL   ??Subroutine52_0 & 0xFFFF
     867              }
     868          
     869              // send the real key
@@ -2424,7 +2424,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   0000B0   A983         MOV     R1,DPH
    \   0000B2   7404         MOV     A,#0x4
    \   0000B4   12....       LCALL   ?XSTACK_DISP0_8
-   \   0000B7   12....       LCALL   ??Subroutine54_0 & 0xFFFF
+   \   0000B7   12....       LCALL   ??Subroutine53_0 & 0xFFFF
     874          
     875                // check if using secure hop to to parent
     876                if ( device->parentAddr == NLME_GetShortAddr() )
@@ -2494,21 +2494,21 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   0000FD   EE           MOV     A,R6
    \   0000FE   F9           MOV     R1,A
    \   0000FF   741E         MOV     A,#0x1e
-   \   000101   02....       LJMP    ??Subroutine55_0 & 0xFFFF
+   \   000101   02....       LJMP    ??Subroutine54_0 & 0xFFFF
     895          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine53_0:
+   \                     ??Subroutine52_0:
    \   000000   85..82       MOV     DPL,?XSP + 0
    \   000003   85..83       MOV     DPH,?XSP + 1
-   \   000006                REQUIRE ??Subroutine54_0
-   \   000006                ; // Fall through to label ??Subroutine54_0
+   \   000006                REQUIRE ??Subroutine53_0
+   \   000006                ; // Fall through to label ??Subroutine53_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine20:
+   \                     ?Subroutine19:
    \   000000   8E82         MOV     DPL,R6
    \   000002   8F83         MOV     DPH,R7
-   \   000004   12....       LCALL   ?Subroutine46 & 0xFFFF
+   \   000004   12....       LCALL   ?Subroutine45 & 0xFFFF
    \                     ??CrossCallReturnLabel_127:
    \   000007   85..82       MOV     DPL,?XSP + 0
    \   00000A   85..83       MOV     DPH,?XSP + 1
@@ -2516,7 +2516,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00000E   F0           MOVX    @DPTR,A
    \   00000F   A3           INC     DPTR
    \   000010   E9           MOV     A,R1
-   \   000011   12....       LCALL   ?Subroutine42 & 0xFFFF
+   \   000011   12....       LCALL   ?Subroutine41 & 0xFFFF
    \                     ??CrossCallReturnLabel_67:
    \   000014   A3           INC     DPTR
    \   000015   A3           INC     DPTR
@@ -2524,7 +2524,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000017   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine33:
+   \                     ?Subroutine32:
    \   000000   8E82         MOV     DPL,R6
    \   000002   8F83         MOV     DPH,R7
    \   000004                REQUIRE ??Subroutine60_0
@@ -2555,7 +2555,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     910          
     911            retValue = (uint8)ZDSecMgrEntryLookupExt( pAddr, &pEntry );
    \   00000A   7EC8         MOV     R6,#-0x38
-   \   00000C   12....       LCALL   ??Subroutine70_0 & 0xFFFF
+   \   00000C   12....       LCALL   ??Subroutine69_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_157:
    \   00000F   12....       LCALL   ?XSTACK_DISP0_8
    \   000012   AA82         MOV     R2,DPL
@@ -2570,10 +2570,10 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000023   704B         JNZ     ??ZDSecMgrDeviceRemoveByExtAddr_0
    \   000025   740B         MOV     A,#0xb
    \   000027   12....       LCALL   ?XSTACK_DISP0_8
-   \   00002A   12....       LCALL   ?Subroutine24 & 0xFFFF
+   \   00002A   12....       LCALL   ?Subroutine23 & 0xFFFF
    \                     ??CrossCallReturnLabel_15:
    \   00002D   6041         JZ      ??ZDSecMgrDeviceRemoveByExtAddr_0
-   \   00002F   12....       LCALL   ?Subroutine25 & 0xFFFF
+   \   00002F   12....       LCALL   ?Subroutine24 & 0xFFFF
    \                     ??CrossCallReturnLabel_186:
    \   000032   8A82         MOV     DPL,R2
    \   000034   8B83         MOV     DPH,R3
@@ -2596,7 +2596,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000048   5001         JNC     ??ZDSecMgrDeviceRemoveByExtAddr_4
    \   00004A   0B           INC     R3
    \                     ??ZDSecMgrDeviceRemoveByExtAddr_4:
-   \   00004B   12....       LCALL   ?Subroutine37 & 0xFFFF
+   \   00004B   12....       LCALL   ?Subroutine36 & 0xFFFF
    \                     ??CrossCallReturnLabel_49:
    \   00004E   5020         JNC     ??ZDSecMgrDeviceRemoveByExtAddr_0
    \   000050   80E0         SJMP    ??CrossCallReturnLabel_186
@@ -2683,9 +2683,9 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00001A   A3           INC     DPTR
    \   00001B   A3           INC     DPTR
    \   00001C   A3           INC     DPTR
-   \   00001D   12....       LCALL   ??Subroutine72_0 & 0xFFFF
+   \   00001D   12....       LCALL   ??Subroutine71_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_171:
-   \   000020   12....       LCALL   ?Subroutine39 & 0xFFFF
+   \   000020   12....       LCALL   ?Subroutine38 & 0xFFFF
    \                     ??CrossCallReturnLabel_60:
    \   000023   E5..         MOV     A,?V0
    \   000025   6A           XRL     A,R2
@@ -2700,9 +2700,9 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     941              leaveReq.extAddr        = device->extAddr;
    \   000030   8882         MOV     DPL,R0
    \   000032   8983         MOV     DPH,R1
-   \   000034   12....       LCALL   ??Subroutine72_0 & 0xFFFF
+   \   000034   12....       LCALL   ??Subroutine71_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_172:
-   \   000037   12....       LCALL   ?Subroutine19 & 0xFFFF
+   \   000037   12....       LCALL   ?Subroutine18 & 0xFFFF
     942              leaveReq.removeChildren = FALSE;
    \                     ??CrossCallReturnLabel_142:
    \   00003A   12....       LCALL   ?XSTACK_DISP0_8
@@ -2711,12 +2711,12 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     943              leaveReq.rejoin         = FALSE;
    \   00003F   7403         MOV     A,#0x3
    \   000041   12....       LCALL   ?XSTACK_DISP0_8
-   \   000044   12....       LCALL   ?Subroutine23 & 0xFFFF
+   \   000044   12....       LCALL   ?Subroutine22 & 0xFFFF
     944          
     945              // find child association
     946              assoc = AssocGetWithExt( device->extAddr );
    \                     ??CrossCallReturnLabel_89:
-   \   000047   12....       LCALL   ??Subroutine72_0 & 0xFFFF
+   \   000047   12....       LCALL   ??Subroutine71_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_173:
    \   00004A   12....       LCALL   `??AssocGetWithExt::?relay`; Banked call to: AssocGetWithExt
    \   00004D   8A..         MOV     ?V0,R2
@@ -2806,7 +2806,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
     971              }
     972            }
    \                     ??ZDSecMgrDeviceRemove_4:
-   \   0000A8   12....       LCALL   ??Subroutine65_0 & 0xFFFF
+   \   0000A8   12....       LCALL   ??Subroutine64_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_135:
    \   0000AB   12....       LCALL   `??NLME_LeaveReq::?relay`; Banked call to: NLME_LeaveReq
    \   0000AE   8026         SJMP    ??ZDSecMgrDeviceRemove_6
@@ -2821,14 +2821,14 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   0000B6   F0           MOVX    @DPTR,A
    \   0000B7   A3           INC     DPTR
    \   0000B8   EB           MOV     A,R3
-   \   0000B9   12....       LCALL   ??Subroutine52_0 & 0xFFFF
+   \   0000B9   12....       LCALL   ??Subroutine51_0 & 0xFFFF
     977              remDevReq.childExtAddr = device->extAddr;
    \                     ??CrossCallReturnLabel_92:
    \   0000BC   12....       LCALL   ??Subroutine60_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_119:
    \   0000BF   7407         MOV     A,#0x7
    \   0000C1   12....       LCALL   ?XSTACK_DISP0_8
-   \   0000C4   12....       LCALL   ??Subroutine54_0 & 0xFFFF
+   \   0000C4   12....       LCALL   ??Subroutine53_0 & 0xFFFF
     978          
     979          #if defined ( APP_TP2_TEST_MODE )
     980              if ( guTxApsSecON == TRUE )
@@ -2879,23 +2879,23 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    1016          }
    \                     ??ZDSecMgrDeviceRemove_6:
    \   0000D6   740A         MOV     A,#0xa
-   \   0000D8   02....       LJMP    ??Subroutine55_0 & 0xFFFF
+   \   0000D8   02....       LJMP    ??Subroutine54_0 & 0xFFFF
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine23:
+   \                     ?Subroutine22:
    \   000000   E4           CLR     A
-   \   000001                REQUIRE ??Subroutine52_0
-   \   000001                ; // Fall through to label ??Subroutine52_0
+   \   000001                REQUIRE ??Subroutine51_0
+   \   000001                ; // Fall through to label ??Subroutine51_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine19:
+   \                     ?Subroutine18:
    \   000000   85..82       MOV     DPL,?XSP + 0
    \   000003   85..83       MOV     DPH,?XSP + 1
-   \   000006                REQUIRE ??Subroutine66_0
-   \   000006                ; // Fall through to label ??Subroutine66_0
+   \   000006                REQUIRE ??Subroutine65_0
+   \   000006                ; // Fall through to label ??Subroutine65_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine66_0:
+   \                     ??Subroutine65_0:
    \   000000   EA           MOV     A,R2
    \   000001   F0           MOVX    @DPTR,A
    \   000002   A3           INC     DPTR
@@ -3096,15 +3096,15 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    1125              // Add the device to the address manager
    1126              ZDSecMgrAddrStore( device->nwkAddr, device->extAddr, &ami );
    \                     ??ZDSecMgrDeviceJoin_0:
-   \   00003B   12....       LCALL   ?Subroutine39 & 0xFFFF
+   \   00003B   12....       LCALL   ?Subroutine38 & 0xFFFF
    \                     ??CrossCallReturnLabel_61:
    \   00003E   88..         MOV     ?V2,R0
    \   000040   89..         MOV     ?V3,R1
    \   000042   8882         MOV     DPL,R0
    \   000044   F583         MOV     DPH,A
-   \   000046   12....       LCALL   ?Subroutine34 & 0xFFFF
+   \   000046   12....       LCALL   ?Subroutine33 & 0xFFFF
    \                     ??CrossCallReturnLabel_39:
-   \   000049   12....       LCALL   ?Subroutine33 & 0xFFFF
+   \   000049   12....       LCALL   ?Subroutine32 & 0xFFFF
    \                     ??CrossCallReturnLabel_125:
    \   00004C   740C         MOV     A,#0xc
    \   00004E   12....       LCALL   ?XSTACK_DISP0_8
@@ -3112,7 +3112,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000053   F0           MOVX    @DPTR,A
    \   000054   740D         MOV     A,#0xd
    \   000056   12....       LCALL   ?XSTACK_DISP0_8
-   \   000059   12....       LCALL   ??Subroutine54_0 & 0xFFFF
+   \   000059   12....       LCALL   ??Subroutine53_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_102:
    \   00005C                ; Setup parameters for call to function AddrMgrExtAddrSet
    \   00005C   740F         MOV     A,#0xf
@@ -3164,7 +3164,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000095                ; Setup parameters for call to function ZDSecMgrAddrClear
    \   000095   85..82       MOV     DPL,?V2
    \   000098   85..83       MOV     DPH,?V3
-   \   00009B   12....       LCALL   ??Subroutine72_0 & 0xFFFF
+   \   00009B   12....       LCALL   ??Subroutine71_0 & 0xFFFF
    1139              }
    1140            }
    \                     ??CrossCallReturnLabel_174:
@@ -3196,14 +3196,14 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    1150              if (zdoCBFunc[ZDO_TC_DEVICE_CBID] != NULL )
    \                     ??ZDSecMgrDeviceJoin_4:
    \   0000B5   90....       MOV     DPTR,#zdoCBFunc + 16
-   \   0000B8   12....       LCALL   ??Subroutine71_0 & 0xFFFF
+   \   0000B8   12....       LCALL   ??Subroutine70_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_160:
    \   0000BB   6046         JZ      ??ZDSecMgrDeviceJoin_6
    1151              {
    1152                ZDO_TC_Device_t dev;
    1153          
    1154                dev.nwkAddr = device->nwkAddr;
-   \   0000BD   12....       LCALL   ?Subroutine20 & 0xFFFF
+   \   0000BD   12....       LCALL   ?Subroutine19 & 0xFFFF
    1155                osal_memcpy( dev.extAddr, device->extAddr, Z_EXTADDR_LEN );
    \                     ??CrossCallReturnLabel_9:
    \   0000C0   F5..         MOV     ?V0,A
@@ -3241,10 +3241,10 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   0000F4   F0           MOVX    @DPTR,A
    \   0000F5   A3           INC     DPTR
    \   0000F6   E9           MOV     A,R1
-   \   0000F7   12....       LCALL   ??Subroutine65_0 & 0xFFFF
+   \   0000F7   12....       LCALL   ??Subroutine64_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_136:
    \   0000FA   90....       MOV     DPTR,#zdoCBFunc + 16
-   \   0000FD   12....       LCALL   ?Subroutine30 & 0xFFFF
+   \   0000FD   12....       LCALL   ?Subroutine29 & 0xFFFF
    \                     ??CrossCallReturnLabel_30:
    \   000100   12....       LCALL   ?CALL_IND
    1161          
@@ -3298,7 +3298,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000011                ; Setup parameters for call to function AssocGetWithShort
    \   000011   8E82         MOV     DPL,R6
    \   000013   8F83         MOV     DPH,R7
-   \   000015   12....       LCALL   ??Subroutine72_0 & 0xFFFF
+   \   000015   12....       LCALL   ??Subroutine71_0 & 0xFFFF
    1184            }
    \                     ??CrossCallReturnLabel_175:
    \   000018   12....       LCALL   `??AssocGetWithShort::?relay`; Banked call to: AssocGetWithShort
@@ -3307,38 +3307,38 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00001F   E582         MOV     A,DPL
    \   000021   4583         ORL     A,DPH
    \   000023   6003         JZ      ??CrossCallReturnLabel_112
-   \   000025   12....       LCALL   ?Subroutine35 & 0xFFFF
+   \   000025   12....       LCALL   ?Subroutine34 & 0xFFFF
    1185          
    1186            return status;
    \                     ??CrossCallReturnLabel_112:
-   \   000028                REQUIRE ?Subroutine10
-   \   000028                ; // Fall through to label ?Subroutine10
+   \   000028                REQUIRE ?Subroutine9
+   \   000028                ; // Fall through to label ?Subroutine9
    1187          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine10:
+   \                     ?Subroutine9:
    \   000000   A9..         MOV     R1,?V0
-   \   000002   02....       LJMP    ??Subroutine74_0 & 0xFFFF
+   \   000002   02....       LJMP    ??Subroutine73_0 & 0xFFFF
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine35:
+   \                     ?Subroutine34:
    \   000000   A3           INC     DPTR
    \   000001   A3           INC     DPTR
    \   000002   A3           INC     DPTR
    \   000003   A3           INC     DPTR
    \   000004   A3           INC     DPTR
-   \   000005                REQUIRE ??Subroutine57_0
-   \   000005                ; // Fall through to label ??Subroutine57_0
+   \   000005                REQUIRE ??Subroutine56_0
+   \   000005                ; // Fall through to label ??Subroutine56_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine57_0:
+   \                     ??Subroutine56_0:
    \   000000   E0           MOVX    A,@DPTR
    \   000001   D2E3         SETB    0xE0 /* A   */.3
    \   000003   F0           MOVX    @DPTR,A
    \   000004   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine74_0:
+   \                     ??Subroutine73_0:
    \   000000   7F04         MOV     R7,#0x4
    \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
    1188          
@@ -3378,17 +3378,17 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000010   E4           CLR     A
    \   000011   F0           MOVX    @DPTR,A
    \   000012   A3           INC     DPTR
-   \   000013   12....       LCALL   ?Subroutine43 & 0xFFFF
+   \   000013   12....       LCALL   ?Subroutine42 & 0xFFFF
    1209            req.devAddr    = device->nwkAddr;
    \                     ??CrossCallReturnLabel_70:
-   \   000016   12....       LCALL   ?Subroutine32 & 0xFFFF
+   \   000016   12....       LCALL   ?Subroutine31 & 0xFFFF
    \                     ??CrossCallReturnLabel_35:
    \   000019   12....       LCALL   ?XSTACK_DISP0_8
-   \   00001C   12....       LCALL   ?Subroutine16 & 0xFFFF
+   \   00001C   12....       LCALL   ?Subroutine15 & 0xFFFF
    1210            req.devExtAddr = device->extAddr;
    \                     ??CrossCallReturnLabel_0:
    \   00001F   12....       LCALL   ?XSTACK_DISP0_8
-   \   000022   12....       LCALL   ??Subroutine54_0 & 0xFFFF
+   \   000022   12....       LCALL   ??Subroutine53_0 & 0xFFFF
    1211          
    1212            // set security status, option for router to reject if policy set
    1213            if ( (device->devStatus & DEV_HIGH_SEC_STATUS) )
@@ -3492,12 +3492,12 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    1247              }
    1248            }
    \                     ??ZDSecMgrDeviceJoinFwd_3:
-   \   00008C   12....       LCALL   ?Subroutine43 & 0xFFFF
+   \   00008C   12....       LCALL   ?Subroutine42 & 0xFFFF
    1249          
    1250            // set association status to authenticated
    1251            ZDSecMgrAssocDeviceAuth( AssocGetWithShort( device->nwkAddr ) );
    \                     ??CrossCallReturnLabel_71:
-   \   00008F   12....       LCALL   ??Subroutine72_0 & 0xFFFF
+   \   00008F   12....       LCALL   ??Subroutine71_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_176:
    \   000092   12....       LCALL   `??AssocGetWithShort::?relay`; Banked call to: AssocGetWithShort
    \   000095   8A82         MOV     DPL,R2
@@ -3505,7 +3505,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000099   E582         MOV     A,DPL
    \   00009B   4583         ORL     A,DPH
    \   00009D   6003         JZ      ??CrossCallReturnLabel_113
-   \   00009F   12....       LCALL   ?Subroutine35 & 0xFFFF
+   \   00009F   12....       LCALL   ?Subroutine34 & 0xFFFF
    1252          
    1253          #if defined ( APP_TP2_TEST_MODE )
    1254            if ( guTxApsSecON == TRUE )
@@ -3547,7 +3547,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   0000A2   7407         MOV     A,#0x7
    \   0000A4   12....       LCALL   ?XSTACK_DISP0_8
    \   0000A7   E4           CLR     A
-   \   0000A8   12....       LCALL   ??Subroutine65_0 & 0xFFFF
+   \   0000A8   12....       LCALL   ??Subroutine64_0 & 0xFFFF
    1289          
    1290              // send and APSME_UPDATE_DEVICE request to the trust center
    1291              status = APSME_UpdateDeviceReq( &req );
@@ -3557,17 +3557,17 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    1295            return status;
    \                     ??CrossCallReturnLabel_137:
    \   0000AB   12....       LCALL   `??APSME_UpdateDeviceReq::?relay`; Banked call to: APSME_UpdateDeviceReq
-   \   0000AE                REQUIRE ?Subroutine9
-   \   0000AE                ; // Fall through to label ?Subroutine9
+   \   0000AE                REQUIRE ?Subroutine8
+   \   0000AE                ; // Fall through to label ?Subroutine8
    1296          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine9:
+   \                     ?Subroutine8:
    \   000000   7408         MOV     A,#0x8
-   \   000002   80..         SJMP    ??Subroutine55_0
+   \   000002   80..         SJMP    ??Subroutine54_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine43:
+   \                     ?Subroutine42:
    \   000000   F0           MOVX    @DPTR,A
    \   000001                ; Setup parameters for call to function AssocGetWithShort
    \   000001   8A82         MOV     DPL,R2
@@ -3575,16 +3575,16 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000005   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine16:
+   \                     ?Subroutine15:
    \   000000   E8           MOV     A,R0
    \   000001   F0           MOVX    @DPTR,A
    \   000002   A3           INC     DPTR
    \   000003   E9           MOV     A,R1
-   \   000004   12....       LCALL   ?Subroutine43 & 0xFFFF
+   \   000004   12....       LCALL   ?Subroutine42 & 0xFFFF
    \                     ??CrossCallReturnLabel_73:
    \   000007   A3           INC     DPTR
    \   000008   A3           INC     DPTR
-   \   000009   12....       LCALL   ?Subroutine46 & 0xFFFF
+   \   000009   12....       LCALL   ?Subroutine45 & 0xFFFF
    \                     ??CrossCallReturnLabel_126:
    \   00000C   7404         MOV     A,#0x4
    \   00000E   22           RET
@@ -3642,7 +3642,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000021                ; Setup parameters for call to function AssocGetWithShort
    \   000021   8E82         MOV     DPL,R6
    \   000023   8F83         MOV     DPH,R7
-   \   000025   12....       LCALL   ??Subroutine72_0 & 0xFFFF
+   \   000025   12....       LCALL   ??Subroutine71_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_177:
    \   000028   12....       LCALL   `??AssocGetWithShort::?relay`; Banked call to: AssocGetWithShort
    \   00002B   8A82         MOV     DPL,R2
@@ -3650,7 +3650,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00002F   E582         MOV     A,DPL
    \   000031   4583         ORL     A,DPH
    \   000033   6003         JZ      ??CrossCallReturnLabel_114
-   \   000035   12....       LCALL   ?Subroutine35 & 0xFFFF
+   \   000035   12....       LCALL   ?Subroutine34 & 0xFFFF
    1316            }
    \                     ??CrossCallReturnLabel_114:
    \   000038   85....       MOV     ?V0,?V1
@@ -3671,7 +3671,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    1321          
    1322            return status;
    \                     ??ZDSecMgrDeviceNew_2:
-   \   000047   02....       LJMP    ?Subroutine10 & 0xFFFF
+   \   000047   02....       LJMP    ?Subroutine9 & 0xFFFF
    1323          }
    1324          
    1325          /******************************************************************************
@@ -3700,7 +3700,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    1338              assoc->devStatus |= DEV_SEC_AUTH_STATUS;
    \   000008   8A82         MOV     DPL,R2
    \   00000A   8B83         MOV     DPH,R3
-   \   00000C   12....       LCALL   ?Subroutine35 & 0xFFFF
+   \   00000C   12....       LCALL   ?Subroutine34 & 0xFFFF
    1339            }
    1340          }
    \                     ??CrossCallReturnLabel_115:
@@ -3772,10 +3772,6 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    1384          void ZDSecMgrInit(uint8 state)
    \                     ZDSecMgrInit:
-   \   000000   80..         SJMP    ?Subroutine1
-
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine1:
    1385          {
    \   000000   C082         PUSH    DPL
    \   000002   C083         PUSH    DPH
@@ -3801,23 +3797,50 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    1403            {
    1404              if ( ( ( ZG_BUILD_COORDINATOR_TYPE ) && ( ZG_DEVICE_COORDINATOR_TYPE ) )
    1405                   || ( ( ZG_BUILD_RTR_TYPE ) && APSME_IsDistributedSecurity() ) )
+   \   000004   90....       MOV     DPTR,#zgDeviceLogicalType
+   \   000007   E0           MOVX    A,@DPTR
+   \   000008   6006         JZ      ??ZDSecMgrInit_0
+   \   00000A                ; Setup parameters for call to function APSME_IsDistributedSecurity
+   \   00000A   12....       LCALL   `??APSME_IsDistributedSecurity::?relay`; Banked call to: APSME_IsDistributedSecurity
+   \   00000D   E9           MOV     A,R1
+   \   00000E   600B         JZ      ??ZDSecMgrInit_1
    1406              {
    1407                // setup joining permissions
    1408                ZDSecMgrPermitJoiningEnabled = TRUE;
+   \                     ??ZDSecMgrInit_0:
+   \   000010   90....       MOV     DPTR,#ZDSecMgrPermitJoiningEnabled
+   \   000013   7401         MOV     A,#0x1
+   \   000015   F0           MOVX    @DPTR,A
    1409                ZDSecMgrPermitJoiningTimed   = FALSE;
+   \   000016   90....       MOV     DPTR,#ZDSecMgrPermitJoiningTimed
+   \   000019   E4           CLR     A
+   \   00001A   F0           MOVX    @DPTR,A
    1410              }
    1411            }
    1412          
    1413            // configure security based on security mode and type of device
    1414            ZDSecMgrConfig();
-   \   000004                ; Setup parameters for call to function APSME_SecurityNM
-   \   000004                ; Saved register size: 2
-   \   000004                ; Auto size: 0
-   \   000004                ; Setup parameters for call to function APSME_SecurityNM
-   \   000004   12....       LCALL   `??APSME_SecurityNM::?relay`; Banked call to: APSME_SecurityNM
+   \                     ??ZDSecMgrInit_1:
+   \   00001B                ; Setup parameters for call to function SSP_Init
+   \   00001B   12....       LCALL   `??SSP_Init::?relay` ; Banked call to: SSP_Init
+   \   00001E   90....       MOV     DPTR,#zgDeviceLogicalType
+   \   000021   E0           MOVX    A,@DPTR
+   \   000022   7005         JNZ     ??ZDSecMgrInit_2
+   \   000024                ; Setup parameters for call to function APSME_SecurityRM_CD
+   \   000024   12....       LCALL   `??APSME_SecurityRM_CD::?relay`; Banked call to: APSME_SecurityRM_CD
+   \   000027   800C         SJMP    ??ZDSecMgrInit_3
+   \                     ??ZDSecMgrInit_2:
+   \   000029   6401         XRL     A,#0x1
+   \   00002B   6005         JZ      ??ZDSecMgrInit_4
+   \   00002D                ; Setup parameters for call to function APSME_SecurityRM_ED
+   \   00002D   12....       LCALL   `??APSME_SecurityRM_ED::?relay`; Banked call to: APSME_SecurityRM_ED
+   \   000030   8003         SJMP    ??ZDSecMgrInit_3
+   \                     ??ZDSecMgrInit_4:
+   \   000032                ; Setup parameters for call to function APSME_SecurityRM_RD
+   \   000032   12....       LCALL   `??APSME_SecurityRM_RD::?relay`; Banked call to: APSME_SecurityRM_RD
    1415          }
-   \   000007                REQUIRE ??Subroutine58_0
-   \   000007                ; // Fall through to label ??Subroutine58_0
+   \                     ??ZDSecMgrInit_3:
+   \   000035   80..         SJMP    ??Subroutine58_0
    1416          
    1417          /******************************************************************************
    1418           * @fn          ZDSecMgrConfig
@@ -3832,11 +3855,16 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    1426          void ZDSecMgrConfig( void )
    \                     ZDSecMgrConfig:
-   \   000000   80..         SJMP    ?Subroutine1
    1427          {
+   \   000000   C082         PUSH    DPL
+   \   000002   C083         PUSH    DPH
+   \   000004                ; Saved register size: 2
+   \   000004                ; Auto size: 0
    1428            if ( ZG_SECURE_ENABLED )
    1429            {
    1430              SSP_Init();
+   \   000004                ; Setup parameters for call to function SSP_Init
+   \   000004   12....       LCALL   `??SSP_Init::?relay` ; Banked call to: SSP_Init
    1431          
    1432              if ( ZG_CHECK_SECURITY_MODE == ZG_SECURITY_SE_STANDARD )
    1433              {
@@ -3859,19 +3887,34 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    1450              else // ( ZG_CHECK_SECURITY_MODE == ZG_SECURITY_RESIDENTIAL )
    1451              {
    1452                if ( ( ZG_BUILD_COORDINATOR_TYPE ) && ( ZG_DEVICE_COORDINATOR_TYPE ) )
+   \   000007   90....       MOV     DPTR,#zgDeviceLogicalType
+   \   00000A   E0           MOVX    A,@DPTR
+   \   00000B   7005         JNZ     ??ZDSecMgrConfig_0
    1453                {
    1454                  // RESIDENTIAL MODE - COORDINATOR DEVICE
    1455                  APSME_SecurityRM_CD();
+   \   00000D                ; Setup parameters for call to function APSME_SecurityRM_CD
+   \   00000D   12....       LCALL   `??APSME_SecurityRM_CD::?relay`; Banked call to: APSME_SecurityRM_CD
+   \   000010   800C         SJMP    ??ZDSecMgrConfig_1
    1456                }
    1457                else if ( ZSTACK_ROUTER_BUILD )
+   \                     ??ZDSecMgrConfig_0:
+   \   000012   6401         XRL     A,#0x1
+   \   000014   7005         JNZ     ??ZDSecMgrConfig_2
    1458                {
    1459                  // RESIDENTIAL MODE - ROUTER DEVICE
    1460                  APSME_SecurityRM_RD();
+   \   000016                ; Setup parameters for call to function APSME_SecurityRM_RD
+   \   000016   12....       LCALL   `??APSME_SecurityRM_RD::?relay`; Banked call to: APSME_SecurityRM_RD
+   \   000019   8003         SJMP    ??ZDSecMgrConfig_1
    1461                }
    1462                else
    1463                {
    1464                  // RESIDENTIAL MODE - END DEVICE
    1465                  APSME_SecurityRM_ED();
+   \                     ??ZDSecMgrConfig_2:
+   \   00001B                ; Setup parameters for call to function APSME_SecurityRM_ED
+   \   00001B   12....       LCALL   `??APSME_SecurityRM_ED::?relay`; Banked call to: APSME_SecurityRM_ED
    1466                }
    1467              }
    1468            }
@@ -3881,6 +3924,8 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    1472              APSME_SecurityNM();
    1473            }
    1474          }
+   \                     ??ZDSecMgrConfig_1:
+   \   00001E   80..         SJMP    ??Subroutine58_0
    1475          
    1476          /******************************************************************************
    1477           * @fn          ZDSecMgrPermitJoining
@@ -3945,7 +3990,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    1509            return accept;
    \                     ??ZDSecMgrPermitJoining_1:
    \   000022   7901         MOV     R1,#0x1
-   \   000024   80..         SJMP    ??Subroutine58_0
+   \   000024   02....       LJMP    ??Subroutine58_0 & 0xFFFF
    1510          }
    1511          
    1512          /******************************************************************************
@@ -3982,7 +4027,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    1527            }
    1528          }
    \                     ??ZDSecMgrPermitJoiningTimeout_0:
-   \   000015   80..         SJMP    ??Subroutine58_0
+   \   000015   02....       LJMP    ??Subroutine58_0 & 0xFFFF
    1529          
    1530          /******************************************************************************
    1531           * @fn          ZDSecMgrNewDeviceEvent
@@ -3996,11 +4041,11 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    1539           */
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine22:
-   \   000000   12....       LCALL   ?Subroutine46 & 0xFFFF
+   \                     ?Subroutine21:
+   \   000000   12....       LCALL   ?Subroutine45 & 0xFFFF
    \                     ??CrossCallReturnLabel_129:
-   \   000003                REQUIRE ??Subroutine53_0
-   \   000003                ; // Fall through to label ??Subroutine53_0
+   \   000003                REQUIRE ??Subroutine52_0
+   \   000003                ; // Fall through to label ??Subroutine52_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    1540          uint8 ZDSecMgrNewDeviceEvent( uint16 ShortAddr )
@@ -4062,7 +4107,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000031   7007         JNZ     ??CrossCallReturnLabel_111
    \   000033   8E82         MOV     DPL,R6
    \   000035   8F83         MOV     DPH,R7
-   \   000037   12....       LCALL   ??Subroutine57_0 & 0xFFFF
+   \   000037   12....       LCALL   ??Subroutine56_0 & 0xFFFF
    1560              {
    1561                // set association status to authenticated
    1562                ZDSecMgrAssocDeviceAuth( assoc );
@@ -4074,7 +4119,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00003A   7408         MOV     A,#0x8
    \   00003C   12....       LCALL   ?XSTACK_DISP0_8
    \   00003F   E4           CLR     A
-   \   000040   12....       LCALL   ?Subroutine43 & 0xFFFF
+   \   000040   12....       LCALL   ?Subroutine42 & 0xFFFF
    1567              addrEntry.index = assoc->addrIdx;
    \                     ??CrossCallReturnLabel_72:
    \   000043   A3           INC     DPTR
@@ -4083,7 +4128,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \                     ??CrossCallReturnLabel_121:
    \   000048   7413         MOV     A,#0x13
    \   00004A   12....       LCALL   ?XSTACK_DISP0_8
-   \   00004D   12....       LCALL   ??Subroutine54_0 & 0xFFFF
+   \   00004D   12....       LCALL   ??Subroutine53_0 & 0xFFFF
    1568              AddrMgrEntryGet( &addrEntry );
    \                     ??CrossCallReturnLabel_104:
    \   000050                ; Setup parameters for call to function AddrMgrEntryGet
@@ -4094,7 +4139,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    1570              device.nwkAddr    = assoc->shortAddr;
    \   000058   85..82       MOV     DPL,?V2
    \   00005B   85..83       MOV     DPH,?V3
-   \   00005E   12....       LCALL   ?Subroutine22 & 0xFFFF
+   \   00005E   12....       LCALL   ?Subroutine21 & 0xFFFF
    1571              device.extAddr    = addrEntry.extAddr;
    \                     ??CrossCallReturnLabel_109:
    \   000061   740B         MOV     A,#0xb
@@ -4103,7 +4148,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000068   A983         MOV     R1,DPH
    \   00006A   7402         MOV     A,#0x2
    \   00006C   12....       LCALL   ?XSTACK_DISP0_8
-   \   00006F   12....       LCALL   ??Subroutine54_0 & 0xFFFF
+   \   00006F   12....       LCALL   ??Subroutine53_0 & 0xFFFF
    1572              device.parentAddr = NLME_GetShortAddr();
    \                     ??CrossCallReturnLabel_105:
    \   000072                ; Setup parameters for call to function NLME_GetShortAddr
@@ -4114,7 +4159,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00007B   F0           MOVX    @DPTR,A
    \   00007C   A3           INC     DPTR
    \   00007D   EB           MOV     A,R3
-   \   00007E   12....       LCALL   ?Subroutine42 & 0xFFFF
+   \   00007E   12....       LCALL   ?Subroutine41 & 0xFFFF
    1573          
    1574              // the new device performed Secured Rejoin
    1575              if ( ( assoc->devStatus & DEV_SECURED_JOIN ) &&
@@ -4140,7 +4185,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000096   E4           CLR     A
    1583              }
    \                     ??ZDSecMgrNewDeviceEvent_2:
-   \   000097   12....       LCALL   ?Subroutine42 & 0xFFFF
+   \   000097   12....       LCALL   ?Subroutine41 & 0xFFFF
    1584              device.devStatus  = assoc->devStatus;
    \                     ??CrossCallReturnLabel_69:
    \   00009A   E0           MOVX    A,@DPTR
@@ -4177,7 +4222,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   0000C9                ; Setup parameters for call to function AssocGetWithShort
    \   0000C9   85..82       MOV     DPL,?XSP + 0
    \   0000CC   85..83       MOV     DPH,?XSP + 1
-   \   0000CF   12....       LCALL   ??Subroutine72_0 & 0xFFFF
+   \   0000CF   12....       LCALL   ??Subroutine71_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_178:
    \   0000D2   12....       LCALL   `??AssocGetWithShort::?relay`; Banked call to: AssocGetWithShort
    \   0000D5   8A82         MOV     DPL,R2
@@ -4185,7 +4230,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   0000D9   E582         MOV     A,DPL
    \   0000DB   4583         ORL     A,DPH
    \   0000DD   6003         JZ      ??CrossCallReturnLabel_116
-   \   0000DF   12....       LCALL   ?Subroutine35 & 0xFFFF
+   \   0000DF   12....       LCALL   ?Subroutine34 & 0xFFFF
    \                     ??CrossCallReturnLabel_116:
    \   0000E2   85....       MOV     ?V2,?V1
    1588          
@@ -4663,14 +4708,14 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine4:
    \   000000   7418         MOV     A,#0x18
-   \   000002                REQUIRE ??Subroutine73_0
-   \   000002                ; // Fall through to label ??Subroutine73_0
+   \   000002                REQUIRE ??Subroutine72_0
+   \   000002                ; // Fall through to label ??Subroutine72_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine73_0:
+   \                     ??Subroutine72_0:
    \   000000   12....       LCALL   ?DEALLOC_XSTACK8
-   \   000003                REQUIRE ??Subroutine74_0
-   \   000003                ; // Fall through to label ??Subroutine74_0
+   \   000003                REQUIRE ??Subroutine73_0
+   \   000003                ; // Fall through to label ??Subroutine73_0
    1744          
    1745          /******************************************************************************
    1746           * @fn          ZDSecMgrUpdateDeviceInd
@@ -4681,6 +4726,18 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    1751           *
    1752           * @return      none
    1753           */
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine1:
+   \   000000   7408         MOV     A,#0x8
+   \   000002                REQUIRE ??Subroutine57_0
+   \   000002                ; // Fall through to label ??Subroutine57_0
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ??Subroutine57_0:
+   \   000000   12....       LCALL   ?DEALLOC_XSTACK8
+   \   000003                REQUIRE ??Subroutine58_0
+   \   000003                ; // Fall through to label ??Subroutine58_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    1754          void ZDSecMgrUpdateDeviceInd( ZDO_UpdateDeviceInd_t* ind )
@@ -4701,7 +4758,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00000E   E4           CLR     A
    \   00000F   3B           ADDC    A,R3
    \   000010   F583         MOV     DPH,A
-   \   000012   12....       LCALL   ?Subroutine22 & 0xFFFF
+   \   000012   12....       LCALL   ?Subroutine21 & 0xFFFF
    1759            device.extAddr    = ind->devExtAddr;
    \                     ??CrossCallReturnLabel_110:
    \   000015   EA           MOV     A,R2
@@ -4712,11 +4769,11 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00001B   F9           MOV     R1,A
    \   00001C   7402         MOV     A,#0x2
    \   00001E   12....       LCALL   ?XSTACK_DISP0_8
-   \   000021   12....       LCALL   ?Subroutine16 & 0xFFFF
+   \   000021   12....       LCALL   ?Subroutine15 & 0xFFFF
    1760            device.parentAddr = ind->srcAddr;
    \                     ??CrossCallReturnLabel_1:
    \   000024   12....       LCALL   ?XSTACK_DISP0_8
-   \   000027   12....       LCALL   ??Subroutine54_0 & 0xFFFF
+   \   000027   12....       LCALL   ??Subroutine53_0 & 0xFFFF
    1761            device.devStatus  = DEV_SEC_INIT_STATUS;
    \                     ??CrossCallReturnLabel_106:
    \   00002A   7407         MOV     A,#0x7
@@ -4772,19 +4829,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    1778            }
    1779          }
    \                     ??ZDSecMgrUpdateDeviceInd_0:
-   \   000063                REQUIRE ?Subroutine7
-   \   000063                ; // Fall through to label ?Subroutine7
-
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine7:
-   \   000000   7408         MOV     A,#0x8
-   \   000002                REQUIRE ??Subroutine64_0
-   \   000002                ; // Fall through to label ??Subroutine64_0
-
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine64_0:
-   \   000000   12....       LCALL   ?DEALLOC_XSTACK8
-   \   000003   02....       LJMP    ??Subroutine58_0 & 0xFFFF
+   \   000063   02....       LJMP    ?Subroutine1 & 0xFFFF
    1780          
    1781          /******************************************************************************
    1782           * @fn          ZDSecMgrRemoveDeviceInd
@@ -4814,7 +4859,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00000C   8B83         MOV     DPH,R3
    \   00000E   A3           INC     DPTR
    \   00000F   A3           INC     DPTR
-   \   000010   12....       LCALL   ??Subroutine71_0 & 0xFFFF
+   \   000010   12....       LCALL   ??Subroutine70_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_161:
    \   000013   702F         JNZ     ??ZDSecMgrRemoveDeviceInd_0
    1796            {
@@ -4843,7 +4888,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00002C   12....       LCALL   `??NLME_GetShortAddr::?relay`; Banked call to: NLME_GetShortAddr
    \   00002F   7404         MOV     A,#0x4
    \   000031   12....       LCALL   ?XSTACK_DISP0_8
-   \   000034   12....       LCALL   ??Subroutine66_0 & 0xFFFF
+   \   000034   12....       LCALL   ??Subroutine65_0 & 0xFFFF
    1801                device.extAddr    = ind->childExtAddr;
    1802          
    1803                // remove device
@@ -4856,7 +4901,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00003B   F0           MOVX    @DPTR,A
    \   00003C   A3           INC     DPTR
    \   00003D   EF           MOV     A,R7
-   \   00003E   12....       LCALL   ??Subroutine65_0 & 0xFFFF
+   \   00003E   12....       LCALL   ??Subroutine64_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_138:
    \   000041   12....       LCALL   `??ZDSecMgrDeviceRemove::?relay`; Banked call to: ZDSecMgrDeviceRemove
    1807          }
@@ -5062,7 +5107,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00004E   7409         MOV     A,#0x9
    \   000050   12....       LCALL   ?XSTACK_DISP0_8
    \   000053   E4           CLR     A
-   \   000054   12....       LCALL   ??Subroutine65_0 & 0xFFFF
+   \   000054   12....       LCALL   ??Subroutine64_0 & 0xFFFF
    1906              status = APSME_TransportKeyReq( &req );
    1907            }
    \                     ??CrossCallReturnLabel_139:
@@ -5117,7 +5162,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    1932          
    1933            // initialize common elements of local variables
    1934            req.dstAddr = dstAddr;
-   \   00000C   12....       LCALL   ?Subroutine19 & 0xFFFF
+   \   00000C   12....       LCALL   ?Subroutine18 & 0xFFFF
    1935            req.keySeqNum = keySeqNum;
    \                     ??CrossCallReturnLabel_143:
    \   00000F   12....       LCALL   ?XSTACK_DISP0_8
@@ -5157,7 +5202,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000014   7403         MOV     A,#0x3
    \   000016   12....       LCALL   ?XSTACK_DISP0_8
    \   000019   E4           CLR     A
-   \   00001A   12....       LCALL   ??Subroutine65_0 & 0xFFFF
+   \   00001A   12....       LCALL   ??Subroutine64_0 & 0xFFFF
    1967              status = APSME_SwitchKeyReq( &req );
    1968            }
    \                     ??CrossCallReturnLabel_140:
@@ -5220,14 +5265,14 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    1995          
    1996            req.partExtAddr = partExtAddr;
    \   000018   12....       LCALL   ?XSTACK_DISP0_8
-   \   00001B   12....       LCALL   ?Subroutine14 & 0xFFFF
+   \   00001B   12....       LCALL   ?Subroutine13 & 0xFFFF
    1997            status = APSME_RequestKeyReq( &req );
    1998          
    1999            return status;
    \                     ??CrossCallReturnLabel_134:
    \   00001E   12....       LCALL   `??APSME_RequestKeyReq::?relay`; Banked call to: APSME_RequestKeyReq
    \   000021   7404         MOV     A,#0x4
-   \   000023   02....       LJMP    ??Subroutine64_0 & 0xFFFF
+   \   000023   02....       LJMP    ??Subroutine57_0 & 0xFFFF
    2000          }
    2001          
    2002          #if ( ZG_BUILD_JOINING_TYPE )
@@ -5275,7 +5320,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    2021            entry.nwkAddr = partNwkAddr;
    \   00001E   14           DEC     A
    \   00001F   12....       LCALL   ?XSTACK_DISP0_8
-   \   000022   12....       LCALL   ?Subroutine18 & 0xFFFF
+   \   000022   12....       LCALL   ?Subroutine17 & 0xFFFF
    2022            AddrMgrExtAddrSet( entry.extAddr, partExtAddr );
    \                     ??CrossCallReturnLabel_6:
    \   000025   12....       LCALL   ?XSTACK_DISP0_8
@@ -5346,7 +5391,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \                     ??ZDSecMgrSetupPartner_0:
    \   000073   A9..         MOV     R1,?V0
    \   000075   740D         MOV     A,#0xd
-   \   000077   02....       LJMP    ??Subroutine73_0 & 0xFFFF
+   \   000077   02....       LJMP    ??Subroutine72_0 & 0xFFFF
    2040          }
    2041          #endif // ( ZG_BUILD_JOINING_TYPE )
    2042          
@@ -5389,7 +5434,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000012   7402         MOV     A,#0x2
    2063            }
    \                     ??ZDSecMgrAppKeyTypeSet_1:
-   \   000014   02....       LJMP    ?Subroutine8 & 0xFFFF
+   \   000014   02....       LJMP    ?Subroutine7 & 0xFFFF
    2064          
    2065            return ZSuccess;
    2066          }
@@ -5431,7 +5476,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000005                ; Auto size: 13
    \   000005   74F3         MOV     A,#-0xd
    \   000007   12....       LCALL   ?ALLOC_XSTACK8
-   \   00000A   12....       LCALL   ?Subroutine12 & 0xFFFF
+   \   00000A   12....       LCALL   ?Subroutine11 & 0xFFFF
    2086            ZStatus_t status;
    2087            ZDSecMgrEntry_t* entry;
    2088            APSME_LinkKeyData_t *pApsLinkKey = NULL;
@@ -5453,10 +5498,10 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000021   702B         JNZ     ??APSME_LinkKeySet_0
    \   000023   740B         MOV     A,#0xb
    \   000025   12....       LCALL   ?XSTACK_DISP0_8
-   \   000028   12....       LCALL   ?Subroutine24 & 0xFFFF
+   \   000028   12....       LCALL   ?Subroutine23 & 0xFFFF
    \                     ??CrossCallReturnLabel_16:
    \   00002B   6021         JZ      ??APSME_LinkKeySet_0
-   \   00002D   12....       LCALL   ?Subroutine25 & 0xFFFF
+   \   00002D   12....       LCALL   ?Subroutine24 & 0xFFFF
    \                     ??CrossCallReturnLabel_187:
    \   000030   8A82         MOV     DPL,R2
    \   000032   8B83         MOV     DPH,R3
@@ -5479,14 +5524,14 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000046   5001         JNC     ??APSME_LinkKeySet_4
    \   000048   0B           INC     R3
    \                     ??APSME_LinkKeySet_4:
-   \   000049   12....       LCALL   ?Subroutine37 & 0xFFFF
+   \   000049   12....       LCALL   ?Subroutine36 & 0xFFFF
    \                     ??CrossCallReturnLabel_50:
    \   00004C   40E2         JC      ??CrossCallReturnLabel_187
    \                     ??APSME_LinkKeySet_0:
    \   00004E   75..C8       MOV     ?V2,#-0x38
    \   000051   02....       LJMP    ??CrossCallReturnLabel_149 & 0xFFFF
    \                     ??APSME_LinkKeySet_2:
-   \   000054   12....       LCALL   ?Subroutine38 & 0xFFFF
+   \   000054   12....       LCALL   ?Subroutine37 & 0xFFFF
    \                     ??CrossCallReturnLabel_58:
    \   000057   75..00       MOV     ?V2,#0x0
    2093          
@@ -5508,7 +5553,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00006A   F9           MOV     R1,A
    \   00006B   85..82       MOV     DPL,?V4
    \   00006E   85..83       MOV     DPH,?V5
-   \   000071   12....       LCALL   ??Subroutine54_0 & 0xFFFF
+   \   000071   12....       LCALL   ??Subroutine53_0 & 0xFFFF
    2098          
    2099              pApsLinkKey = (APSME_LinkKeyData_t *)osal_mem_alloc(sizeof(APSME_LinkKeyData_t));
    \                     ??CrossCallReturnLabel_107:
@@ -5539,7 +5584,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000099   7D00         MOV     R5,#0x0
    \   00009B   85..82       MOV     DPL,?V4
    \   00009E   85..83       MOV     DPH,?V5
-   \   0000A1   12....       LCALL   ??Subroutine72_0 & 0xFFFF
+   \   0000A1   12....       LCALL   ??Subroutine71_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_179:
    \   0000A4   12....       LCALL   `??osal_nv_read::?relay`; Banked call to: osal_nv_read
    \   0000A7   7404         MOV     A,#0x4
@@ -5563,12 +5608,12 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    2109                pApsLinkKey->rxFrmCntr = 0;
    \   0000C8   E5..         MOV     A,?V0
    \   0000CA   2414         ADD     A,#0x14
-   \   0000CC   12....       LCALL   ?Subroutine13 & 0xFFFF
+   \   0000CC   12....       LCALL   ?Subroutine12 & 0xFFFF
    2110                pApsLinkKey->txFrmCntr = 0;
    \                     ??CrossCallReturnLabel_150:
    \   0000CF   E5..         MOV     A,?V0
    \   0000D1   2410         ADD     A,#0x10
-   \   0000D3   12....       LCALL   ?Subroutine13 & 0xFFFF
+   \   0000D3   12....       LCALL   ?Subroutine12 & 0xFFFF
    2111          
    2112                osal_nv_write( entry->keyNvId, 0,
    2113                              sizeof(APSME_LinkKeyData_t), pApsLinkKey );
@@ -5582,7 +5627,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   0000E2   7D00         MOV     R5,#0x0
    \   0000E4   85..82       MOV     DPL,?V4
    \   0000E7   85..83       MOV     DPH,?V5
-   \   0000EA   12....       LCALL   ??Subroutine72_0 & 0xFFFF
+   \   0000EA   12....       LCALL   ??Subroutine71_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_180:
    \   0000ED   12....       LCALL   `??osal_nv_write::?relay`; Banked call to: osal_nv_write
    \   0000F0   7404         MOV     A,#0x4
@@ -5628,7 +5673,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00012C   F582         MOV     DPL,A
    \   00012E   EB           MOV     A,R3
    \   00012F   34ED         ADDC    A,#-0x13
-   \   000131   12....       LCALL   ??Subroutine67_0 & 0xFFFF
+   \   000131   12....       LCALL   ??Subroutine66_0 & 0xFFFF
    2119          
    2120                // set initial values for counters in RAM
    2121                ApsLinkKeyFrmCntr[entry->keyNvId - ZCD_NV_APS_LINK_KEY_DATA_START].txFrmCntr = 0;
@@ -5639,7 +5684,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000137   F582         MOV     DPL,A
    \   000139   EB           MOV     A,R3
    \   00013A   34ED         ADDC    A,#-0x13
-   \   00013C   12....       LCALL   ??Subroutine67_0 & 0xFFFF
+   \   00013C   12....       LCALL   ??Subroutine66_0 & 0xFFFF
    2123              }
    2124            }
    2125          
@@ -5653,21 +5698,21 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    2127          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine13:
+   \                     ?Subroutine12:
    \   000000   F582         MOV     DPL,A
    \   000002   E4           CLR     A
    \   000003   35..         ADDC    A,?V1
-   \   000005                REQUIRE ??Subroutine67_0
-   \   000005                ; // Fall through to label ??Subroutine67_0
+   \   000005                REQUIRE ??Subroutine66_0
+   \   000005                ; // Fall through to label ??Subroutine66_0
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ??Subroutine66_0:
+   \   000000   F583         MOV     DPH,A
+   \   000002                REQUIRE ??Subroutine67_0
+   \   000002                ; // Fall through to label ??Subroutine67_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ??Subroutine67_0:
-   \   000000   F583         MOV     DPH,A
-   \   000002                REQUIRE ??Subroutine68_0
-   \   000002                ; // Fall through to label ??Subroutine68_0
-
-   \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine68_0:
    \   000000   E4           CLR     A
    \   000001   F0           MOVX    @DPTR,A
    \   000002   A3           INC     DPTR
@@ -5709,7 +5754,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    2145            // lookup entry index for specified EXT address
    2146            status = ZDSecMgrEntryLookupExt( extAddr, &entry );
    \   00000C   7EC8         MOV     R6,#-0x38
-   \   00000E   12....       LCALL   ??Subroutine70_0 & 0xFFFF
+   \   00000E   12....       LCALL   ??Subroutine69_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_158:
    \   000011   12....       LCALL   ?XSTACK_DISP0_8
    \   000014   AA82         MOV     R2,DPL
@@ -5724,10 +5769,10 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000025   7043         JNZ     ??ZDSecMgrAuthenticationSet_0
    \   000027   740B         MOV     A,#0xb
    \   000029   12....       LCALL   ?XSTACK_DISP0_8
-   \   00002C   12....       LCALL   ?Subroutine24 & 0xFFFF
+   \   00002C   12....       LCALL   ?Subroutine23 & 0xFFFF
    \                     ??CrossCallReturnLabel_17:
    \   00002F   6039         JZ      ??ZDSecMgrAuthenticationSet_0
-   \   000031   12....       LCALL   ?Subroutine25 & 0xFFFF
+   \   000031   12....       LCALL   ?Subroutine24 & 0xFFFF
    \                     ??CrossCallReturnLabel_188:
    \   000034   8A82         MOV     DPL,R2
    \   000036   8B83         MOV     DPH,R3
@@ -5750,7 +5795,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00004A   5001         JNC     ??ZDSecMgrAuthenticationSet_4
    \   00004C   0B           INC     R3
    \                     ??ZDSecMgrAuthenticationSet_4:
-   \   00004D   12....       LCALL   ?Subroutine37 & 0xFFFF
+   \   00004D   12....       LCALL   ?Subroutine36 & 0xFFFF
    \                     ??CrossCallReturnLabel_51:
    \   000050   5018         JNC     ??ZDSecMgrAuthenticationSet_0
    \   000052   80E0         SJMP    ??CrossCallReturnLabel_188
@@ -5770,7 +5815,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000062   A4           MUL     AB
    \   000063   2A           ADD     A,R2
    \   000064   F9           MOV     R1,A
-   \   000065   12....       LCALL   ?Subroutine28 & 0xFFFF
+   \   000065   12....       LCALL   ?Subroutine27 & 0xFFFF
    2151            }
    \                     ??CrossCallReturnLabel_25:
    \   000068   EF           MOV     A,R7
@@ -5884,7 +5929,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    2234            // lookup entry index for specified NWK address
    2235            status = ZDSecMgrEntryLookupExt( extAddr, &entry );
    \   00000E   75..C8       MOV     ?V0,#-0x38
-   \   000011   12....       LCALL   ??Subroutine70_0 & 0xFFFF
+   \   000011   12....       LCALL   ??Subroutine69_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_159:
    \   000014   12....       LCALL   ?XSTACK_DISP0_8
    \   000017   AA82         MOV     R2,DPL
@@ -5899,10 +5944,10 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000028   702B         JNZ     ??APSME_LinkKeyNVIdGet_0
    \   00002A   740B         MOV     A,#0xb
    \   00002C   12....       LCALL   ?XSTACK_DISP0_8
-   \   00002F   12....       LCALL   ?Subroutine24 & 0xFFFF
+   \   00002F   12....       LCALL   ?Subroutine23 & 0xFFFF
    \                     ??CrossCallReturnLabel_18:
    \   000032   6021         JZ      ??APSME_LinkKeyNVIdGet_0
-   \   000034   12....       LCALL   ?Subroutine25 & 0xFFFF
+   \   000034   12....       LCALL   ?Subroutine24 & 0xFFFF
    \                     ??CrossCallReturnLabel_189:
    \   000037   8A82         MOV     DPL,R2
    \   000039   8B83         MOV     DPH,R3
@@ -5925,7 +5970,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00004D   5001         JNC     ??APSME_LinkKeyNVIdGet_4
    \   00004F   0B           INC     R3
    \                     ??APSME_LinkKeyNVIdGet_4:
-   \   000050   12....       LCALL   ?Subroutine37 & 0xFFFF
+   \   000050   12....       LCALL   ?Subroutine36 & 0xFFFF
    \                     ??CrossCallReturnLabel_52:
    \   000053   40E2         JC      ??CrossCallReturnLabel_189
    2236          
@@ -5951,7 +5996,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00005D   02....       LJMP    ?Subroutine2 & 0xFFFF
    \                     ??APSME_LinkKeyNVIdGet_2:
    \   000060   75..00       MOV     ?V0,#0x0
-   \   000063   12....       LCALL   ?Subroutine31 & 0xFFFF
+   \   000063   12....       LCALL   ?Subroutine30 & 0xFFFF
    \                     ??CrossCallReturnLabel_32:
    \   000066   F8           MOV     R0,A
    \   000067   A3           INC     DPTR
@@ -5967,7 +6012,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    2248          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine31:
+   \                     ?Subroutine30:
    \   000000   E8           MOV     A,R0
    \   000001   75F005       MOV     B,#0x5
    \   000004   A4           MUL     AB
@@ -5978,7 +6023,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00000C   A4           MUL     AB
    \   00000D   2A           ADD     A,R2
    \   00000E   F9           MOV     R1,A
-   \   00000F   12....       LCALL   ?Subroutine44 & 0xFFFF
+   \   00000F   12....       LCALL   ?Subroutine43 & 0xFFFF
    \                     ??CrossCallReturnLabel_75:
    \   000012   E0           MOVX    A,@DPTR
    \   000013   22           RET
@@ -6056,11 +6101,11 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000044   02....       LJMP    ??APSME_IsLinkKeyValid_0 & 0xFFFF
    \   000047   740B         MOV     A,#0xb
    \   000049   12....       LCALL   ?XSTACK_DISP0_8
-   \   00004C   12....       LCALL   ?Subroutine24 & 0xFFFF
+   \   00004C   12....       LCALL   ?Subroutine23 & 0xFFFF
    \                     ??CrossCallReturnLabel_19:
    \   00004F   7003         JNZ     $+5
    \   000051   02....       LJMP    ??APSME_IsLinkKeyValid_0 & 0xFFFF
-   \   000054   12....       LCALL   ?Subroutine25 & 0xFFFF
+   \   000054   12....       LCALL   ?Subroutine24 & 0xFFFF
    \                     ??CrossCallReturnLabel_190:
    \   000057   8A82         MOV     DPL,R2
    \   000059   8B83         MOV     DPH,R3
@@ -6083,13 +6128,13 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00006D   5001         JNC     ??APSME_IsLinkKeyValid_4
    \   00006F   0B           INC     R3
    \                     ??APSME_IsLinkKeyValid_4:
-   \   000070   12....       LCALL   ?Subroutine37 & 0xFFFF
+   \   000070   12....       LCALL   ?Subroutine36 & 0xFFFF
    \                     ??CrossCallReturnLabel_53:
    \   000073   4003         JC      $+5
    \   000075   02....       LJMP    ??APSME_IsLinkKeyValid_0 & 0xFFFF
    \   000078   80DD         SJMP    ??CrossCallReturnLabel_190
    \                     ??APSME_IsLinkKeyValid_2:
-   \   00007A   12....       LCALL   ?Subroutine31 & 0xFFFF
+   \   00007A   12....       LCALL   ?Subroutine30 & 0xFFFF
    \                     ??CrossCallReturnLabel_31:
    \   00007D   FE           MOV     R6,A
    \   00007E   A3           INC     DPTR
@@ -6216,7 +6261,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    2312            if ( ind->srcAddr == APSME_TRUSTCENTER_NWKADDR )
    \   000005   8A82         MOV     DPL,R2
    \   000007   8B83         MOV     DPH,R3
-   \   000009   12....       LCALL   ??Subroutine71_0 & 0xFFFF
+   \   000009   12....       LCALL   ??Subroutine70_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_162:
    \   00000C   7033         JNZ     ??APSME_KeyFwdToChild_0
    2313            {
@@ -6248,7 +6293,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000027   A3           INC     DPTR
    \   000028   A3           INC     DPTR
    \   000029   A3           INC     DPTR
-   \   00002A   12....       LCALL   ??Subroutine72_0 & 0xFFFF
+   \   00002A   12....       LCALL   ??Subroutine71_0 & 0xFFFF
    2320              }
    \                     ??CrossCallReturnLabel_181:
    \   00002D   12....       LCALL   `??AssocGetWithExt::?relay`; Banked call to: AssocGetWithExt
@@ -6257,7 +6302,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000034   E582         MOV     A,DPL
    \   000036   4583         ORL     A,DPH
    \   000038   6003         JZ      ??CrossCallReturnLabel_117
-   \   00003A   12....       LCALL   ?Subroutine35 & 0xFFFF
+   \   00003A   12....       LCALL   ?Subroutine34 & 0xFFFF
    2321          
    2322              return TRUE;
    \                     ??CrossCallReturnLabel_117:
@@ -6269,7 +6314,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \                     ??APSME_KeyFwdToChild_0:
    \   000041   7900         MOV     R1,#0x0
    \                     ??APSME_KeyFwdToChild_2:
-   \   000043   02....       LJMP    ??Subroutine56_0 & 0xFFFF
+   \   000043   02....       LJMP    ??Subroutine55_0 & 0xFFFF
    2326          }
    2327          
    2328          /******************************************************************************
@@ -6312,7 +6357,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000016   F0           MOVX    @DPTR,A
    \   000017   14           DEC     A
    \   000018   12....       LCALL   ?XSTACK_DISP0_8
-   \   00001B   12....       LCALL   ?Subroutine18 & 0xFFFF
+   \   00001B   12....       LCALL   ?Subroutine17 & 0xFFFF
    \                     ??CrossCallReturnLabel_7:
    \   00001E   12....       LCALL   ?XSTACK_DISP0_8
    \   000021   AA82         MOV     R2,DPL
@@ -6327,10 +6372,10 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000032   702D         JNZ     ??ZDSecMgrAddLinkKey_0
    \   000034   740B         MOV     A,#0xb
    \   000036   12....       LCALL   ?XSTACK_DISP0_8
-   \   000039   12....       LCALL   ?Subroutine24 & 0xFFFF
+   \   000039   12....       LCALL   ?Subroutine23 & 0xFFFF
    \                     ??CrossCallReturnLabel_14:
    \   00003C   6050         JZ      ??ZDSecMgrAddLinkKey_1
-   \   00003E   12....       LCALL   ?Subroutine25 & 0xFFFF
+   \   00003E   12....       LCALL   ?Subroutine24 & 0xFFFF
    \                     ??CrossCallReturnLabel_191:
    \   000041   8A82         MOV     DPL,R2
    \   000043   8B83         MOV     DPH,R3
@@ -6353,7 +6398,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000057   5001         JNC     ??ZDSecMgrAddLinkKey_5
    \   000059   0B           INC     R3
    \                     ??ZDSecMgrAddLinkKey_5:
-   \   00005A   12....       LCALL   ?Subroutine37 & 0xFFFF
+   \   00005A   12....       LCALL   ?Subroutine36 & 0xFFFF
    \                     ??CrossCallReturnLabel_54:
    \   00005D   500D         JNC     ??ZDSecMgrAddLinkKey_6
    \   00005F   80E0         SJMP    ??CrossCallReturnLabel_191
@@ -6371,13 +6416,13 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    2356            // If no existing entry, create one
    2357            if ( entry == NULL )
    \                     ??ZDSecMgrAddLinkKey_3:
-   \   000065   12....       LCALL   ?Subroutine27 & 0xFFFF
+   \   000065   12....       LCALL   ?Subroutine26 & 0xFFFF
    \                     ??CrossCallReturnLabel_22:
    \   000068   E8           MOV     A,R0
    \   000069   49           ORL     A,R1
    \   00006A   7039         JNZ     ??ZDSecMgrAddLinkKey_8
    \                     ??ZDSecMgrAddLinkKey_6:
-   \   00006C   12....       LCALL   ?Subroutine25 & 0xFFFF
+   \   00006C   12....       LCALL   ?Subroutine24 & 0xFFFF
    \                     ??CrossCallReturnLabel_192:
    \   00006F   8A82         MOV     DPL,R2
    \   000071   8B83         MOV     DPH,R3
@@ -6400,7 +6445,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000086   5001         JNC     ??ZDSecMgrAddLinkKey_12
    \   000088   0B           INC     R3
    \                     ??ZDSecMgrAddLinkKey_12:
-   \   000089   12....       LCALL   ?Subroutine37 & 0xFFFF
+   \   000089   12....       LCALL   ?Subroutine36 & 0xFFFF
    \                     ??CrossCallReturnLabel_55:
    \   00008C   40E1         JC      ??CrossCallReturnLabel_192
    2358            {
@@ -6418,7 +6463,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    2367              }
    2368            }
    \                     ??ZDSecMgrAddLinkKey_10:
-   \   000092   12....       LCALL   ?Subroutine27 & 0xFFFF
+   \   000092   12....       LCALL   ?Subroutine26 & 0xFFFF
    \                     ??CrossCallReturnLabel_23:
    \   000095   8882         MOV     DPL,R0
    \   000097   8983         MOV     DPH,R1
@@ -6426,7 +6471,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00009A   A3           INC     DPTR
    \   00009B   A3           INC     DPTR
    \   00009C   A3           INC     DPTR
-   \   00009D   12....       LCALL   ?Subroutine23 & 0xFFFF
+   \   00009D   12....       LCALL   ?Subroutine22 & 0xFFFF
    \                     ??CrossCallReturnLabel_90:
    \   0000A0   EC           MOV     A,R4
    \   0000A1   F0           MOVX    @DPTR,A
@@ -6439,7 +6484,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   0000A5                ; Setup parameters for call to function APSME_LinkKeySet
    \   0000A5   7416         MOV     A,#0x16
    \   0000A7   12....       LCALL   ?XSTACK_DISP0_8
-   \   0000AA   12....       LCALL   ?Subroutine34 & 0xFFFF
+   \   0000AA   12....       LCALL   ?Subroutine33 & 0xFFFF
    \                     ??CrossCallReturnLabel_40:
    \   0000AD   EE           MOV     A,R6
    \   0000AE   FA           MOV     R2,A
@@ -6509,7 +6554,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    2401            {
    2402              nvDeviceListHdr_t hdr;
    2403              hdr.numRecs = 0;
-   \   000028   12....       LCALL   ?Subroutine17 & 0xFFFF
+   \   000028   12....       LCALL   ?Subroutine16 & 0xFFFF
    2404              osal_nv_write(ZCD_NV_APS_LINK_KEY_TABLE, 0, sizeof(nvDeviceListHdr_t), &hdr);
    2405            }
    \                     ??CrossCallReturnLabel_2:
@@ -6547,11 +6592,11 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000065   4E           ORL     A,R6
    \   000066   F9           MOV     R1,A
    \   000067   7402         MOV     A,#0x2
-   \   000069   02....       LJMP    ??Subroutine55_0 & 0xFFFF
+   \   000069   02....       LJMP    ??Subroutine54_0 & 0xFFFF
    2411          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine17:
+   \                     ?Subroutine16:
    \   000000   85..82       MOV     DPL,?XSP + 0
    \   000003   85..83       MOV     DPH,?XSP + 1
    \   000006   E4           CLR     A
@@ -6706,7 +6751,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    2536          
    2537            // Initialize the header
    2538            hdr.numRecs = 0;
-   \   00000A   12....       LCALL   ?Subroutine17 & 0xFFFF
+   \   00000A   12....       LCALL   ?Subroutine16 & 0xFFFF
    2539          
    2540            // clear the header
    2541            osal_nv_write(ZCD_NV_APS_LINK_KEY_TABLE, 0, sizeof(nvDeviceListHdr_t), &hdr);
@@ -6841,7 +6886,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    2568          }
    \                     ??ZDSecMgrSetDefaultNV_1:
    \   0000C8   7407         MOV     A,#0x7
-   \   0000CA   80..         SJMP    ??Subroutine73_0
+   \   0000CA   80..         SJMP    ??Subroutine72_0
    2569          
    2570          #if defined ( NV_RESTORE )
    2571          /*********************************************************************
@@ -6942,7 +6987,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    2633          
    2634            device.nwkAddr = nwkAddr;
    \                     ??ZDSecMgrAPSRemove_3:
-   \   00002D   12....       LCALL   ?Subroutine19 & 0xFFFF
+   \   00002D   12....       LCALL   ?Subroutine18 & 0xFFFF
    2635            device.extAddr = extAddr;
    \                     ??CrossCallReturnLabel_144:
    \   000030   12....       LCALL   ?XSTACK_DISP0_8
@@ -6958,7 +7003,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00003E   F0           MOVX    @DPTR,A
    \   00003F   A3           INC     DPTR
    \   000040   E9           MOV     A,R1
-   \   000041   12....       LCALL   ??Subroutine65_0 & 0xFFFF
+   \   000041   12....       LCALL   ??Subroutine64_0 & 0xFFFF
    2637          
    2638            // remove device
    2639            ZDSecMgrDeviceRemove( &device );
@@ -6968,7 +7013,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    2641            return ( ZSuccess );
    \   000047   7900         MOV     R1,#0x0
    \                     ??ZDSecMgrAPSRemove_4:
-   \   000049   02....       LJMP    ?Subroutine7 & 0xFFFF
+   \   000049   02....       LJMP    ?Subroutine1 & 0xFFFF
    2642          }
    2643          
    2644          /******************************************************************************
@@ -7107,12 +7152,12 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    2701                tcLinkKey.txFrmCntr = 0;
    \   00008F   7418         MOV     A,#0x18
    \   000091   12....       LCALL   ?XSTACK_DISP0_8
-   \   000094   12....       LCALL   ??Subroutine68_0 & 0xFFFF
+   \   000094   12....       LCALL   ??Subroutine67_0 & 0xFFFF
    2702                tcLinkKey.rxFrmCntr = 0;
    \                     ??CrossCallReturnLabel_146:
    \   000097   741C         MOV     A,#0x1c
    \   000099   12....       LCALL   ?XSTACK_DISP0_8
-   \   00009C   12....       LCALL   ??Subroutine68_0 & 0xFFFF
+   \   00009C   12....       LCALL   ??Subroutine67_0 & 0xFFFF
    2703          #endif  // NV_RESTORE
    2704          
    2705                osal_nv_write( ( ZCD_NV_TCLK_TABLE_START + i), 0,
@@ -7321,7 +7366,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   000096   E5..         MOV     A,?V6
    \   000098   45..         ORL     A,?V7
    \   00009A   6010         JZ      ??APSME_TCLinkKeySync_2
-   \   00009C   12....       LCALL   ?Subroutine40 & 0xFFFF
+   \   00009C   12....       LCALL   ?Subroutine39 & 0xFFFF
    2767                {
    2768                  //if a Key is received directly from an unusual TC,
    2769                  // don't use the first element of the table initialized with the default TCLK
@@ -7354,7 +7399,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    2784                tclkRxFrmCntr = &TCLinkKeyFrmCntr[selectedId].rxFrmCntr;
    2785          
    2786                if ( si->frmCntr >= *tclkRxFrmCntr )
-   \   0000B2   12....       LCALL   ?Subroutine41 & 0xFFFF
+   \   0000B2   12....       LCALL   ?Subroutine40 & 0xFFFF
    \                     ??CrossCallReturnLabel_64:
    \   0000B5   78..         MOV     R0,#?V4
    \   0000B7   12....       LCALL   ?L_MOV_X
@@ -7365,7 +7410,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    2787                {
    2788                  // set the keyNvId to use
    2789                  si->keyNvId = (ZCD_NV_TCLK_TABLE_START + selectedId);
-   \   0000C4   12....       LCALL   ?Subroutine36 & 0xFFFF
+   \   0000C4   12....       LCALL   ?Subroutine35 & 0xFFFF
    2790          
    2791                  // update the rx frame counter
    2792                  *tclkRxFrmCntr = si->frmCntr + 1;
@@ -7393,7 +7438,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    2803                // set the keyNvId to use
    2804                si->keyNvId = (ZCD_NV_TCLK_TABLE_START + selectedId);
    \                     ??APSME_TCLinkKeySync_4:
-   \   0000DE   12....       LCALL   ?Subroutine36 & 0xFFFF
+   \   0000DE   12....       LCALL   ?Subroutine35 & 0xFFFF
    2805          
    2806                status = ZSuccess;
    \                     ??CrossCallReturnLabel_42:
@@ -7421,7 +7466,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    2814          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine41:
+   \                     ?Subroutine40:
    \   000000   E5..         MOV     A,?V0
    \   000002   2412         ADD     A,#0x12
    \   000004   F582         MOV     DPL,A
@@ -7431,7 +7476,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00000B   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine40:
+   \                     ?Subroutine39:
    \   000000   E5..         MOV     A,?V0
    \   000002   240E         ADD     A,#0xe
    \   000004   F582         MOV     DPL,A
@@ -7441,7 +7486,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \   00000B   22           RET
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine36:
+   \                     ?Subroutine35:
    \   000000   E5..         MOV     A,?V0
    \   000002   240F         ADD     A,#0xf
    \   000004   F582         MOV     DPL,A
@@ -7607,19 +7652,19 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    2881          
    2882              // set the keyNvId to use
    2883              si->keyNvId = (ZCD_NV_TCLK_TABLE_START + i);
-   \   000086   12....       LCALL   ?Subroutine36 & 0xFFFF
+   \   000086   12....       LCALL   ?Subroutine35 & 0xFFFF
    2884          
    2885              // update link key related fields
    2886              si->keyID   = SEC_KEYID_LINK;
    \                     ??CrossCallReturnLabel_43:
-   \   000089   12....       LCALL   ?Subroutine40 & 0xFFFF
+   \   000089   12....       LCALL   ?Subroutine39 & 0xFFFF
    \                     ??CrossCallReturnLabel_63:
    \   00008C   E4           CLR     A
    \   00008D   F0           MOVX    @DPTR,A
    2887              si->frmCntr = *tclkTxFrmCntr;
    \   00008E   90....       MOV     DPTR,#TCLinkKeyFrmCntr
    \   000091   12....       LCALL   ?XLOAD_R0123
-   \   000094   12....       LCALL   ?Subroutine41 & 0xFFFF
+   \   000094   12....       LCALL   ?Subroutine40 & 0xFFFF
    \                     ??CrossCallReturnLabel_65:
    \   000097   12....       LCALL   ?XSTORE_R0123
    2888          
@@ -7910,7 +7955,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    3013          }
    \                     ??ZDSecMgrNwkKeyInit_2:
    \   0000E6   7426         MOV     A,#0x26
-   \   0000E8   02....       LJMP    ??Subroutine55_0 & 0xFFFF
+   \   0000E8   02....       LJMP    ??Subroutine54_0 & 0xFFFF
    3014          
    3015          /*********************************************************************
    3016           * @fn          ZDSecMgrReadKeyFromNv
@@ -8007,7 +8052,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    3055                     (keyNvId < (ZCD_NV_APS_LINK_KEY_DATA_START + ZDSECMGR_ENTRY_MAX)))
    \                     ??ZDSecMgrReadKeyFromNv_4:
    \   00004F   19           DEC     R1
-   \   000050   12....       LCALL   ?Subroutine37 & 0xFFFF
+   \   000050   12....       LCALL   ?Subroutine36 & 0xFFFF
    \                     ??CrossCallReturnLabel_56:
    \   000053   501A         JNC     ??ZDSecMgrReadKeyFromNv_5
    3056            {
@@ -8067,7 +8112,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    \                     ??ZDSecMgrReadKeyFromNv_7:
    \   00009B   790A         MOV     R1,#0xa
    \                     ??ZDSecMgrReadKeyFromNv_8:
-   \   00009D   02....       LJMP    ??Subroutine56_0 & 0xFFFF
+   \   00009D   02....       LJMP    ??Subroutine55_0 & 0xFFFF
    3074          }
    3075          
    3076          /******************************************************************************
@@ -8541,7 +8586,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    3219            }
    3220          }
    \                     ??ZDSecMgrSaveTCLinkKey_0:
-   \   00009E   02....       LJMP    ??Subroutine74_0 & 0xFFFF
+   \   00009E   02....       LJMP    ??Subroutine73_0 & 0xFFFF
    3221          
    3222          /******************************************************************************
    3223           * @fn          ZDSecMgrUpdateTCAddress
@@ -8595,7 +8640,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    3236            osal_nv_write( ZCD_NV_TRUSTCENTER_ADDR, 0, Z_EXTADDR_LEN, zgApsTrustCenterAddr );
    3237          #endif
    3238          }
-   \   000033   02....       LJMP    ?Subroutine9 & 0xFFFF
+   \   000033   02....       LJMP    ?Subroutine8 & 0xFFFF
 
    \                                 In  segment XDATA_ID, align 1, keep-with-next
    \                     `?<Initializer for ZDSecMgrAppKeyType>`:
@@ -9078,7 +9123,10 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
         0     22   -> AddrMgrEntryLookupExt
         0     22   -> AddrMgrExtAddrSet
       2      0   ZDSecMgrConfig
-        2      0   -> APSME_SecurityNM
+        2      0   -> APSME_SecurityRM_CD
+        2      0   -> APSME_SecurityRM_ED
+        2      0   -> APSME_SecurityRM_RD
+        2      0   -> SSP_Init
       0     76   ZDSecMgrDeviceJoin
         0     38   -> AddrMgrEntryUpdate
         0     38   -> AddrMgrExtAddrSet
@@ -9133,7 +9181,11 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
         0     22   -> AddrMgrEntryUpdate
         0     22   -> AddrMgrExtAddrSet
       2      0   ZDSecMgrInit
-        2      0   -> APSME_SecurityNM
+        2      0   -> APSME_IsDistributedSecurity
+        2      0   -> APSME_SecurityRM_CD
+        2      0   -> APSME_SecurityRM_ED
+        2      0   -> APSME_SecurityRM_RD
+        2      0   -> SSP_Init
       0     16   ZDSecMgrInitNV
         0     14   -> osal_nv_item_init
         0     16   -> osal_nv_write
@@ -9235,16 +9287,17 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
    -----  --------------
        8  ?<Constant {255, 255, 255, 255, 255, 255, 255,
        1  ?<Initializer for ZDSecMgrAppKeyType>
-       5  ??Subroutine48_0
-       8  ??Subroutine49_0
-       3  ??Subroutine50_0
-       5  ??Subroutine51_0
+       5  ??Subroutine47_0
+       8  ??Subroutine48_0
+       3  ??Subroutine49_0
+       5  ??Subroutine50_0
+       6  ??Subroutine51_0
        6  ??Subroutine52_0
        6  ??Subroutine53_0
-       6  ??Subroutine54_0
-       3  ??Subroutine55_0
+       3  ??Subroutine54_0
+       5  ??Subroutine55_0
        5  ??Subroutine56_0
-       5  ??Subroutine57_0
+       3  ??Subroutine57_0
        7  ??Subroutine58_0
        5  ??Subroutine59_0
        4  ??Subroutine60_0
@@ -9252,64 +9305,62 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
        3  ??Subroutine62_0
        5  ??Subroutine63_0
        6  ??Subroutine64_0
-       6  ??Subroutine65_0
-       8  ??Subroutine66_0
-       2  ??Subroutine67_0
-       9  ??Subroutine68_0
-       8  ??Subroutine69_0
-      16  ??Subroutine70_0
-       4  ??Subroutine71_0
-       6  ??Subroutine72_0
-       3  ??Subroutine73_0
-       5  ??Subroutine74_0
+       8  ??Subroutine65_0
+       2  ??Subroutine66_0
+       9  ??Subroutine67_0
+       8  ??Subroutine68_0
+      16  ??Subroutine69_0
+       4  ??Subroutine70_0
+       6  ??Subroutine71_0
+       3  ??Subroutine72_0
+       5  ??Subroutine73_0
        2  ?Subroutine0
-       7  ?Subroutine1
-       5  ?Subroutine10
+       2  ?Subroutine1
+       4  ?Subroutine10
        4  ?Subroutine11
-       4  ?Subroutine12
-       5  ?Subroutine13
+       5  ?Subroutine12
+       4  ?Subroutine13
        4  ?Subroutine14
-       4  ?Subroutine15
-      15  ?Subroutine16
-      21  ?Subroutine17
-       8  ?Subroutine18
-       6  ?Subroutine19
+      15  ?Subroutine15
+      21  ?Subroutine16
+       8  ?Subroutine17
+       6  ?Subroutine18
+      24  ?Subroutine19
        4  ?Subroutine2
-      24  ?Subroutine20
-      15  ?Subroutine21
-       3  ?Subroutine22
-       1  ?Subroutine23
-       9  ?Subroutine24
-       7  ?Subroutine25
-       3  ?Subroutine26
-       5  ?Subroutine27
-       6  ?Subroutine28
-      12  ?Subroutine29
+      15  ?Subroutine20
+       3  ?Subroutine21
+       1  ?Subroutine22
+       9  ?Subroutine23
+       7  ?Subroutine24
+       3  ?Subroutine25
+       5  ?Subroutine26
+       6  ?Subroutine27
+      12  ?Subroutine28
+       9  ?Subroutine29
        3  ?Subroutine3
-       9  ?Subroutine30
-      20  ?Subroutine31
-       6  ?Subroutine32
-       4  ?Subroutine33
-       6  ?Subroutine34
-       5  ?Subroutine35
-      17  ?Subroutine36
-       8  ?Subroutine37
-      30  ?Subroutine38
-       8  ?Subroutine39
+      20  ?Subroutine30
+       6  ?Subroutine31
+       4  ?Subroutine32
+       6  ?Subroutine33
+       5  ?Subroutine34
+      17  ?Subroutine35
+       8  ?Subroutine36
+      30  ?Subroutine37
+       8  ?Subroutine38
+      12  ?Subroutine39
        2  ?Subroutine4
       12  ?Subroutine40
-      12  ?Subroutine41
+       6  ?Subroutine41
        6  ?Subroutine42
-       6  ?Subroutine43
-      16  ?Subroutine44
-       3  ?Subroutine45
-       6  ?Subroutine46
-      25  ?Subroutine47
+      16  ?Subroutine43
+       3  ?Subroutine44
+       6  ?Subroutine45
+      25  ?Subroutine46
        4  ?Subroutine5
        4  ?Subroutine6
-       2  ?Subroutine7
-       6  ?Subroutine8
-       4  ?Subroutine9
+       6  ?Subroutine7
+       4  ?Subroutine8
+       5  ?Subroutine9
       14  APSME_IsDefaultTCLK
        6  APSME_IsDefaultTCLK::?relay
      263  APSME_IsLinkKeyValid
@@ -9354,7 +9405,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
        6  ZDSecMgrAuthenticationCheck::?relay
      109  ZDSecMgrAuthenticationSet
        6  ZDSecMgrAuthenticationSet::?relay
-       2  ZDSecMgrConfig
+      32  ZDSecMgrConfig
        6  ZDSecMgrConfig::?relay
      271  ZDSecMgrDeviceJoin
        6  ZDSecMgrDeviceJoin::?relay
@@ -9393,7 +9444,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
        6  ZDSecMgrExtAddrLookup::?relay
       73  ZDSecMgrExtAddrStore
        6  ZDSecMgrExtAddrStore::?relay
-       2  ZDSecMgrInit
+      55  ZDSecMgrInit
        6  ZDSecMgrInit::?relay
      108  ZDSecMgrInitNV
        6  ZDSecMgrInitNV::?relay
@@ -9403,11 +9454,11 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
        6  ZDSecMgrNewDeviceEvent::?relay
      235  ZDSecMgrNwkKeyInit
        6  ZDSecMgrNwkKeyInit::?relay
-      38  ZDSecMgrPermitJoining
+      39  ZDSecMgrPermitJoining
        6  ZDSecMgrPermitJoining::?relay
        1  ZDSecMgrPermitJoiningEnabled
        1  ZDSecMgrPermitJoiningTimed
-      23  ZDSecMgrPermitJoiningTimeout
+      24  ZDSecMgrPermitJoiningTimeout
        6  ZDSecMgrPermitJoiningTimeout::?relay
      160  ZDSecMgrReadKeyFromNv
        6  ZDSecMgrReadKeyFromNv::?relay
@@ -9439,7 +9490,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
        6  ZDSecMgrTCExtAddrCheck::?relay
      284  ZDSecMgrTransportKeyInd
        6  ZDSecMgrTransportKeyInd::?relay
-      99  ZDSecMgrUpdateDeviceInd
+     102  ZDSecMgrUpdateDeviceInd
        6  ZDSecMgrUpdateDeviceInd::?relay
      108  ZDSecMgrUpdateNwkKey
        6  ZDSecMgrUpdateNwkKey::?relay
@@ -9448,14 +9499,14 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
        4  __Constant_1
 
  
- 7 617 bytes in segment BANKED_CODE
+ 7 695 bytes in segment BANKED_CODE
    378 bytes in segment BANK_RELAYS
      1 byte  in segment XDATA_I
      1 byte  in segment XDATA_ID
     12 bytes in segment XDATA_ROM_C
     81 bytes in segment XDATA_Z
  
- 7 996 bytes of CODE  memory
+ 8 074 bytes of CODE  memory
      8 bytes of CONST memory (+ 4 bytes shared)
     82 bytes of XDATA memory
 

@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V9.20.1.2476 for 8051                13/Mar/2016  22:07:57
+# IAR C/C++ Compiler V9.20.1.2476 for 8051                16/Mar/2016  14:39:13
 # Copyright 2004-2015 IAR Systems AB.
 # Standalone license - IAR Embedded Workbench for 8051
 #
@@ -20,8 +20,8 @@
 #        -DMAC_CFG_TX_DATA_MAX=5 -DMAC_CFG_TX_MAX=8 -DMAC_CFG_RX_MAX=5
 #        -DRTR_NWK) -f
 #        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg
-#        (-DZIGBEEPRO -DSECURE=0 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
-#        -DDEFAULT_CHANLIST=0x04000000 -DZDAPP_CONFIG_PAN_ID=0x0EEE
+#        (-DZIGBEEPRO -DSECURE=1 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
+#        -DDEFAULT_CHANLIST=0x00008000 -DZDAPP_CONFIG_PAN_ID=0x0EEE
 #        -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MASK=0x007F
 #        -DBEACON_REQUEST_DELAY=100 -DBEACON_REQ_DELAY_MASK=0x00FF
 #        -DLINK_STATUS_JITTER_MASK=0x007F -DROUTE_EXPIRY_TIME=30
@@ -29,10 +29,10 @@
 #        -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3
 #        -DNWK_MAX_DATA_RETRIES=2 -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9
 #        -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40 -DNWK_MAX_BINDING_ENTRIES=4
-#        -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01, 0x03, 0x05, 0x07,
-#        0x09, 0x0B, 0x0D, 0x0F, 0x00, 0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C,
-#        0x0D}" -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
-#        "-DCONST=const __code" -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=FALSE
+#        -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x42, 0x61, 0x72, 0x74,
+#        0x20, 0x65, 0x61, 0x20, 0x48, 0x79, 0x6C, 0x63, 0x6F, 0x20, 0x20,
+#        0x20}" -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
+#        "-DCONST=const __code" -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=TRUE
 #        -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100)
 #        -DREJOIN_POLL_RATE=440
 #        C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\nwk\nwk_globals.c
@@ -618,22 +618,22 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\nwk\nwk_globals.c
    \                                 In  segment CODE_C, align 1
     283          CONFIG_ITEM uint8 defaultKey[SEC_KEY_LEN] = DEFAULT_KEY;
    \                     defaultKey:
-   \   000000   01           DB 1
-   \   000001   03           DB 3
-   \   000002   05           DB 5
-   \   000003   07           DB 7
-   \   000004   09           DB 9
-   \   000005   0B           DB 11
-   \   000006   0D           DB 13
-   \   000007   0F           DB 15
-   \   000008   00           DB 0
-   \   000009   02           DB 2
-   \   00000A   04           DB 4
-   \   00000B   06           DB 6
-   \   00000C   08           DB 8
-   \   00000D   0A           DB 10
-   \   00000E   0C           DB 12
-   \   00000F   0D           DB 13
+   \   000000   42           DB 66
+   \   000001   61           DB 97
+   \   000002   72           DB 114
+   \   000003   74           DB 116
+   \   000004   20           DB 32
+   \   000005   65           DB 101
+   \   000006   61           DB 97
+   \   000007   20           DB 32
+   \   000008   48           DB 72
+   \   000009   79           DB 121
+   \   00000A   6C           DB 108
+   \   00000B   63           DB 99
+   \   00000C   6F           DB 111
+   \   00000D   20           DB 32
+   \   00000E   20           DB 32
+   \   00000F   20           DB 32
     284          #else
     285          CONST uint8 defaultKey[SEC_KEY_LEN] =
     286          {
@@ -863,7 +863,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\nwk\nwk_globals.c
    \   000047   F0           MOVX    @DPTR,A
     408            _NIB.SecureAllFrames = USE_NWK_SECURITY;
    \   000048   90....       MOV     DPTR,#_NIB + 11
-   \   00004B   7400         MOV     A,#0x0
+   \   00004B   7401         MOV     A,#0x1
    \   00004D   F0           MOVX    @DPTR,A
     409            _NIB.nwkAllFresh = NWK_ALL_FRESH;
    \   00004E   90....       MOV     DPTR,#_NIB + 104
@@ -873,13 +873,13 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\nwk\nwk_globals.c
     411            if ( ZG_SECURE_ENABLED )
     412            {
     413              _NIB.SecurityLevel = SECURITY_LEVEL;
+   \   000054   90....       MOV     DPTR,#_NIB + 12
+   \   000057   7405         MOV     A,#0x5
+   \   000059   F0           MOVX    @DPTR,A
     414            }
     415            else
     416            {
     417              _NIB.SecurityLevel = 0;
-   \   000054   90....       MOV     DPTR,#_NIB + 12
-   \   000057   7400         MOV     A,#0x0
-   \   000059   F0           MOVX    @DPTR,A
     418            }
     419          
     420            _NIB.SymLink = TRUE;

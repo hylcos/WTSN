@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR C/C++ Compiler V9.20.1.2476 for 8051                16/Mar/2016  12:50:26
+# IAR C/C++ Compiler V9.20.1.2476 for 8051                16/Mar/2016  14:37:20
 # Copyright 2004-2015 IAR Systems AB.
 # Standalone license - IAR Embedded Workbench for 8051
 #
@@ -19,8 +19,8 @@
 #        (-DCPU32MHZ -DROOT=__near_func -DMAC_CFG_TX_DATA_MAX=3
 #        -DMAC_CFG_TX_MAX=6 -DMAC_CFG_RX_MAX=3) -f
 #        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg
-#        (-DZIGBEEPRO -DSECURE=0 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
-#        -DDEFAULT_CHANLIST=0x04000000 -DZDAPP_CONFIG_PAN_ID=0x0EEE
+#        (-DZIGBEEPRO -DSECURE=1 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
+#        -DDEFAULT_CHANLIST=0x00008000 -DZDAPP_CONFIG_PAN_ID=0x0EEE
 #        -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MASK=0x007F
 #        -DBEACON_REQUEST_DELAY=100 -DBEACON_REQ_DELAY_MASK=0x00FF
 #        -DLINK_STATUS_JITTER_MASK=0x007F -DROUTE_EXPIRY_TIME=30
@@ -28,9 +28,9 @@
 #        -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3
 #        -DNWK_MAX_DATA_RETRIES=2 -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9
 #        -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40 -DNWK_MAX_BINDING_ENTRIES=4
-#        -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01, 0x03, 0x05, 0x07,
-#        0x09, 0x0B, 0x0D, 0x0F, 0x00, 0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C,
-#        0x0D}" -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
+#        -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x42, 0x61, 0x72, 0x74,
+#        0x20, 0x65, 0x61, 0x20, 0x48, 0x79, 0x6C, 0x63, 0x6F, 0x20, 0x20,
+#        0x20}" -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
 #        "-DCONST=const __code" -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=TRUE
 #        -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100)
 #        -DREJOIN_POLL_RATE=440
@@ -253,11 +253,12 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
      96          
      97          // Security mode
 
-   \                                 In  segment XDATA_Z, align 1, keep-with-next
+   \                                 In  segment XDATA_I, align 1, keep-with-next
      98          uint8 zgSecurityMode = ZG_SECURITY_MODE;
    \                     zgSecurityMode:
    \   000000                DS 1
-   \   000001                REQUIRE __INIT_XDATA_Z
+   \   000001                REQUIRE `?<Initializer for zgSecurityMode>`
+   \   000001                REQUIRE __INIT_XDATA_I
      99          
     100          // Secure permit join
 
@@ -1045,18 +1046,19 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
     502          {
    \   000000                REQUIRE ?V0
    \   000000                REQUIRE ?V1
-   \   000000   74F6         MOV     A,#-0xa
+   \   000000                REQUIRE ?V2
+   \   000000   74F5         MOV     A,#-0xb
    \   000002   12....       LCALL   ?BANKED_ENTER_XDATA
-   \   000005                ; Saved register size: 10
-   \   000005                ; Auto size: 1
-   \   000005   74FF         MOV     A,#-0x1
+   \   000005                ; Saved register size: 11
+   \   000005                ; Auto size: 17
+   \   000005   74EF         MOV     A,#-0x11
    \   000007   12....       LCALL   ?ALLOC_XSTACK8
     503            uint8  setDefault = FALSE;
    \   00000A   7E00         MOV     R6,#0x0
     504          
     505            // Do we want to default the Config state values
     506            if ( zgReadStartupOptions() & ZCD_STARTOPT_DEFAULT_CONFIG_STATE )
-   \   00000C   12....       LCALL   ?Subroutine1 & 0xFFFF
+   \   00000C   12....       LCALL   ?Subroutine2 & 0xFFFF
    \                     ??CrossCallReturnLabel_0:
    \   00000F   12....       LCALL   ?PUSH_XSTACK_I_TWO
    \   000012   7C01         MOV     R4,#0x1
@@ -1138,79 +1140,137 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
     543            {
     544              // Initialize the Pre-Configured Key to the default key
     545              zgPreconfigKeyInit( setDefault );
+   \   00005F                ; Setup parameters for call to function osal_memcpy
+   \   00005F   75....       MOV     ?V0,#defaultKey & 0xff
+   \   000062   75....       MOV     ?V1,#(defaultKey >> 8) & 0xff
+   \   000065   75..80       MOV     ?V2,#-0x80
+   \   000068   78..         MOV     R0,#?V0
+   \   00006A   12....       LCALL   ?PUSH_XSTACK_I_THREE
+   \   00006D   7C10         MOV     R4,#0x10
+   \   00006F   7D00         MOV     R5,#0x0
+   \   000071   7404         MOV     A,#0x4
+   \   000073   12....       LCALL   ?XSTACK_DISP101_8
+   \   000076   12....       LCALL   `??osal_memcpy::?relay`; Banked call to: osal_memcpy
+   \   000079   7403         MOV     A,#0x3
+   \   00007B   12....       LCALL   ?DEALLOC_XSTACK8
+   \   00007E                ; Setup parameters for call to function osal_nv_item_init
+   \   00007E   7401         MOV     A,#0x1
+   \   000080   12....       LCALL   ?XSTACK_DISP100_8
+   \   000083   88..         MOV     ?V0,R0
+   \   000085   89..         MOV     ?V1,R1
+   \   000087   78..         MOV     R0,#?V0
+   \   000089   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   00008C   7C10         MOV     R4,#0x10
+   \   00008E   7D00         MOV     R5,#0x0
+   \   000090   7A62         MOV     R2,#0x62
+   \   000092   7B00         MOV     R3,#0x0
+   \   000094   12....       LCALL   `??osal_nv_item_init::?relay`; Banked call to: osal_nv_item_init
+   \   000097   7402         MOV     A,#0x2
+   \   000099   12....       LCALL   ?DEALLOC_XSTACK8
+   \   00009C   E9           MOV     A,R1
+   \   00009D   7025         JNZ     ??zgInit_2
+   \   00009F   EE           MOV     A,R6
+   \   0000A0   A2E0         MOV     C,0xE0 /* A   */.0
+   \   0000A2   5020         JNC     ??zgInit_2
+   \   0000A4                ; Setup parameters for call to function osal_nv_write
+   \   0000A4   78..         MOV     R0,#?V0
+   \   0000A6   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   0000A9   75..10       MOV     ?V0,#0x10
+   \   0000AC   75..00       MOV     ?V1,#0x0
+   \   0000AF   78..         MOV     R0,#?V0
+   \   0000B1   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   0000B4   7C00         MOV     R4,#0x0
+   \   0000B6   7D00         MOV     R5,#0x0
+   \   0000B8   7A62         MOV     R2,#0x62
+   \   0000BA   7B00         MOV     R3,#0x0
+   \   0000BC   12....       LCALL   `??osal_nv_write::?relay`; Banked call to: osal_nv_write
+   \   0000BF   7404         MOV     A,#0x4
+   \   0000C1   12....       LCALL   ?DEALLOC_XSTACK8
+   \                     ??zgInit_2:
+   \   0000C4                ; Setup parameters for call to function osal_memset
+   \   0000C4   7C10         MOV     R4,#0x10
+   \   0000C6   7D00         MOV     R5,#0x0
+   \   0000C8   7900         MOV     R1,#0x0
+   \   0000CA   7401         MOV     A,#0x1
+   \   0000CC   12....       LCALL   ?XSTACK_DISP101_8
+   \   0000CF   12....       LCALL   `??osal_memset::?relay`; Banked call to: osal_memset
     546          
     547              // Initialize NV items for all Keys: NWK, APS, TCLK and Master
     548              ZDSecMgrInitNVKeyTables( setDefault );
+   \   0000D2                ; Setup parameters for call to function ZDSecMgrInitNVKeyTables
+   \   0000D2   EE           MOV     A,R6
+   \   0000D3   F9           MOV     R1,A
+   \   0000D4   12....       LCALL   `??ZDSecMgrInitNVKeyTables::?relay`; Banked call to: ZDSecMgrInitNVKeyTables
     549            }
     550          #endif // NONWK
     551          
     552            // Clear the Config State default
     553            if ( setDefault )
-   \   00005F   EE           MOV     A,R6
-   \   000060   A2E0         MOV     C,0xE0 /* A   */.0
-   \   000062   504E         JNC     ??zgInit_2
+   \   0000D7   EE           MOV     A,R6
+   \   0000D8   A2E0         MOV     C,0xE0 /* A   */.0
+   \   0000DA   504E         JNC     ??zgInit_3
     554            {
     555              zgWriteStartupOptions( ZG_STARTUP_CLEAR, ZCD_STARTOPT_DEFAULT_CONFIG_STATE );
-   \   000064   12....       LCALL   ?Subroutine1 & 0xFFFF
+   \   0000DC   12....       LCALL   ?Subroutine2 & 0xFFFF
     556            }
    \                     ??CrossCallReturnLabel_5:
-   \   000067   12....       LCALL   ?PUSH_XSTACK_I_TWO
-   \   00006A   75..01       MOV     ?V0,#0x1
-   \   00006D   75..00       MOV     ?V1,#0x0
-   \   000070   78..         MOV     R0,#?V0
-   \   000072   12....       LCALL   ?PUSH_XSTACK_I_TWO
-   \   000075   7C00         MOV     R4,#0x0
-   \   000077   7D00         MOV     R5,#0x0
-   \   000079   7A03         MOV     R2,#0x3
-   \   00007B   7B00         MOV     R3,#0x0
-   \   00007D   12....       LCALL   `??osal_nv_read::?relay`; Banked call to: osal_nv_read
-   \   000080   7404         MOV     A,#0x4
-   \   000082   12....       LCALL   ?DEALLOC_XSTACK8
-   \   000085   E9           MOV     A,R1
-   \   000086   702A         JNZ     ??zgInit_2
-   \   000088   85..82       MOV     DPL,?XSP + 0
-   \   00008B   85..83       MOV     DPH,?XSP + 1
-   \   00008E   E0           MOVX    A,@DPTR
-   \   00008F   C2E0         CLR     0xE0 /* A   */.0
-   \   000091   12....       LCALL   ??Subroutine2_0 & 0xFFFF
+   \   0000DF   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   0000E2   75..01       MOV     ?V0,#0x1
+   \   0000E5   75..00       MOV     ?V1,#0x0
+   \   0000E8   78..         MOV     R0,#?V0
+   \   0000EA   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   0000ED   7C00         MOV     R4,#0x0
+   \   0000EF   7D00         MOV     R5,#0x0
+   \   0000F1   7A03         MOV     R2,#0x3
+   \   0000F3   7B00         MOV     R3,#0x0
+   \   0000F5   12....       LCALL   `??osal_nv_read::?relay`; Banked call to: osal_nv_read
+   \   0000F8   7404         MOV     A,#0x4
+   \   0000FA   12....       LCALL   ?DEALLOC_XSTACK8
+   \   0000FD   E9           MOV     A,R1
+   \   0000FE   702A         JNZ     ??zgInit_3
+   \   000100   85..82       MOV     DPL,?XSP + 0
+   \   000103   85..83       MOV     DPH,?XSP + 1
+   \   000106   E0           MOVX    A,@DPTR
+   \   000107   C2E0         CLR     0xE0 /* A   */.0
+   \   000109   12....       LCALL   ??Subroutine3_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_4:
-   \   000094   12....       LCALL   ?PUSH_XSTACK_I_TWO
-   \   000097   75..01       MOV     ?V0,#0x1
-   \   00009A   75..00       MOV     ?V1,#0x0
-   \   00009D   78..         MOV     R0,#?V0
-   \   00009F   12....       LCALL   ?PUSH_XSTACK_I_TWO
-   \   0000A2   7C00         MOV     R4,#0x0
-   \   0000A4   7D00         MOV     R5,#0x0
-   \   0000A6   7A03         MOV     R2,#0x3
-   \   0000A8   7B00         MOV     R3,#0x0
-   \   0000AA   12....       LCALL   `??osal_nv_write::?relay`; Banked call to: osal_nv_write
-   \   0000AD   7404         MOV     A,#0x4
-   \   0000AF   12....       LCALL   ?DEALLOC_XSTACK8
+   \   00010C   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   00010F   75..01       MOV     ?V0,#0x1
+   \   000112   75..00       MOV     ?V1,#0x0
+   \   000115   78..         MOV     R0,#?V0
+   \   000117   12....       LCALL   ?PUSH_XSTACK_I_TWO
+   \   00011A   7C00         MOV     R4,#0x0
+   \   00011C   7D00         MOV     R5,#0x0
+   \   00011E   7A03         MOV     R2,#0x3
+   \   000120   7B00         MOV     R3,#0x0
+   \   000122   12....       LCALL   `??osal_nv_write::?relay`; Banked call to: osal_nv_write
+   \   000125   7404         MOV     A,#0x4
+   \   000127   12....       LCALL   ?DEALLOC_XSTACK8
     557          
     558            return ( ZSUCCESS );
-   \                     ??zgInit_2:
-   \   0000B2   7900         MOV     R1,#0x0
-   \   0000B4                REQUIRE ?Subroutine0
-   \   0000B4                ; // Fall through to label ?Subroutine0
+   \                     ??zgInit_3:
+   \   00012A   7900         MOV     R1,#0x0
+   \   00012C   7411         MOV     A,#0x11
+   \   00012E   12....       LCALL   ?DEALLOC_XSTACK8
+   \   000131                REQUIRE ?Subroutine0
+   \   000131                ; // Fall through to label ?Subroutine0
     559          }
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
    \                     ?Subroutine0:
-   \   000000   7401         MOV     A,#0x1
-   \   000002   12....       LCALL   ?DEALLOC_XSTACK8
-   \   000005   7F02         MOV     R7,#0x2
-   \   000007   02....       LJMP    ?BANKED_LEAVE_XDATA
+   \   000000   7F03         MOV     R7,#0x3
+   \   000002   02....       LJMP    ?BANKED_LEAVE_XDATA
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ?Subroutine1:
+   \                     ?Subroutine2:
    \   000000   85..82       MOV     DPL,?XSP + 0
    \   000003   85..83       MOV     DPH,?XSP + 1
    \   000006   E4           CLR     A
-   \   000007                REQUIRE ??Subroutine2_0
-   \   000007                ; // Fall through to label ??Subroutine2_0
+   \   000007                REQUIRE ??Subroutine3_0
+   \   000007                ; // Fall through to label ??Subroutine3_0
 
    \                                 In  segment BANKED_CODE, align 1, keep-with-next
-   \                     ??Subroutine2_0:
+   \                     ??Subroutine3_0:
    \   000000   F0           MOVX    @DPTR,A
    \   000001                ; Setup parameters for call to function osal_nv_item_init
    \   000001                ; Setup parameters for call to function osal_nv_read
@@ -1410,7 +1470,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
    \   000007   12....       LCALL   ?ALLOC_XSTACK8
     607            // Default to Use Config State and Use Network State
     608            uint8 startupOption = 0;
-   \   00000A   12....       LCALL   ?Subroutine1 & 0xFFFF
+   \   00000A   12....       LCALL   ?Subroutine2 & 0xFFFF
     609          
     610            // This should have been done in ZMain.c, but just in case.
     611            if ( osal_nv_item_init( ZCD_NV_STARTUP_OPTION,
@@ -1454,8 +1514,16 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
    \   000046   85..83       MOV     DPH,?XSP + 1
    \   000049   E0           MOVX    A,@DPTR
    \   00004A   F9           MOV     R1,A
-   \   00004B   02....       LJMP    ?Subroutine0 & 0xFFFF
+   \   00004B                REQUIRE ?Subroutine1
+   \   00004B                ; // Fall through to label ?Subroutine1
     622          }
+
+   \                                 In  segment BANKED_CODE, align 1, keep-with-next
+   \                     ?Subroutine1:
+   \   000000   7401         MOV     A,#0x1
+   \   000002   12....       LCALL   ?DEALLOC_XSTACK8
+   \   000005   7F02         MOV     R7,#0x2
+   \   000007   02....       LJMP    ?BANKED_LEAVE_XDATA
     623          
     624          /*********************************************************************
     625           * @fn          zgWriteStartupOptions
@@ -1491,7 +1559,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
    \   00000D   FF           MOV     R7,A
     641            uint8 status;
     642            uint8 startupOptions = 0;
-   \   00000E   12....       LCALL   ?Subroutine1 & 0xFFFF
+   \   00000E   12....       LCALL   ?Subroutine2 & 0xFFFF
     643          
     644            status = osal_nv_read( ZCD_NV_STARTUP_OPTION,
     645                                   0,
@@ -1550,7 +1618,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
     666                                      &startupOptions );
     667            }
    \                     ??zgWriteStartupOptions_2:
-   \   00004E   12....       LCALL   ??Subroutine2_0 & 0xFFFF
+   \   00004E   12....       LCALL   ??Subroutine3_0 & 0xFFFF
    \                     ??CrossCallReturnLabel_3:
    \   000051   12....       LCALL   ?PUSH_XSTACK_I_TWO
    \   000054   75..01       MOV     ?V0,#0x1
@@ -1569,7 +1637,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
     668          
     669            return ( status );
    \                     ??zgWriteStartupOptions_0:
-   \   000071   02....       LJMP    ?Subroutine0 & 0xFFFF
+   \   000071   80..         SJMP    ?Subroutine1
     670          }
     671          
     672          /*********************************************************************
@@ -1698,8 +1766,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
     701            }
     702          }
    \                     ??zgSetItem_2:
-   \   000080   7F03         MOV     R7,#0x3
-   \   000082   02....       LJMP    ?BANKED_LEAVE_XDATA
+   \   000080   02....       LJMP    ?Subroutine0 & 0xFFFF
 
    \                                 In  segment XDATA_ID, align 1, keep-with-next
    \                     `?<Initializer for zgPollRate>`:
@@ -1727,7 +1794,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
 
    \                                 In  segment XDATA_ID, align 1, keep-with-next
    \                     `?<Initializer for zgDefaultChannelList>`:
-   \   000000   00000004     DD 67108864
+   \   000000   00800000     DD 32768
 
    \                                 In  segment XDATA_ID, align 1, keep-with-next
    \                     `?<Initializer for zgDefaultStartingScanDuratio`:
@@ -1740,6 +1807,10 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
    \                                 In  segment XDATA_ID, align 1, keep-with-next
    \                     `?<Initializer for zgIndirectMsgTimeout>`:
    \   000000   07           DB 7
+
+   \                                 In  segment XDATA_ID, align 1, keep-with-next
+   \                     `?<Initializer for zgSecurityMode>`:
+   \   000000   01           DB 1
 
    \                                 In  segment XDATA_ID, align 1, keep-with-next
    \                     `?<Initializer for zgSecurePermitJoin>`:
@@ -1925,13 +1996,16 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
 
    XSTACK Function
    ------ --------
-     15   zgInit
-       11   -> ZMacGetReq
-       13   -> osal_nv_item_init
-       15   -> osal_nv_read
-       15   -> osal_nv_write
-       11   -> zgInitItems
-     29   zgInitItems
+     32   zgInit
+       28   -> ZDSecMgrInitNVKeyTables
+       28   -> ZMacGetReq
+       31   -> osal_memcpy
+       28   -> osal_memset
+       30   -> osal_nv_item_init
+       32   -> osal_nv_read
+       32   -> osal_nv_write
+       28   -> zgInitItems
+     46   zgInitItems
        16   -> osal_nv_item_init
        18   -> osal_nv_read
        18   -> osal_nv_write
@@ -1984,11 +2058,13 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
        1  ?<Initializer for zgRouteExpiryTime>
        1  ?<Initializer for zgSapiEndpoint>
        1  ?<Initializer for zgSecurePermitJoin>
+       1  ?<Initializer for zgSecurityMode>
        1  ?<Initializer for zgStackProfile>
        1  ?<Initializer for zgStartDelay>
-      12  ??Subroutine2_0
-      10  ?Subroutine0
-       7  ?Subroutine1
+      12  ??Subroutine3_0
+       5  ?Subroutine0
+      10  ?Subroutine1
+       7  ?Subroutine2
        1  zgApsAckWaitMultiplier
        1  zgApsAllowR19Sec
        2  zgApsDefaultMaxBindingTime
@@ -2014,7 +2090,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
        1  zgDeviceLogicalType
        8  zgExtendedPANID
        1  zgIndirectMsgTimeout
-     180  zgInit
+     305  zgInit
        6  zgInit::?relay
      191  zgInitItems
        6  zgInitItems::?relay
@@ -2032,7 +2108,7 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
        2  zgPollRate
        1  zgPreConfigKeys
        2  zgQueuedPollRate
-      78  zgReadStartupOptions
+      75  zgReadStartupOptions
        6  zgReadStartupOptions::?relay
        2  zgRejoinPollRate
        2  zgResponsePollRate
@@ -2042,24 +2118,24 @@ C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\sys\ZGlobals.c
        1  zgSapiEndpoint
        1  zgSecurePermitJoin
        1  zgSecurityMode
-     133  zgSetItem
+     131  zgSetItem
        6  zgSetItem::?relay
        1  zgStackProfile
        1  zgStartDelay
        1  zgUseDefaultTCLK
-     116  zgWriteStartupOptions
+     115  zgWriteStartupOptions
        6  zgWriteStartupOptions::?relay
        1  zgZdoDirectCB
 
  
- 727 bytes in segment BANKED_CODE
+ 851 bytes in segment BANKED_CODE
   30 bytes in segment BANK_RELAYS
  306 bytes in segment CODE_C
-  50 bytes in segment XDATA_I
-  50 bytes in segment XDATA_ID
-  34 bytes in segment XDATA_Z
+  51 bytes in segment XDATA_I
+  51 bytes in segment XDATA_ID
+  33 bytes in segment XDATA_Z
  
- 1 113 bytes of CODE  memory
+ 1 238 bytes of CODE  memory
     84 bytes of XDATA memory
 
 Errors: none

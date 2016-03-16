@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// IAR C/C++ Compiler V9.20.1.2476 for 8051               13/Mar/2016  22:08:03
+// IAR C/C++ Compiler V9.20.1.2476 for 8051               16/Mar/2016  14:39:17
 // Copyright 2004-2015 IAR Systems AB.
 // Standalone license - IAR Embedded Workbench for 8051
 //
@@ -20,8 +20,8 @@
 //        -DMAC_CFG_TX_DATA_MAX=5 -DMAC_CFG_TX_MAX=8 -DMAC_CFG_RX_MAX=5
 //        -DRTR_NWK) -f
 //        C:\Users\Bart\Documents\GitHub\WTSN\Projects\zstack\Project\Eindopdracht\CC2530DB\..\..\..\Tools\CC2530DB\f8wConfig.cfg
-//        (-DZIGBEEPRO -DSECURE=0 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
-//        -DDEFAULT_CHANLIST=0x04000000 -DZDAPP_CONFIG_PAN_ID=0x0EEE
+//        (-DZIGBEEPRO -DSECURE=1 -DZG_SECURE_DYNAMIC=0 -DREFLECTOR
+//        -DDEFAULT_CHANLIST=0x00008000 -DZDAPP_CONFIG_PAN_ID=0x0EEE
 //        -DNWK_START_DELAY=100 -DEXTENDED_JOINING_RANDOM_MASK=0x007F
 //        -DBEACON_REQUEST_DELAY=100 -DBEACON_REQ_DELAY_MASK=0x00FF
 //        -DLINK_STATUS_JITTER_MASK=0x007F -DROUTE_EXPIRY_TIME=30
@@ -29,10 +29,10 @@
 //        -DMAX_RREQ_ENTRIES=8 -DAPSC_MAX_FRAME_RETRIES=3
 //        -DNWK_MAX_DATA_RETRIES=2 -DMAX_POLL_FAILURE_RETRIES=2 -DMAX_BCAST=9
 //        -DAPS_MAX_GROUPS=16 -DMAX_RTG_ENTRIES=40 -DNWK_MAX_BINDING_ENTRIES=4
-//        -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x01, 0x03, 0x05, 0x07,
-//        0x09, 0x0B, 0x0D, 0x0F, 0x00, 0x02, 0x04, 0x06, 0x08, 0x0A, 0x0C,
-//        0x0D}" -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
-//        "-DCONST=const __code" -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=FALSE
+//        -DMAX_BINDING_CLUSTER_IDS=4 "-DDEFAULT_KEY={0x42, 0x61, 0x72, 0x74,
+//        0x20, 0x65, 0x61, 0x20, 0x48, 0x79, 0x6C, 0x63, 0x6F, 0x20, 0x20,
+//        0x20}" -DMAC_MAX_FRAME_SIZE=116 -DZDNWKMGR_MIN_TRANSMISSIONS=20
+//        "-DCONST=const __code" -DGENERIC=__generic -DRFD_RCVC_ALWAYS_ON=TRUE
 //        -DPOLL_RATE=1000 -DQUEUED_POLL_RATE=100 -DRESPONSE_POLL_RATE=100)
 //        -DREJOIN_POLL_RATE=440
 //        C:\Users\Bart\Documents\GitHub\WTSN\Components\stack\zdo\ZDSecMgr.c
@@ -706,8 +706,12 @@ APSME_RemoveDeviceReq SYMBOL "APSME_RemoveDeviceReq"
 `??APSME_RemoveDeviceReq::?relay` SYMBOL "?relay", APSME_RemoveDeviceReq
 APSME_RequestKeyReq SYMBOL "APSME_RequestKeyReq"
 `??APSME_RequestKeyReq::?relay` SYMBOL "?relay", APSME_RequestKeyReq
-APSME_SecurityNM    SYMBOL "APSME_SecurityNM"
-`??APSME_SecurityNM::?relay` SYMBOL "?relay", APSME_SecurityNM
+APSME_SecurityRM_CD SYMBOL "APSME_SecurityRM_CD"
+`??APSME_SecurityRM_CD::?relay` SYMBOL "?relay", APSME_SecurityRM_CD
+APSME_SecurityRM_ED SYMBOL "APSME_SecurityRM_ED"
+`??APSME_SecurityRM_ED::?relay` SYMBOL "?relay", APSME_SecurityRM_ED
+APSME_SecurityRM_RD SYMBOL "APSME_SecurityRM_RD"
+`??APSME_SecurityRM_RD::?relay` SYMBOL "?relay", APSME_SecurityRM_RD
 APSME_SetRequest    SYMBOL "APSME_SetRequest"
 `??APSME_SetRequest::?relay` SYMBOL "?relay", APSME_SetRequest
 APSME_SwitchKeyReq  SYMBOL "APSME_SwitchKeyReq"
@@ -746,6 +750,8 @@ NLME_ReadNwkKeyInfo SYMBOL "NLME_ReadNwkKeyInfo"
 `??NLME_ReadNwkKeyInfo::?relay` SYMBOL "?relay", NLME_ReadNwkKeyInfo
 SSP_GetTrueRand     SYMBOL "SSP_GetTrueRand"
 `??SSP_GetTrueRand::?relay` SYMBOL "?relay", SSP_GetTrueRand
+SSP_Init            SYMBOL "SSP_Init"
+`??SSP_Init::?relay` SYMBOL "?relay", SSP_Init
 SSP_SwitchNwkKey    SYMBOL "SSP_SwitchNwkKey"
 `??SSP_SwitchNwkKey::?relay` SYMBOL "?relay", SSP_SwitchNwkKey
 SSP_UpdateNwkKey    SYMBOL "SSP_UpdateNwkKey"
@@ -919,8 +925,12 @@ ZDSecMgrUpdateTCAddress SYMBOL "ZDSecMgrUpdateTCAddress"
         FUNCTION `??APSME_RemoveDeviceReq::?relay`,00H
         EXTERN `??APSME_RequestKeyReq::?relay`
         FUNCTION `??APSME_RequestKeyReq::?relay`,00H
-        EXTERN `??APSME_SecurityNM::?relay`
-        FUNCTION `??APSME_SecurityNM::?relay`,00H
+        EXTERN `??APSME_SecurityRM_CD::?relay`
+        FUNCTION `??APSME_SecurityRM_CD::?relay`,00H
+        EXTERN `??APSME_SecurityRM_ED::?relay`
+        FUNCTION `??APSME_SecurityRM_ED::?relay`,00H
+        EXTERN `??APSME_SecurityRM_RD::?relay`
+        FUNCTION `??APSME_SecurityRM_RD::?relay`,00H
         EXTERN `??APSME_SetRequest::?relay`
         FUNCTION `??APSME_SetRequest::?relay`,00H
         EXTERN `??APSME_SwitchKeyReq::?relay`
@@ -959,6 +969,8 @@ ZDSecMgrUpdateTCAddress SYMBOL "ZDSecMgrUpdateTCAddress"
         FUNCTION `??NLME_ReadNwkKeyInfo::?relay`,00H
         EXTERN `??SSP_GetTrueRand::?relay`
         FUNCTION `??SSP_GetTrueRand::?relay`,00H
+        EXTERN `??SSP_Init::?relay`
+        FUNCTION `??SSP_Init::?relay`,00H
         EXTERN `??SSP_SwitchNwkKey::?relay`
         FUNCTION `??SSP_SwitchNwkKey::?relay`,00H
         EXTERN `??SSP_UpdateNwkKey::?relay`
@@ -1035,8 +1047,22 @@ ZDSecMgrUpdateTCAddress SYMBOL "ZDSecMgrUpdateTCAddress"
         ARGFRAME XSTACK, 13, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
-        EXTERN APSME_SecurityNM
-        FUNCTION APSME_SecurityNM,0202H
+        EXTERN APSME_SecurityRM_CD
+        FUNCTION APSME_SecurityRM_CD,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN APSME_SecurityRM_ED
+        FUNCTION APSME_SecurityRM_ED,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN APSME_SecurityRM_RD
+        FUNCTION APSME_SecurityRM_RD,0202H
         ARGFRAME ISTACK, 2, STACK
         ARGFRAME PSTACK, 0, STACK
         ARGFRAME XSTACK, 0, STACK
@@ -1173,6 +1199,13 @@ ZDSecMgrUpdateTCAddress SYMBOL "ZDSecMgrUpdateTCAddress"
         ARGFRAME ISTACK, 0, STACK
         ARGFRAME PSTACK, 0, STACK
         ARGFRAME XSTACK, 14, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        EXTERN SSP_Init
+        FUNCTION SSP_Init,0202H
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
         ARGFRAME IOVERLAY, 0, STATIC
         ARGFRAME DOVERLAY, 0, STATIC
         EXTERN SSP_SwitchNwkKey
@@ -6601,6 +6634,17 @@ ZDSecMgrInit:
           CFI Function ZDSecMgrInit
         CODE
 // 1385 {
+        FUNCALL ZDSecMgrInit, APSME_IsDistributedSecurity
+        LOCFRAME ISTACK, 0, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 9, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 0, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 9, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
         FUNCALL ZDSecMgrInit, ZDSecMgrConfig
         LOCFRAME ISTACK, 0, STACK
         LOCFRAME PSTACK, 0, STACK
@@ -6649,15 +6693,30 @@ ZDSecMgrInit:
 // 1403   {
 // 1404     if ( ( ( ZG_BUILD_COORDINATOR_TYPE ) && ( ZG_DEVICE_COORDINATOR_TYPE ) )
 // 1405          || ( ( ZG_BUILD_RTR_TYPE ) && APSME_IsDistributedSecurity() ) )
+        MOV     DPTR,#zgDeviceLogicalType
+        MOVX    A,@DPTR
+        JZ      ??ZDSecMgrInit_0
+        ; Setup parameters for call to function APSME_IsDistributedSecurity
+        LCALL   `??APSME_IsDistributedSecurity::?relay`; Banked call to: APSME_IsDistributedSecurity
+        MOV     A,R1
+        JZ      ??ZDSecMgrInit_1
 // 1406     {
 // 1407       // setup joining permissions
 // 1408       ZDSecMgrPermitJoiningEnabled = TRUE;
+??ZDSecMgrInit_0:
+        MOV     DPTR,#ZDSecMgrPermitJoiningEnabled
+        MOV     A,#0x1
+        MOVX    @DPTR,A
 // 1409       ZDSecMgrPermitJoiningTimed   = FALSE;
+        MOV     DPTR,#ZDSecMgrPermitJoiningTimed
+        MOV     A,#0x0
+        MOVX    @DPTR,A
 // 1410     }
 // 1411   }
 // 1412 
 // 1413   // configure security based on security mode and type of device
 // 1414   ZDSecMgrConfig();
+??ZDSecMgrInit_1:
         ; Setup parameters for call to function ZDSecMgrConfig
         LCALL   `??ZDSecMgrConfig::?relay`; Banked call to: ZDSecMgrConfig
 // 1415 }
@@ -6693,7 +6752,40 @@ ZDSecMgrConfig:
           CFI Function ZDSecMgrConfig
         CODE
 // 1427 {
-        FUNCALL ZDSecMgrConfig, APSME_SecurityNM
+        FUNCALL ZDSecMgrConfig, SSP_Init
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL ZDSecMgrConfig, APSME_SecurityRM_CD
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL ZDSecMgrConfig, APSME_SecurityRM_RD
+        LOCFRAME ISTACK, 2, STACK
+        LOCFRAME PSTACK, 0, STACK
+        LOCFRAME XSTACK, 0, STACK
+        LOCFRAME IOVERLAY, 0, STATIC
+        LOCFRAME DOVERLAY, 0, STATIC
+        ARGFRAME ISTACK, 2, STACK
+        ARGFRAME PSTACK, 0, STACK
+        ARGFRAME XSTACK, 0, STACK
+        ARGFRAME IOVERLAY, 0, STATIC
+        ARGFRAME DOVERLAY, 0, STATIC
+        FUNCALL ZDSecMgrConfig, APSME_SecurityRM_ED
         LOCFRAME ISTACK, 2, STACK
         LOCFRAME PSTACK, 0, STACK
         LOCFRAME XSTACK, 0, STACK
@@ -6715,6 +6807,8 @@ ZDSecMgrConfig:
 // 1428   if ( ZG_SECURE_ENABLED )
 // 1429   {
 // 1430     SSP_Init();
+        ; Setup parameters for call to function SSP_Init
+        LCALL   `??SSP_Init::?relay` ; Banked call to: SSP_Init
 // 1431 
 // 1432     if ( ZG_CHECK_SECURITY_MODE == ZG_SECURITY_SE_STANDARD )
 // 1433     {
@@ -6737,19 +6831,40 @@ ZDSecMgrConfig:
 // 1450     else // ( ZG_CHECK_SECURITY_MODE == ZG_SECURITY_RESIDENTIAL )
 // 1451     {
 // 1452       if ( ( ZG_BUILD_COORDINATOR_TYPE ) && ( ZG_DEVICE_COORDINATOR_TYPE ) )
+        MOV     DPTR,#zgDeviceLogicalType
+        MOVX    A,@DPTR
+        JNZ     ??ZDSecMgrConfig_0
 // 1453       {
 // 1454         // RESIDENTIAL MODE - COORDINATOR DEVICE
 // 1455         APSME_SecurityRM_CD();
+        ; Setup parameters for call to function APSME_SecurityRM_CD
+        LCALL   `??APSME_SecurityRM_CD::?relay`; Banked call to: APSME_SecurityRM_CD
+        SJMP    ??ZDSecMgrConfig_1
 // 1456       }
 // 1457       else if ( ZSTACK_ROUTER_BUILD )
+??ZDSecMgrConfig_0:
+        MOV     DPTR,#zgDeviceLogicalType
+        MOVX    A,@DPTR
+        JZ      ??ZDSecMgrConfig_2
+        MOV     DPTR,#zgDeviceLogicalType
+        MOVX    A,@DPTR
+        XRL     A,#0x1
+        JNZ     ??ZDSecMgrConfig_3
 // 1458       {
 // 1459         // RESIDENTIAL MODE - ROUTER DEVICE
 // 1460         APSME_SecurityRM_RD();
+??ZDSecMgrConfig_2:
+        ; Setup parameters for call to function APSME_SecurityRM_RD
+        LCALL   `??APSME_SecurityRM_RD::?relay`; Banked call to: APSME_SecurityRM_RD
+        SJMP    ??ZDSecMgrConfig_1
 // 1461       }
 // 1462       else
 // 1463       {
 // 1464         // RESIDENTIAL MODE - END DEVICE
 // 1465         APSME_SecurityRM_ED();
+??ZDSecMgrConfig_3:
+        ; Setup parameters for call to function APSME_SecurityRM_ED
+        LCALL   `??APSME_SecurityRM_ED::?relay`; Banked call to: APSME_SecurityRM_ED
 // 1466       }
 // 1467     }
 // 1468   }
@@ -6757,10 +6872,9 @@ ZDSecMgrConfig:
 // 1470   {
 // 1471     // NO SECURITY
 // 1472     APSME_SecurityNM();
-        ; Setup parameters for call to function APSME_SecurityNM
-        LCALL   `??APSME_SecurityNM::?relay`; Banked call to: APSME_SecurityNM
 // 1473   }
 // 1474 }
+??ZDSecMgrConfig_1:
         POP     DPH
           CFI DPH0 SameValue
           CFI CFA_SP SP+-4
@@ -15364,14 +15478,14 @@ __Constant_1:
 // 3299 /******************************************************************************
 // 3300 ******************************************************************************/
 // 
-// 9 534 bytes in segment BANKED_CODE
+// 9 591 bytes in segment BANKED_CODE
 //   378 bytes in segment BANK_RELAYS
 //     1 byte  in segment XDATA_I
 //     1 byte  in segment XDATA_ID
 //    12 bytes in segment XDATA_ROM_C
 //    81 bytes in segment XDATA_Z
 // 
-// 9 913 bytes of CODE  memory
+// 9 970 bytes of CODE  memory
 //     8 bytes of CONST memory (+ 4 bytes shared)
 //    82 bytes of XDATA memory
 //
