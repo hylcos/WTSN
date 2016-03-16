@@ -54,6 +54,7 @@
 #include "hal_lcd.h"
 #include "hal_uart.h"
 #include "DemoApp.h"
+#include "hal_adc.h"
 
 /******************************************************************************
  * CONSTANTS
@@ -102,6 +103,7 @@
 // Application osal event identifiers
 #define RETRY_START_EVT                        0x0001
 #define CHECK_LOCK_STATUS_EVT                  0x0002
+#define CHECK_LDR_STATUS_EVT                  0x0002
 
 /******************************************************************************
  * TYPEDEFS
@@ -120,8 +122,8 @@ typedef struct
 
 static uint8 appState = APPSTATE_INIT;
 static uint8 retryStartDelay =    10;
-static uint8 checkLockStateDelay= 255;
-
+static uint8 checkLockStateDelay = 255;
+static uint8 checkLdrStateDelay = 255;
 static uint8 lastKnownLockState = 0xFF; //init waarde
 /******************************************************************************
  * LOCAL FUNCTIONS
@@ -205,6 +207,25 @@ void zb_HandleOsalEvent( uint16 event )
     }
     
     osal_start_timerEx( sapi_TaskID, CHECK_LOCK_STATUS_EVT , checkLockStateDelay );
+  }
+    if (event & CHECK_LDR_STATUS_EVT ){
+    
+    uint16 LDRState = HalAdcRead(HAL_ADC_CHANNEL_0,HAL_ADC_RESOLUTION_8);
+     uint8 pData[LOCK_CMD_LENGTH];
+     pData[LOCK_CMD_OFFSET] = lockState;
+     uint8 txOptions;
+     zb_SendDataRequest( 0xFFFE, LOCK_STATUS_CMD_ID, LOCK_CMD_LENGTH , pData, 0, txOptions, 0 );
+    if (LDRState > 0){
+       //uint8 pData[LOCK_CMD_LENGTH];
+      //uint8 pData[LOCK_CMD_LENGTH];
+     // pData[LOCK_CMD_OFFSET] = lockState;
+      //uint8 txOptions;
+      
+      //lastKnownLockState = lockState;
+      LDRState = 10;
+    }
+     //uint8 pData[LOCK_CMD_LENGTH];
+    osal_start_timerEx( sapi_TaskID, CHECK_LDR_STATUS_EVT , checkLdrStateDelay );
   }
 }
 
@@ -337,10 +358,11 @@ void zb_BindConfirm( uint16 commandId, uint8 status )
   if (status == ZB_SUCCESS){
     if(commandId == LOCK_STATUS_CMD_ID){
       HalLedSet ( HAL_LED_2, HAL_LED_MODE_ON);
-      osal_start_timerEx( sapi_TaskID, CHECK_LOCK_STATUS_EVT , checkLockStateDelay );
+      osal_start_timerEx( sapi_TaskID, CHECK_LOCK_STATUS_EVT , checkLdrStateDelay );
     }
     else if(commandId == LIGHT_STATUS_CMD_ID){
       HalLedSet ( HAL_LED_3, HAL_LED_MODE_ON);
+      osal_start_timerEx( sapi_TaskID, CHECK_LDR_STATUS_EVT , checkLockStateDelay );
     }
   }
   
